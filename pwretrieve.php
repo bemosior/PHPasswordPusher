@@ -14,7 +14,8 @@ $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     </title>
   </head>
   <body>
-    <img src="<?php print $logopath; ?>">
+    <img src="<?php print "$installation/$logoname"; ?>">
+    <h2><?php print $title; ?></h2>
 <?php
   //----- Lookup password
   if(isset($_GET['id'])) {

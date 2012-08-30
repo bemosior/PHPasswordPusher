@@ -3,6 +3,7 @@
 require 'config.php';
 
 $db = new PDO('mysql:dbname=' . $dbname . ';host=localhost', $dbuser, $dbpass) or die('Connect Failed');
+$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $xtime = $xviews = $cred = $destemail = $url = '';
 
 //TODO: config for auth services
@@ -18,8 +19,8 @@ $xtime = $xviews = $cred = $destemail = $url = '';
     </title>
   </head>
   <body>
-    <img src="<?php print $logopath; ?>">
-    <h2>Credential Sharing Utility</h2>
+    <img src="<?php print "$installation/$logoname"; ?>">
+    <h2><?php print $title; ?></h2>
 
 <?php
 if(!SanitizeInput()){
@@ -120,7 +121,7 @@ function SanitizeInput() {
 
 //Encrypt the credential into the database and generate the access URL.
 function EncryptCred() {
-  global $db, $key, $cred, $xtime_default, $xviews_default, $xtime, $xviews, $url;
+  global $db, $key, $cred, $xtime_default, $xviews_default, $xtime, $xviews, $url, $installation;
 
   $encrypted = base64_encode(
         mcrypt_encrypt(
@@ -138,7 +139,7 @@ function EncryptCred() {
         'xviews'    => is_numeric($xviews) ? $xviews : $xviews_default,
     );
 
-    $url = sprintf("https://%s/%s?id=%s", $_SERVER['HTTP_HOST'], 'pwretrieve.php', $params['id']);
+    $url = sprintf("https://%s%s/%s?id=%s", $_SERVER['HTTP_HOST'], $installation, 'pwretrieve.php', $params['id']);
 
     if(!$statement = $db->prepare($query)){
       die('Prep Failure!');
@@ -161,16 +162,14 @@ function MailCred() {
     //mail('loggingemailhere', 'PHPassPush: ' . $sender . ' sent a credential to ' . $destemail, '') or die('Email send failed!');
     sleep(1);
     print("Email sent to $destemail.");
-
 }
 
 function PrintCred() {
     global $url, $sender, $xtime, $xviews;
-    print( $url . "<br/><br/>This link contains sensitive information and will be inaccessible after " .
-      CalcHRTime($xtime) . ' OR ' . $xviews . " views, whichever occurs first.
-      <br/><br/>NEVER leave credentials where they can be easily accessed. We recommend using KeePass (http://keepass.info/).");
-
-
+    print("<br/><br/><table border=\"1\"><tr><td>$url</td></tr></table>" . 
+	//"<br/><br/>This link contains sensitive information and will be inaccessible after " .
+    //CalcHRTime($xtime) . ' OR ' . $xviews . " views, whichever occurs first." . 
+      "<br/><br/>NEVER leave credentials where they can be easily accessed. We recommend using KeePass (<a href=\"http://keepass.info/\">http://keepass.info</a>).");
 }
 
 //Print errors to page
