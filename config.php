@@ -7,7 +7,10 @@ $installation = '/phpwpusher';  //The installation location (path to where PHPas
 $key = "change this key"; // Just change this to something random.
 $xtime_default = 15; // default minutes until expires
 $xviews_default = 2; // default # of views before it expires
-$logoname="phpwpusher.png";
-$warning='Submitted credentials will expire and be erased according to the time or view limit, whichever occurs first.';
+$logoname = "phpwpusher.png";
+$submitwarning = '<p>Submitted credentials will expire and be erased according to the time or view limit, '
+  . 'whichever occurs first. NEVER leave credentials where they can be easily accessed by others.</p>';
+$retrievewarning = '<p>NEVER leave credentials where they can be easily accessed by others. '
+  . '<!--We recommend using KeePass (<a href=\"http://keepass.info/\">http://keepass.info</a>).--></p>';
 $title='Secure Password Sharing Utility';
 ?>
