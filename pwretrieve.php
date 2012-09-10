@@ -15,8 +15,6 @@ print PrintHeader();
         print ('<p>Link Expired</p>');
       }else {
         $cred = DecryptCred($result[0]['seccred']);
-		error_log(nl2br("$cred"));
-		//error_log($cred);
         ViewCred($id); //TODO: Add error handling that prevents password display on fail
         //PrintUser(nl2br(htmlspecialchars(stripslashes($cred))),$retrievewarning);
 		PrintUser('<pre>' . $cred . '</pre>',$retrievewarning);
