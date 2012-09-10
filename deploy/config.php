@@ -17,6 +17,4 @@ $retrievewarning = 'NEVER leave credentials where they can be easily accessed by
 //User interface misc.:
 $logoname = "phpwpusher.png"; // 
 $title='Secure Password Sharing Utility';
-
-
 ?>
