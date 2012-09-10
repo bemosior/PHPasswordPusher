@@ -29,17 +29,19 @@ function PrintCred($cred) {
 function PrintURL($url) {
   print('<pre>' . $url . '</pre>' .
   '<script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
-     <div id="d_clip_button"><button>Copy To Clipboard</button></div>
+    <div id="d_clip_button"><button>Copy To Clipboard</button><div id="copyblock" style="display:none;">Text Copied!</div></div>
+	 
 	
-	 <script language="JavaScript" >
-	   window.onload = function(){
+	<script language="JavaScript" >
+	  window.onload = function(){
          var clip = new ZeroClipboard.Client();
 	     ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
          clip.setText( \'' . $url . '\' );
 		 clip.setHandCursor( true );
          clip.setCSSEffects( true );
 		 clip.addEventListener( \'onComplete\', function(client, text) {
-           alert("Copied text to clipboard: " + text );
+           var div = document.getElementById(\'copyblock\');
+           div.style.display = \'inline\';
          } );
          clip.glue( \'d_clip_button\' );
 	   }
