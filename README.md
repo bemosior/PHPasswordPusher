@@ -15,3 +15,9 @@ information until the view or time limits are breached.
 This application is still in its infancy, but it can be considered 
 functionally complete. I plan to have an official release by October 2012 
 that should include a number of enhancements, so check back soon!
+
+
+// Credits //
+
+PasswordPusher: https://github.com/pglombardo/PasswordPusher
+ZeroClipboard: https://github.com/jonrohan/ZeroClipboard
