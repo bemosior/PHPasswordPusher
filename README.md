@@ -18,6 +18,6 @@ that should include a number of enhancements, so check back soon!
 
 
 // Credits //
-
 PasswordPusher: https://github.com/pglombardo/PasswordPusher
+
 ZeroClipboard: https://github.com/jonrohan/ZeroClipboard
