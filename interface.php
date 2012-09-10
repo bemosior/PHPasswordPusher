@@ -1,32 +1,44 @@
 <?php
 
+//Print the document header, including title, logo, etc.
 function PrintHeader() {
-require 'config.php';
-return '<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title>' . $title . '</title>
-  </head>
-  <body>
-    <img src="' . $installation . '/' . $logoname . '">
-    <h2>' . $title . '</h2>';
+  require 'config.php';
+  return '<!DOCTYPE html>
+            <html lang="en"><head><meta charset="utf-8">
+              <title>' . $title . '</title>
+            </head>
+            <body>
+              <img src="' . $installation . '/' . $logoname . '">
+              <h2>' . $title . '</h2>';
 }
 
+// Print the document footer
 function PrintFooter() {
-require 'config.php';
-return '</body></html>';
-
+  require 'config.php';
+  return '</body></html>';
 }
+
 //Print the credential URL
-function PrintUser($info, $warning) {
-  print("<br/><table border=\"1\"><tr><td>$info</td></tr></table><br/>"); 
-  print $warning;
+function PrintCred($cred) {
+  print('<table border="1"><tr><td><pre>' . $cred . '</pre></td></tr></table>'); 
+}
+
+function PrintWarning($warning) {
+  print('<p><font color="FF0000">' . $warning . '</font></p>');
 }
 
 //Print errors to page
 function PrintError($error) {
-  print("<font color=\"FF0000\">$error</font>");
+  print('<p><font color="FF0000">' . $error. '</font></p>');
+}
+
+//Determine which elements to include before prompting the user
+function GeneratePrompt() {
+  require 'config.php';
+  $prompt = array();
+  
+
+  return $prompt;
 }
 
 //Calculate the expiration time

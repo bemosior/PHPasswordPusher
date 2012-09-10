@@ -26,8 +26,8 @@ if(!SanitizeInput()){
     InsertCred($id,$encrypted,$xtime,$xviews);
     $url = sprintf("https://%s%s/%s?id=%s", $_SERVER['HTTP_HOST'], $installation, 'pwretrieve.php', $id);
     //MailURL($url);  //TODO: config for mailing service
-	PrintUser($url,$submitwarning);
-
+	print("<pre>$url</pre>");
+    PrintWarning($submitwarning);
 }
 print PrintFooter();
 ?>
