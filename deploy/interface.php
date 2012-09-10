@@ -4,7 +4,9 @@
 function PrintHeader() {
   require 'config.php';
   return '<!DOCTYPE html>
-            <html lang="en"><head><meta charset="utf-8">
+            <html lang="en">
+			<head>
+			  <meta charset="utf-8">
               <title>' . $title . '</title>
             </head>
             <body>
@@ -18,9 +20,30 @@ function PrintFooter() {
   return '</body></html>';
 }
 
-//Print the credential URL
+//Print the credential
 function PrintCred($cred) {
-  print('<table border="1"><tr><td><pre>' . $cred . '</pre></td></tr></table>'); 
+  print('<table border="1"><tr><td><pre>' . $cred . '</pre></td></tr></table>');   
+}
+
+//Prints the URL and the ZeroClipboard javascript
+function PrintURL($url) {
+  print('<pre>' . $url . '</pre>' .
+  '<script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
+     <div id="d_clip_button"><button>Copy To Clipboard</button></div>
+	
+	 <script language="JavaScript" >
+	   window.onload = function(){
+         var clip = new ZeroClipboard.Client();
+	     ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
+         clip.setText( \'' . $url . '\' );
+		 clip.setHandCursor( true );
+         clip.setCSSEffects( true );
+		 clip.addEventListener( \'onComplete\', function(client, text) {
+           alert("Copied text to clipboard: " + text );
+         } );
+         clip.glue( \'d_clip_button\' );
+	   }
+  </script>');
 }
 
 function PrintWarning($warning) {
