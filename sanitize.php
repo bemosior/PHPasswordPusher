@@ -27,6 +27,7 @@ function SanitizeCred($cred) {
   if (empty($cred)){
     return false;
   }else {
+    $cred = htmlspecialchars($cred);
     return $cred;
   }
 }
@@ -35,6 +36,8 @@ function SanitizeCred($cred) {
 function SanitizeInput() {
   global $cred, $destemail, $xtime, $xviews;
 
+  
+  
   if(isset($_POST['cred'])) {
     $cred = SanitizeCred($_POST['cred']);
     if ($cred == false) {
