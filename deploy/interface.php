@@ -29,8 +29,12 @@ function PrintCred($cred) {
 function PrintURL($url) {
   print('<pre>' . $url . '</pre>' .
   '<script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
-    <div id="d_clip_button"><button>Copy To Clipboard</button><div id="copyblock" style="display:none;">Text Copied!</div></div>
-	 
+    <span style="display: inline-block;">
+	  <div id="d_clip_button">
+	    <button>Copy To Clipboard</button>
+		<div id="copyblock" style="display:none;">Text Copied!</div>
+      </div>
+	</span>
 	
 	<script language="JavaScript" >
 	  window.onload = function(){
