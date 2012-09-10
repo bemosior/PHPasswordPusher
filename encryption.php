@@ -8,7 +8,6 @@ require 'config.php';
             mcrypt_create_iv(mcrypt_get_iv_size(MCRYPT_RIJNDAEL_256, MCRYPT_MODE_ECB), MCRYPT_RAND)
         )
     );
-	error_log($cred);
    return $encrypted;
 }
 
