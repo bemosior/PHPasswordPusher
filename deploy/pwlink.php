@@ -8,7 +8,10 @@ require 'interface.php';
 
 print PrintHeader();
 
-if(!SanitizeInput()){
+$arguments = GetArguments();
+$arguments = CheckInput($arguments);  
+  
+if(!$arguments){
     print('<form action="' . $_SERVER['PHP_SELF'] . '" method="post"><table>' .
 //TODO: config for auth services
 //    <tr><td>Sender:</td><td>" . $_SERVER['PHP_AUTH_USER'] . "</td></tr> 
@@ -21,9 +24,9 @@ if(!SanitizeInput()){
     </table></form>');
 } else {
     //error_log($cred);
-    $encrypted = EncryptCred($cred);
+    $encrypted = EncryptCred($arguments['cred']);
 	$id = md5(uniqid());
-    InsertCred($id,$encrypted,$xtime,$xviews);
+    InsertCred($id,$encrypted,$arguments['minutes'],$arguments['views']);
     $url = sprintf("https://%s%s/%s?id=%s", $_SERVER['HTTP_HOST'], $installation, 'pwretrieve.php', $id);
     //MailURL($url);  //TODO: config for mailing service
 	PrintURL($url);     

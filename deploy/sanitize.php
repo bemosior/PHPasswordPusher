@@ -1,4 +1,52 @@
 <?php
+
+//Grab arguments from POST
+function GetArguments() {
+  $arguments = Array();
+  if (isset($_POST['cred'])) { $arguments['cred'] = $_POST['cred'];}
+  if (isset($_POST['minutes'])) { $arguments['minutes'] = $_POST['minutes'];}
+  if (isset($_POST['views'])) { $arguments['views'] = $_POST['views'];}
+  if (isset($_POST['destemail'])) { $arguments['destemail'] = $_POST['destemail'];}
+  return $arguments;
+}
+
+//Sanitize all the inputs and determine their validity.
+function CheckInput($arguments) {
+   
+  if(isset($arguments['cred'])) {
+    $arguments['cred'] = SanitizeCred($arguments['cred']);
+    if ($arguments['cred'] == false) {
+      PrintError('Please input a valid credential!');
+      return false;
+    }
+  } else { return false; }
+
+  if (isset($arguments['minutes'])) {
+    $arguments['minutes'] = SanitizeNumber($arguments['minutes']);
+    if ($arguments['minutes'] == false) {
+      PrintError('Please input a valid time limit (positive whole number)!');
+      return false;
+    }
+  } else { return false; }
+
+  if (isset($arguments['views'])) {
+    $arguments['views'] = SanitizeNumber($arguments['views']);
+    if ($arguments['views'] == false) {
+      PrintError('Please input a valid view limit (positive whole number)!');
+      return false;
+    }
+  } else { return false; }
+//  TODO: config for mailing service
+  // if (isset($arguments['destemail'])) {
+    // $arguments['destemail'] = SanitizeEmail($arguments['destemail']);
+    // if ($arguments['destemail'] == false) {
+      // PrintError('Please input a valid email!');
+      // return false;
+    // }
+  // } else { return false; }
+  return $arguments;
+}
+
 //Check and Sanitize the user's email.
 function SanitizeEmail($email)
 {
@@ -30,46 +78,6 @@ function SanitizeCred($cred) {
     $cred = htmlspecialchars($cred);
     return $cred;
   }
-}
-
-//Sanitize all the inputs and determine their validity.
-function SanitizeInput() {
-  global $cred, $destemail, $xtime, $xviews;
-
-  
-  
-  if(isset($_POST['cred'])) {
-    $cred = SanitizeCred($_POST['cred']);
-    if ($cred == false) {
-      PrintError('Please input a valid credential!');
-      return false;
-    }
-  } else { return false; }
-
-  if (isset($_POST['minutes'])) {
-    $xtime = SanitizeNumber($_POST['minutes']);
-    if ($xtime == false) {
-      PrintError('Please input a valid time limit (positive whole number)!');
-      return false;
-    }
-  } else { return false; }
-
-  if (isset($_POST['views'])) {
-    $xviews = SanitizeNumber($_POST['views']);
-    if ($xviews == false) {
-      PrintError('Please input a valid view limit (positive whole number)!');
-      return false;
-    }
-  } else { return false; }
-//  TODO: config for mailing service
-  // if (isset($_POST['destemail'])) {
-    // $destemail = SanitizeEmail($_POST['destemail']);
-    // if ($destemail == false) {
-      // PrintError('Please input a valid email!');
-      // return false;
-    // }
-  // } else { return false; }
-  return true;
 }
 
 ?>
