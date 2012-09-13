@@ -15,8 +15,8 @@ print PrintHeader();
       }else {
         $cred = DecryptCred($result[0]['seccred']);
         ViewCred($id);  //TODO: Add error handling that prevents password display on fail
-		PrintCred($cred);  //Print credentials
-		PrintWarning($retrievewarning);  //Print warning
+    PrintCred($cred);  //Print credentials
+    PrintWarning($retrievewarning);  //Print warning
         // print("<script>window.prompt ('Copy to clipboard: Ctrl+C, Enter', '$cred');</script>"); //TODO: Clipboard functionality
       }
   }

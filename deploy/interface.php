@@ -5,12 +5,14 @@ function PrintHeader() {
   require 'config.php';
   return '<!DOCTYPE html>
             <html lang="en">
-			<head>
-			  <meta charset="utf-8">
+      <head>
+        <meta charset="utf-8">
               <title>' . $title . '</title>
             </head>
             <body>
-              <img src="' . $installation . '/' . $logoname . '">
+              <a href="' . $installation . '/pwlink.php">
+                <img src="' . $installation . '/' . $logoname . '">
+              </a>
               <h2>' . $title . '</h2>';
 }
 
@@ -28,28 +30,28 @@ function PrintCred($cred) {
 //Prints the URL and the ZeroClipboard javascript
 function PrintURL($url) {
   print('<pre>' . $url . '</pre>' .
-  '<script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
+    '<script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
     <span style="display: inline-block;">
-	  <div id="d_clip_button">
-	    <button>Copy To Clipboard</button>
-		<div id="copyblock" style="display:none;">Text Copied!</div>
+      <div id="d_clip_button">
+        <button>Copy To Clipboard</button>
+        <div id="copyblock" style="display:none;">Text Copied!</div>
       </div>
-	</span>
-	
-	<script language="JavaScript" >
-	  window.onload = function(){
-         var clip = new ZeroClipboard.Client();
-	     ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
-         clip.setText( \'' . $url . '\' );
-		 clip.setHandCursor( true );
-         clip.setCSSEffects( true );
-		 clip.addEventListener( \'onComplete\', function(client, text) {
-           var div = document.getElementById(\'copyblock\');
-           div.style.display = \'inline\';
-         } );
-         clip.glue( \'d_clip_button\' );
-	   }
-  </script>');
+    </span>
+  
+    <script language="JavaScript" >
+      window.onload = function(){
+           var clip = new ZeroClipboard.Client();
+         ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
+           clip.setText( \'' . $url . '\' );
+       clip.setHandCursor( true );
+           clip.setCSSEffects( true );
+       clip.addEventListener( \'onComplete\', function(client, text) {
+             var div = document.getElementById(\'copyblock\');
+             div.style.display = \'inline\';
+           } );
+           clip.glue( \'d_clip_button\' );
+       }
+    </script>');
 }
 
 function PrintWarning($warning) {
@@ -65,8 +67,6 @@ function PrintError($error) {
 function GeneratePrompt() {
   require 'config.php';
   $prompt = array();
-  
-
   return $prompt;
 }
 

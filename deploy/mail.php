@@ -2,7 +2,7 @@
 //Mail the credentials to the recipient.
 function MailURL($url) {
   require 'config.php';
-  require 'sanitize.php';
+  require 'input.php';
 
 //TODO: config for auth services
 //$sender = $_SERVER['PHP_AUTH_USER'];
