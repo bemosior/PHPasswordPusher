@@ -23,7 +23,6 @@ function InsertCred($id, $encrypted, $xtime, $xviews) {
 
 //Retrieve credentials from database
 function RetrieveCred($id) {
-
   $query = "select seccred,views from phpasspush where id=:id and xtime>UTC_TIMESTAMP() and xviews>views";
   $params = array('id' => $id);
   try{
@@ -32,13 +31,13 @@ function RetrieveCred($id) {
     $statement->execute($params);
     $result = $statement->fetchAll();
   } catch (PDOException $e) {
-    error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
+    error_log('PHPasswordPusher DB Error: ' . $e->getMessage() . "\n");
   }
   return $result;
 }
 
+//Increment the view count for a credential
 function ViewCred($id) {
-
 // Update the view counter before showing the password
   $query = "update phpasspush set views=views+1 where id=:id";
   $params = array('id' => $id);

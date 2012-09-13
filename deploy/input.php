@@ -3,6 +3,7 @@
 //Grab arguments from POST
 function GetArguments() {
   $arguments = Array();
+  if (isset($_GET['id'])) { $arguments['id'] = $_GET['id'];}
   if (isset($_POST['cred'])) { $arguments['cred'] = $_POST['cred'];}
   if (isset($_POST['minutes'])) { $arguments['minutes'] = $_POST['minutes'];}
   if (isset($_POST['views'])) { $arguments['views'] = $_POST['views'];}
@@ -12,7 +13,7 @@ function GetArguments() {
 
 //Sanitize all the inputs and determine their validity.
 function CheckInput($arguments) {
-   
+     
   if(isset($arguments['cred'])) {
     $arguments['cred'] = SanitizeCred($arguments['cred']);
     if ($arguments['cred'] == false) {
