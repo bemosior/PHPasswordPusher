@@ -29,7 +29,7 @@ if($arguments['func'] == 'none'){  //If no arguments exist, print the form for t
     unset($arguments['cred']);  //Wipe out the variable with the credential.
     $id = md5(uniqid());  //Create a unique identifier for the new credential record.
     InsertCred($id,$encrypted,$arguments['minutes'],$arguments['views']);  //Insert the record into the database.
-    $url = sprintf("https://%s%s/%s?id=%s", $_SERVER['HTTP_HOST'], $installation, 'pwlink.php', $id);  //Generate the retrieval URL.
+    $url = sprintf("https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], $id);  //Generate the retrieval URL.
     //MailURL($url);  //TODO: config for mailing service
     PrintURL($url);  //Print the URL and associated functions
     PrintWarning($submitwarning);  //Print the submission warning
