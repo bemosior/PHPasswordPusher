@@ -3,11 +3,29 @@
 //Grab arguments from POST
 function GetArguments() {
   $arguments = Array();
-  if (isset($_GET['id'])) { $arguments['id'] = $_GET['id'];}
-  if (isset($_POST['cred'])) { $arguments['cred'] = $_POST['cred'];}
-  if (isset($_POST['minutes'])) { $arguments['minutes'] = $_POST['minutes'];}
-  if (isset($_POST['views'])) { $arguments['views'] = $_POST['views'];}
-  if (isset($_POST['destemail'])) { $arguments['destemail'] = $_POST['destemail'];}
+  if (isset($_GET['id'])) { 
+    $arguments['id'] = $_GET['id'];
+    $arguments['func'] = 'get';
+  }
+  if (isset($_POST['cred'])) { 
+    $arguments['cred'] = $_POST['cred']; 
+    $arguments['func'] = 'post';
+  }
+  if (isset($_POST['minutes'])) {
+    $arguments['minutes'] = $_POST['minutes'];
+    $arguments['func'] = 'post';
+  }
+  if (isset($_POST['views'])) { 
+    $arguments['views'] = $_POST['views'];
+    $arguments['func'] = 'post';
+  }
+  if (isset($_POST['destemail'])) { 
+    $arguments['destemail'] = $_POST['destemail'];
+    $arguments['func'] = 'post';
+  }
+  if(!$arguments) {
+     $arguments['func'] = 'none';
+  }
   return $arguments;
 }
 
@@ -20,7 +38,7 @@ function CheckInput($arguments) {
       PrintError('Please input a valid credential!');
       return false;
     }
-  } else { return false; }
+  }
 
   if (isset($arguments['minutes'])) {
     $arguments['minutes'] = SanitizeNumber($arguments['minutes']);
@@ -28,7 +46,7 @@ function CheckInput($arguments) {
       PrintError('Please input a valid time limit (positive whole number)!');
       return false;
     }
-  } else { return false; }
+  }
 
   if (isset($arguments['views'])) {
     $arguments['views'] = SanitizeNumber($arguments['views']);
@@ -36,7 +54,7 @@ function CheckInput($arguments) {
       PrintError('Please input a valid view limit (positive whole number)!');
       return false;
     }
-  } else { return false; }
+  }
 //  TODO: config for mailing service
   // if (isset($arguments['destemail'])) {
     // $arguments['destemail'] = SanitizeEmail($arguments['destemail']);
@@ -44,7 +62,7 @@ function CheckInput($arguments) {
       // PrintError('Please input a valid email!');
       // return false;
     // }
-  // } else { return false; }
+  // }
   return $arguments;
 }
 
