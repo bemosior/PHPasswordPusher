@@ -16,6 +16,7 @@ function InsertCred($id, $encrypted, $xtime, $xviews) {
     $db = ConnectDB();
     $statement = $db->prepare($query);
     $statement->execute($params);
+	  EraseExpired($db);  //Erase all expired entries for good measure.
   } catch (PDOException $e) {
     error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
   }
@@ -23,43 +24,35 @@ function InsertCred($id, $encrypted, $xtime, $xviews) {
 
 //Retrieve credentials from database
 function RetrieveCred($id) {
-  $query = "select seccred,views from phpasspush where id=:id and xtime>UTC_TIMESTAMP() and xviews>views";
+	$update_query = "update phpasspush set views=views+1 where id=:id and xviews>views";
+  $select_query = "select seccred,views from phpasspush where id=:id and xtime>UTC_TIMESTAMP()";
   $params = array('id' => $id);
-  try{
+  try{ //First update the view count
     $db = ConnectDB();
-    $statement = $db->prepare($query);
+    $statement = $db->prepare($update_query);
+    $statement->execute($params);
+    if (! $statement->rowCount()) {  //If views update fails, end immediately before printing credentials.
+      return false;
+    }
+    $statement = $db->prepare($select_query);
     $statement->execute($params);
     $result = $statement->fetchAll();
-  } catch (PDOException $e) {
-    error_log('PHPasswordPusher DB Error: ' . $e->getMessage() . "\n");
-  }
-  return $result;
-}
-
-//Increment the view count for a credential
-function ViewCred($id) {
-// Update the view counter before showing the password
-  $query = "update phpasspush set views=views+1 where id=:id";
-  $params = array('id' => $id);
-  try{
-    $db = ConnectDB();
-    $statement = $db->prepare($query);
-    $statement->execute($params);
+    EraseExpired($db);  //Erase all expired entries for good measure.
+    return $result;
   } catch (PDOException $e) {
     error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
   }
- 
+  return false;
 }
 
 
-function NullRecord($id) {
+//Erase all records that have expired due to expiration time or view limit
+function EraseExpired($db) {
 
-  $query = "update phpasspush set seccred = NULL where id=:id";
-  $params = array('id' => $id);
+  $query = "delete from phpasspush where xtime < UTC_TIMESTAMP() or xviews <= views";
   try{
-    $db = ConnectDB();
     $statement = $db->prepare($query);
-    $statement->execute($params);
+    $statement->execute();
   } catch (PDOException $e) {
     error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
   }

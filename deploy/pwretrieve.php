@@ -13,11 +13,9 @@ $arguments = GetArguments();
 if($arguments) {  //Attempt to look up record by its ID
   $result = RetrieveCred($arguments['id']);   
   if(empty($result[0])) {  //If no valid entry, deny access and wipe hypothetically existing records
-    NullRecord($arguments['id']);  //Wipe record
     PrintError('Link Expired');
-  }else {
+  } else {
     $cred = DecryptCred($result[0]['seccred']);  //Decrypt the credential
-    ViewCred($arguments['id']);  //Increment the view counter for the record
     PrintCred($cred);  //Print credentials
     unset($cred);
     PrintWarning($retrievewarning);  //Print warning
