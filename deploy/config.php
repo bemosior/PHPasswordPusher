@@ -11,10 +11,22 @@ $xtime_default = 15; //default minutes until the link expires
 $xviews_default = 2; //default # of views before the link expires
 $submitwarning = 'Submitted credentials will expire and be erased according to the time or view limit, '
   . 'whichever occurs first. NEVER leave credentials where they can be easily accessed by others.';
-$retrievewarning = 'NEVER leave credentials where they can be easily accessed by others. '
-  . '<!--We recommend using KeePass (<a href=\"http://keepass.info/\">http://keepass.info</a>).-->';
+$retrievewarning = 'NEVER leave credentials where they can be easily accessed by others.';
 
+//Email
+$enableEmail = 1;  //Enable email functionality. 
+//It is highly recommended that authentication be required as well to prevent spam!
+
+$enableSender = 0;  //Enable user-specific senders
+$assumedDomain = 'domain.edu';  //The assumed domain of an authenticated user. If no auth, phpw@assumeddomain.
+//The above settings result in the email being sent by 'user@assumedDomain'. Valid addresses are recommended.
+
+  
+  
 //User interface misc.:
-$logoname = "phpwpusher.png"; // 
+$logoname = "phpwpusher.png"; //Relative to the deploy directory
 $title='Secure Password Sharing Utility';
+$displayURL = 1;  //Enable display of the URL to the user.
+$requireAuth = 0;  //Require user authentication.
+
 ?>

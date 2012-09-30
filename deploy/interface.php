@@ -10,7 +10,7 @@ function PrintHeader() {
               <title>' . $title . '</title>
             </head>
             <body>
-              <a href="' . $installation . '/pwlink.php">
+              <a href="' . $installation . '/pw.php">
                 <img src="' . $installation . '/' . $logoname . '">
               </a>
               <h2>' . $title . '</h2>';
@@ -71,7 +71,7 @@ function GeneratePrompt() {
 }
 
 //Calculate the expiration time
-function CalcTime($minutes) {
+function CalcHRTime($minutes) {
   $d = floor ($minutes / 1440);
   $h = floor (($minutes - $d * 1440) / 60);
   $m = $minutes - ($d * 1440) - ($h * 60);

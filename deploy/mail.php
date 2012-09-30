@@ -1,17 +1,18 @@
-<?php //TODO: config for mailing service
-//Mail the credentials to the recipient.
-function MailURL($url) {
-  require 'config.php';
-  require 'input.php';
+<?php 
 
-//TODO: config for auth services
-//$sender = $_SERVER['PHP_AUTH_USER'];
+
+//Mail the credentials to the recipient.
+function MailURL($url, $destemail, $xtimehr, $xviews) {
+require 'config.php';
+
+$sender = 'phpw';
+if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) { $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; }
   
-  $headers = 'From: ' . $sender .'@ship.edu' . "\r\n";
+  $headers = 'From: ' . $sender  . "\r\n";
   mail($destemail, $sender . ' sent you a credential. ', $url .
     "\r\n\nThis link contains sensitive information and will be inaccessible after " .
-    CalcHRTime($xtime) . ' OR ' . $xviews . " views, whichever occurs first.
-    \r\nNEVER leave credentials where they can be easily accessed. We recommend using KeePass (http://keepass.info/).",
+    $xtimehr . ' OR ' . $xviews . " views, whichever occurs first.
+    \r\n$retrievewarning",
      $headers) or die('Email send failed!');
   
   //mail('loggingemailhere', 'PHPassPush: ' . $sender . ' sent a credential to ' . $destemail, '') or die('Email send failed!');
