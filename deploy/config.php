@@ -10,11 +10,11 @@ $key = "change this key"; //This is the encryption key. Change it to something r
 $xtime_default = 15; //default minutes until the link expires
 $xviews_default = 2; //default # of views before the link expires
 $submitwarning = 'Submitted credentials will expire and be erased according to the time or view limit, '
-  . 'whichever occurs first. NEVER leave credentials where they can be easily accessed by others.';
+  . 'whichever occurs first.';
 $retrievewarning = 'NEVER leave credentials where they can be easily accessed by others.';
 
 //Email
-$enableEmail = 1;  //Enable email functionality. 
+$enableEmail = 0;  //Enable email functionality. 
 //It is highly recommended that authentication be required as well to prevent spam!
 
 $enableSender = 0;  //Enable user-specific senders

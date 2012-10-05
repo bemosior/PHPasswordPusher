@@ -35,24 +35,27 @@ function CheckInput($arguments) {
   if(isset($arguments['cred'])) {
     $arguments['cred'] = SanitizeCred($arguments['cred']);
     if ($arguments['cred'] == false) {
-      PrintError('Please input a valid credential!');
-      return false;
+      $arguments['func'] = 'none';
+      //PrintError('Please input a valid credential!');
+      //return false;
     }
   }
 
   if (isset($arguments['minutes'])) {
     $arguments['minutes'] = SanitizeNumber($arguments['minutes']);
     if ($arguments['minutes'] == false) {
-      PrintError('Please input a valid time limit (positive whole number)!');
-      return false;
+      $arguments['minutes'] = 30;
+      //PrintError('Please input a valid time limit (positive whole number)!');
+      //return false;
     }
   }
 
   if (isset($arguments['views'])) {
     $arguments['views'] = SanitizeNumber($arguments['views']);
     if ($arguments['views'] == false) {
-      PrintError('Please input a valid view limit (positive whole number)!');
-      return false;
+      $arguments['views'] = 2;
+      //PrintError('Please input a valid view limit (positive whole number)!');
+      //return false;
     }
   }
 //  TODO: config for mailing service

@@ -20,22 +20,51 @@ if($requireAuth && empty($_SERVER['PHP_AUTH_USER'])){  //Die if auth is required
 } 
 
 if($arguments['func'] == 'none'){  //If no arguments exist, print the form for the user.
-  print('<form action="' . $_SERVER['PHP_SELF'] . '" method="post"><table>');
+  print('<div class="hero-unit"><h2>Create the credential:</h2> <form action="' . $_SERVER['PHP_SELF'] . '" method="post">');
 
   if($enableEmail && $requireAuth) {  //Display creator username if email and authentication are configured.
-      print('<tr><td>Sender:</td><td>' . $_SERVER['PHP_AUTH_USER'] . '</td></tr>'); 
+      print('Sender:' . $_SERVER['PHP_AUTH_USER']); 
   }
   
-  print('<tr><td>Credentials:</td><td><textarea rows="1" name="cred" /></textarea></td></tr>
-  <tr><td>Time Limit:<td><input type="text" size="5" name="minutes" value="30" /> minutes</td></tr>
-  <tr><td>View Limit:<td><input type="text" size="5" name="views" value="2" /> views</td></tr>');
+  print('
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-lock"></i></span>
+                <textarea rows="3" placeholder="Credential" name="cred" /></textarea>
+              </div>
+            </div>
 
+            <div class="controls">
+              <div class="input-prepend input-append">
+                <span class="add-on"><i class="icon-time"></i></span>
+                <input class="span1" type="text" placeholder="30" name="minutes" />
+                <span class="add-on">minutes</span>
+              </div>
+            </div>
+
+            <div class="controls">
+              <div class="input-prepend input-append">
+                <span class="add-on"><i class="icon-eye-open"></i></span>
+                <input class="span1" type="text" placeholder="2" name="views" />
+                <span class="add-on">views</span>
+              </div>
+            </div>
+            
+            
+            ');
   if($enableEmail) {  //Display field for destination email if enabled.
-      print('<tr><td>Destination Email:</td><td><input type="text" name="destemail" /></td></tr>');
+      print('            
+            <label class="control-label" for="destemail">Destination Email:</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-lock"></i></span>
+                <input type="text" placeholder="email@yourdomain.com" name="destemail" />
+              </div>
+            </div>
+      ');
   }
   
-  print('<tr><td><p><input type="submit" value="Submit" /></p></td></tr>
-      </table></form>');
+  print('<input class="btn btn-primary btn-large" type="submit" value="Submit" /></div>');
   
 } elseif($arguments['func'] == 'post') { //If POST arguments exist and have been verified, process the credential
   $encrypted = EncryptCred($arguments['cred']); //Encrypt the user's credential.
@@ -48,19 +77,25 @@ if($arguments['func'] == 'none'){  //If no arguments exist, print the form for t
       MailURL($url,$arguments['destemail'], CalcHRTime($arguments['minutes']), $arguments['views']); 
   }  
   
-  if ($displayURL) { PrintURL($url); } else { PrintWarning('Credential Created!'); } //Print the URL and associated functions
-  PrintWarning($submitwarning);  //Print the submission warning
+  if ($displayURL) { 
+    PrintURL($url); 
+    PrintWarning($submitwarning);
+  } else { PrintWarning('Credential Created!'); } //Print the URL and associated functions
+  
     
 } elseif($arguments['func'] == 'get') {  //If GET arguments exist and have been verified, retrieve the credential
   $result = RetrieveCred($arguments['id']);   
+  print('<div class="hero-unit">');
   if(empty($result[0])) {  //If no valid entry, deny access and wipe hypothetically existing records
+    print('<h2>Woops!</h2>');
     PrintError('Link Expired');
   } else {
     $cred = DecryptCred($result[0]['seccred']);  //Decrypt the credential
     PrintCred($cred);  //Print credentials
     unset($cred);
-    PrintWarning($retrievewarning);  //Print warning
+    // PrintWarning($retrievewarning);  //Print warning
   }
+  print('</div>');
 }
 print PrintFooter();
 ?>

@@ -3,40 +3,70 @@
 //Print the document header, including title, logo, etc.
 function PrintHeader() {
   require 'config.php';
-  return '<!DOCTYPE html>
+  return '<!DOCTYPE HTML>
             <html lang="en">
-      <head>
-        <meta charset="utf-8">
+            <head>
+              <meta charset="utf-8">
+              <meta name="viewport" content="width=device-width, initial-scale=1.0">
+              <meta name="description" content="">
+              <meta name="author" content="">
               <title>' . $title . '</title>
+<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+              <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+              <style type="text/css">
+                body {
+                  padding-top: 60px;
+                  padding-bottom: 40px;
+                }
+              </style>
+              <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
             </head>
             <body>
-              <a href="' . $installation . '/pw.php">
-                <img src="' . $installation . '/' . $logoname . '">
-              </a>
-              <h2>' . $title . '</h2>';
+              <script src="http://code.jquery.com/jquery-latest.js"></script>
+              <script src="bootstrap/js/bootstrap.min.js"></script>
+              <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                  <div class="container" >
+                    <!-- <img style="height:75px; display:block; position:absolute; left:0px; top:45px;" src="' . $installation . '/' . $logoname . '" /> -->
+                    <a class="brand" href="#">PHPasswordPusher</a>
+                    <ul class="nav">
+                      <li class="active"><a href="pw.php">Create</a></li>
+                      <li><a href="#about">About</a></li>
+                      <li><a href="#contact">Contact</a></li>
+                    </ul>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="container">
+               
+                ';
 }
 
 // Print the document footer
-function PrintFooter() {
+function PrintFooter($warning) {
   require 'config.php';
-  return '</body></html>';
+  return '<div class="alert alert-error">NEVER leave credentials where they can be easily accessed by others.</div></body></html>'; 
 }
 
 //Print the credential
 function PrintCred($cred) {
-  print('<table border="1"><tr><td><pre>' . $cred . '</pre></td></tr></table>');   
+  print('<h2>The shared credential:</h2><div class="pagination-centered"><pre class="text-error">' . $cred . '</pre></div>');   
 }
 
 //Prints the URL and the ZeroClipboard javascript
 function PrintURL($url) {
-  print('<pre>' . $url . '</pre>' .
-    '<script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
-    <span style="display: inline-block;">
-      <div id="d_clip_button">
-        <button>Copy To Clipboard</button>
-        <div id="copyblock" style="display:none;">Text Copied!</div>
-      </div>
-    </span>
+  print('<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
+    '<div class="pagination-centered"><div><code>' . $url . '</code></div>
+      <script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
+      <span style="display: inline-block;">
+        <div id="d_clip_button">
+          <button id="clip_button" class="btn btn-primary"><span id="precopy">Copy To Clipboard</span><span id="postcopy" style="display:none">Succesfully Copied!</span></button>
+          <!-- <div id="copyblock" style="display:none;"><span class="alert alert-success">Text Copied!</span></div> -->
+        </div>
+      </span>
+    </div>
+
   
     <script language="JavaScript" >
       window.onload = function(){
@@ -46,21 +76,26 @@ function PrintURL($url) {
        clip.setHandCursor( true );
            clip.setCSSEffects( true );
        clip.addEventListener( \'onComplete\', function(client, text) {
-             var div = document.getElementById(\'copyblock\');
-             div.style.display = \'inline\';
+             var button = document.getElementById(\'clip_button\');
+             button.className = \'btn\';
+             var clip1 = document.getElementById(\'precopy\');
+             var clip2 = document.getElementById(\'postcopy\');
+             clip1.style.display = \'none\';
+             clip2.style.display = \'inline\';
            } );
            clip.glue( \'d_clip_button\' );
        }
-    </script>');
+    </script>
+    </div>');
 }
 
 function PrintWarning($warning) {
-  print('<p><font color="FF0000">' . $warning . '</font></p>');
+  print('<div class="alert">' . $warning . '</div>');
 }
 
 //Print errors to page
 function PrintError($error) {
-  print('<p><font color="FF0000">' . $error. '</font></p>');
+  print('<div class="hero-unit"><span class="alert alert-error">' . $error. '</span></div>');
 }
 
 //Determine which elements to include before prompting the user
