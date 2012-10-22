@@ -23,7 +23,7 @@ if($arguments['func'] == 'none'){  //If no arguments exist, print the form for t
   print('<div class="hero-unit"><h2>Create the credential:</h2> <form action="' . $_SERVER['PHP_SELF'] . '" method="post">');
 
   if($enableEmail && $requireAuth) {  //Display creator username if email and authentication are configured.
-      print('Sender:' . $_SERVER['PHP_AUTH_USER']); 
+      print('<label class="control-label" for="destemail">Sender: ' . $_SERVER['PHP_AUTH_USER'] . '</label>'); 
   }
   
   print('

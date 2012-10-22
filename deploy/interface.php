@@ -11,7 +11,7 @@ function PrintHeader() {
               <meta name="description" content="">
               <meta name="author" content="">
               <title>' . $title . '</title>
-<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+              
               <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
               <style type="text/css">
                 body {
@@ -19,11 +19,27 @@ function PrintHeader() {
                   padding-bottom: 40px;
                 }
               </style>
+              
+              <!-- jQuery -->
+              <script src="jQuery/jQuery.js" charset="utf-8"></script>
+              
+              <!-- Twitter Bootstrap -->
+              <script src="bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
               <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+              
+              <!-- Placeholder -->
+              <script src="placeholder/Placeholder.min.js" charset="utf-8"></script>
+              <script>
+                Placeholders.init({
+                  live: true, //Apply to future and modified elements too
+                  hideOnFocus: true //Hide the placeholder when the element receives focus
+                })
+              </script>
             </head>
             <body>
-              <script src="http://code.jquery.com/jquery-latest.js"></script>
-              <script src="bootstrap/js/bootstrap.min.js"></script>
+              
+ 
+
               <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
                   <div class="container" >
@@ -70,21 +86,21 @@ function PrintURL($url) {
   
     <script language="JavaScript" >
       window.onload = function(){
-           var clip = new ZeroClipboard.Client();
-         ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
-           clip.setText( \'' . $url . '\' );
-       clip.setHandCursor( true );
-           clip.setCSSEffects( true );
-       clip.addEventListener( \'onComplete\', function(client, text) {
-             var button = document.getElementById(\'clip_button\');
-             button.className = \'btn\';
-             var clip1 = document.getElementById(\'precopy\');
-             var clip2 = document.getElementById(\'postcopy\');
-             clip1.style.display = \'none\';
-             clip2.style.display = \'inline\';
-           } );
-           clip.glue( \'d_clip_button\' );
-       }
+          var clip = new ZeroClipboard.Client();
+          ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
+            clip.setText( \'' . $url . '\' );
+        clip.setHandCursor( true );
+            clip.setCSSEffects( true );
+        clip.addEventListener( \'onComplete\', function(client, text) {
+              var button = document.getElementById(\'clip_button\');
+              button.className = \'btn\';
+              var clip1 = document.getElementById(\'precopy\');
+              var clip2 = document.getElementById(\'postcopy\');
+              clip1.style.display = \'none\';
+              clip2.style.display = \'inline\';
+            } );
+            clip.glue( \'d_clip_button\' );
+        }
     </script>
     </div>');
 }
