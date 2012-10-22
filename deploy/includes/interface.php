@@ -2,7 +2,7 @@
 
 //Print the document header, including title, logo, etc.
 function PrintHeader() {
-  require 'config.php';
+  require 'includes/config.php';
   return '<!DOCTYPE HTML>
             <html lang="en">
             <head>
@@ -12,7 +12,6 @@ function PrintHeader() {
               <meta name="author" content="">
               <title>' . $title . '</title>
               
-              <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
               <style type="text/css">
                 body {
                   padding-top: 60px;
@@ -21,14 +20,15 @@ function PrintHeader() {
               </style>
               
               <!-- jQuery -->
-              <script src="jQuery/jQuery.js" charset="utf-8"></script>
+              <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
               
               <!-- Twitter Bootstrap -->
-              <script src="bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-              <link href="bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+              <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+              <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+              <link href="includes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
               
               <!-- Placeholder -->
-              <script src="placeholder/Placeholder.min.js" charset="utf-8"></script>
+              <script src="includes/placeholder/Placeholder.min.js" charset="utf-8"></script>
               <script>
                 Placeholders.init({
                   live: true, //Apply to future and modified elements too
@@ -37,8 +37,6 @@ function PrintHeader() {
               </script>
             </head>
             <body>
-              
- 
 
               <div class="navbar navbar-fixed-top">
                 <div class="navbar-inner">
@@ -60,8 +58,8 @@ function PrintHeader() {
 }
 
 // Print the document footer
-function PrintFooter($warning) {
-  require 'config.php';
+function PrintFooter() {
+  require 'includes/config.php';
   return '<div class="alert alert-error">NEVER leave credentials where they can be easily accessed by others.</div></body></html>'; 
 }
 
@@ -74,7 +72,7 @@ function PrintCred($cred) {
 function PrintURL($url) {
   print('<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
     '<div class="pagination-centered"><div><code>' . $url . '</code></div>
-      <script type="text/javascript" src="ZeroClipboard/ZeroClipboard.js" ></script>
+      <script type="text/javascript" src="includes/ZeroClipboard/ZeroClipboard.js" ></script>
       <span style="display: inline-block;">
         <div id="d_clip_button">
           <button id="clip_button" class="btn btn-primary"><span id="precopy">Copy To Clipboard</span><span id="postcopy" style="display:none">Succesfully Copied!</span></button>
@@ -83,11 +81,10 @@ function PrintURL($url) {
       </span>
     </div>
 
-  
     <script language="JavaScript" >
       window.onload = function(){
           var clip = new ZeroClipboard.Client();
-          ZeroClipboard.setMoviePath( \'ZeroClipboard/ZeroClipboard.swf\');
+          ZeroClipboard.setMoviePath( \'includes/ZeroClipboard/ZeroClipboard.swf\');
             clip.setText( \'' . $url . '\' );
         clip.setHandCursor( true );
             clip.setCSSEffects( true );

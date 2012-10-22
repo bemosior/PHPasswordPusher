@@ -1,10 +1,10 @@
 <?php
-require 'config.php'; 
-require 'database.php';
-require 'mail.php';
-require 'encryption.php';
-require 'input.php';
-require 'interface.php';
+require 'includes/config.php'; 
+require 'includes/database.php';
+require 'includes/mail.php';
+require 'includes/encryption.php';
+require 'includes/input.php';
+require 'includes/interface.php';
 
 print PrintHeader();
 
