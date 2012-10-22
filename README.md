@@ -16,7 +16,7 @@ This application is still in its infancy, but it can be considered
 functional.
 
 
-// Other Projects Utilized //
+## Other Projects Utilized
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher
 * ZeroClipboard: https://github.com/jonrohan/ZeroClipboard
 * Placeholder.js: https://github.com/jamesallardice/Placeholders.js
