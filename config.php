@@ -1,1 +1,1 @@
-deploy/config.php
+deploy/includes/config.php
