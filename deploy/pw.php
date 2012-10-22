@@ -8,6 +8,22 @@ require 'includes/interface.php';
 
 print PrintHeader();
 
+print ('       <div class="navbar navbar-fixed-top">
+                <div class="navbar-inner">
+                  <div class="container" >
+                    <!-- <img style="height:75px; display:block; position:absolute; left:0px; top:45px;" src="' . $installation . '/' . $logoname . '" /> -->
+                    <a class="brand" href="#">PHPasswordPusher</a>
+                    <ul class="nav">
+                      <li class="active"><a href="pw.php">Create</a></li>
+                      <li><a href="about.php">About</a></li>
+                    </ul>
+                    
+                  </div>
+                </div>
+              </div>
+              <div class="container">
+      ');
+
 //Find user arguments, if any.
 $arguments = GetArguments();
 $arguments = CheckInput($arguments);  
