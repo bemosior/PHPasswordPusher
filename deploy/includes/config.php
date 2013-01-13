@@ -10,7 +10,7 @@
   $requireAuth = false;  //Require Apache user authentication.
 
 //Email
-  $assumedDomain = 'domain.edu';  //The assumed domain of an authenticated user and email sender
+  $assumedDomain = 'your.domain';  //The assumed domain of an authenticated user and email sender
   $enableEmail = true;  //Allow the credentials to be sent via email at the web form.
   $enableSender = true; //Set the username as the email sender (requires authentication)
   //It is highly recommended that authentication be required when enabling the email functionality in order to prevent spam!

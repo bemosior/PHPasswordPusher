@@ -48,13 +48,9 @@ if($arguments['func'] == 'none' || $arguments == false){
   //Generate the retrieval URL.
   $url = sprintf("https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], $id);  
   
-  //Send email if configured.
-  if($enableEmail) {
-    //Check if the email has been filled out (this should be moved elsewhere)
-    if(strlen($arguments['destemail']) > 1) {
-      error_log('Sized: ' . $arguments['destemail']);
-      MailURL($url,$arguments['destemail'], CalcHRTime($arguments['minutes']), $arguments['views']); 
-    }
+  //Send email if configured and if the email has been filled out
+  if($enableEmail && !empty($arguments['destemail'])) {
+      MailURL($url,$arguments['destemail'], calcExpirationDisplay($arguments['minutes']), $arguments['views']); 
   }  
   
   //If the URL is configured to be displayed print the URL and associated functions
@@ -72,8 +68,10 @@ if($arguments['func'] == 'none' || $arguments == false){
   
   //If no valid entry, deny access and wipe hypothetically existing records
   if(empty($result[0])) {  
-    print('<h2>Woops!</h2>');
+    print('<h2>Sorry!</h2>');
     print getError('Link Expired');
+    
+    //Otherwise, return the credential.
   } else {
   
     //Decrypt the credential
@@ -84,7 +82,6 @@ if($arguments['func'] == 'none' || $arguments == false){
     
     //Unset the credential variable
     unset($cred);
-    //PrintWarning($criticalWarning);  //Print warning
   }
   print('</div>');
 }

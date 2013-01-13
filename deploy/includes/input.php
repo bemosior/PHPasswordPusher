@@ -31,7 +31,9 @@ function GetArguments() {
 
 //Sanitize all the inputs and determine their validity.
 function CheckInput($arguments) {
+  require 'config.php';
      
+  //Check the credential
   if(isset($arguments['cred'])) {
     $arguments['cred'] = SanitizeCred($arguments['cred']);
     if ($arguments['cred'] == false) {
@@ -41,28 +43,44 @@ function CheckInput($arguments) {
     }
   }
 
+  //Check Minutes
   if (isset($arguments['minutes'])) {
-    $arguments['minutes'] = SanitizeNumber($arguments['minutes']);
-    if ($arguments['minutes'] == false) {
+    //Set to the default value if empty
+    if(empty($arguments['minutes'])) {
       $arguments['minutes'] = $expirationTimeDefault;
-      //PrintError('Please input a valid time limit (positive whole number)!');
-      //return false;
+    }
+    //Sanitize the input
+    $arguments['minutes'] = SanitizeNumber($arguments['minutes']);
+    if ($arguments['minutes'] == false) { 
+      print getError('Please input a valid time limit (positive whole number)!');
+      return false;
     }
   }
 
+  //Check Views
   if (isset($arguments['views'])) {
+    //Set to the default value if empty
+    if(empty($arguments['views'])) {
+      $arguments['views'] = $expirationViewsDefault;
+    }
+    //Sanitize the input
     $arguments['views'] = SanitizeNumber($arguments['views']);
     if ($arguments['views'] == false) {
-      $arguments['views'] = $expirationViewsDefault;
-      //PrintError('Please input a valid view limit (positive whole number)!');
-      //return false;
+      print getError('Please input a valid view limit (positive whole number)!');
+      return false;
     }
   }
   
+  //Check Email
   if (isset($arguments['destemail'])) {
     $arguments['destemail'] = SanitizeEmail($arguments['destemail']);
     if ($arguments['destemail'] == false) {
-      print getWarning('FYI: No valid destination email was entered, so no email was sent.');
+      print getWarning('Please enter a valid email address!');
+    }
+    
+    //Ignore if empty
+    if(empty($arguments['views'])) {
+      $arguments['destemail'] = '';
     }
   }
   return $arguments;
@@ -70,7 +88,7 @@ function CheckInput($arguments) {
 
 //Check and Sanitize the user's email.
 function SanitizeEmail($email) {
-  if (strlen($email) > 50 || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL )) {
+  if (strlen($email) > 50 || !filter_var($email, FILTER_VALIDATE_EMAIL )) {
     return false;
   } else {
     $email = strip_tags($email);

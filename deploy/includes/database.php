@@ -1,7 +1,8 @@
 <?php
 //Insert the credential into the database
 function InsertCred($id, $encrypted, $xtime, $xviews) {
-
+  require 'config.php';
+  
   //Connect to database and insert credential
   $query = "insert into phpasspush(id,seccred,ctime,views,xtime,xviews) values
       (:id, :seccred, UTC_TIMESTAMP(), 0, UTC_TIMESTAMP()+ INTERVAL :xtime MINUTE, :xviews)";

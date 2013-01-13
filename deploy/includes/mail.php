@@ -5,8 +5,10 @@
 function MailURL($url, $destemail, $expirationTime, $expirationViews) {
 require 'config.php';
 
-$sender = 'phpw';
-if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) { $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; }
+$sender = 'phpw' . '@' . $assumedDomain; 
+if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) { 
+  $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; 
+} 
   
   $headers = 'From: ' . $sender  . "\r\n";
   mail($destemail, $sender . ' sent you a credential. ', $url .

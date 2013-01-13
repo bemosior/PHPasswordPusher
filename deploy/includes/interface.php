@@ -196,36 +196,49 @@ function getError($error) {
 }
 
 //Calculate the expiration time
-function CalcHRTime($minutes) {
+function calcExpirationDisplay($minutes) {
+  //The phrase that communicates a human-readable time breakdown
+  $timePhrase = '';
+  
+  //Determine rough breakdown of time between days, hours, and minutes.
   $days = floor ($minutes / 1440);
   $hours = floor (($minutes - $days * 1440) / 60);
   $minutes = $minutes - ($days * 1440) - ($hours * 60);
 
-  $HRTime = '';
+  //Determine days
   if ($days > 0) {
-    $HRTime .= "$days day";
+    $timePhrase .= "$days day";
     if($days > 1) {
-      $HRTime .= 's';
+      $timePhrase .= 's';
     }
   }
+  
+  //Determine if there are leftover hours and minutes
   if ($days > 0 && ($hours + $minutes) > 0) {
-    $HRTime .= ' + ';
+    $timePhrase .= ' + ';
   }
+  
+  //Determine hours
   if ($hours > 0) {
-    $HRTime .= "$hours hour";
+    $timePhrase .= "$hours hour";
     if($hours > 1) {
-      $HRTime .= 's';
+      $timePhrase .= 's';
     }
   }
+  
+  //Determine if there are leftover minutes
   if ($hours > 0 && $minutes > 0) {
-    $HRTime .= ' + ';
+    $timePhrase .= ' + ';
   }
+  
+  //Determine minutes
   if ($minutes > 0) {
-    $HRTime .= "$minutes minute";
+    $timePhrase .= "$minutes minute";
     if($minutes > 1) {
-      $HRTime .= 's';
+      $timePhrase .= 's';
     }
   }
-  return $HRTime;
+  
+  return $timePhrase;
 }
 ?>
