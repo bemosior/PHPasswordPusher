@@ -195,13 +195,6 @@ function getError($error) {
   return '<div class="alert alert-error">' . $error. '</div>';
 }
 
-//Determine which elements to include before prompting the user
-function GeneratePrompt() {
-  require 'config.php';
-  $prompt = array();
-  return $prompt;
-}
-
 //Calculate the expiration time
 function CalcHRTime($minutes) {
   $days = floor ($minutes / 1440);
