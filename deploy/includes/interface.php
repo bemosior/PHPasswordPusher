@@ -47,6 +47,48 @@ function PrintFooter() {
   return '<div class="alert alert-error">NEVER leave credentials where they can be easily accessed by others.</div></body></html>'; 
 }
 
+// Print the navbar
+function getNavBar() { 
+  require 'includes/config.php';
+  
+  //Define the pages
+  $pages = array( 
+    array('pw.php', 'Create'),
+    array('about.php', 'About')
+  );
+                  
+  // Initial returnString definition
+  $returnString =  '<div class="navbar navbar-fixed-top">
+                      <div class="navbar-inner">
+                        <div class="container" >
+                          <!-- <img style="height:75px; display:block; position:absolute; left:0px; top:45px;" src="' . $installation . '/' . $logoname . '" /> -->
+                          <a class="brand" href="#">PHPasswordPusher</a>
+                          <ul class="nav">';
+                                
+  // For each page in the pages array, determine whether the page is "active" (the current page) and add it to the navbar.
+  for ($i = 0; $i < sizeof($pages); $i++){
+    $class = '';
+  
+    // Basename gets the filename listed in the REQUEST_URI
+    if(basename($_SERVER["REQUEST_URI"]) == $pages[$i][0]) {
+      $class = ' class="active"';
+    }         
+    //Set the finished link.                        
+    $returnString .= '<li' . $class . '><a href="' . $pages[$i][0] . '">' . $pages[$i][1] . '</a></li>';
+  }
+  
+  //Finish off the returnString
+  $returnString .= '      </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="container">';    
+                    
+  return $returnString;
+}
+
+
+
 //Print the credential
 function PrintCred($cred) {
   print('<h2>The shared credential:</h2><div class="pagination-centered"><pre class="text-error">' . $cred . '</pre></div>');   
@@ -104,32 +146,32 @@ function GeneratePrompt() {
 
 //Calculate the expiration time
 function CalcHRTime($minutes) {
-  $d = floor ($minutes / 1440);
-  $h = floor (($minutes - $d * 1440) / 60);
-  $m = $minutes - ($d * 1440) - ($h * 60);
+  $days = floor ($minutes / 1440);
+  $hours = floor (($minutes - $days * 1440) / 60);
+  $minutes = $minutes - ($days * 1440) - ($hours * 60);
 
   $HRTime = '';
-  if ($d > 0) {
-    $HRTime .= "$d day";
-    if($d > 1) {
+  if ($days > 0) {
+    $HRTime .= "$days day";
+    if($days > 1) {
       $HRTime .= 's';
     }
   }
-  if ($d > 0 && ($h + $m) > 0) {
+  if ($days > 0 && ($hours + $minutes) > 0) {
     $HRTime .= ' + ';
   }
-  if ($h > 0) {
-    $HRTime .= "$h hour";
-    if($h > 1) {
+  if ($hours > 0) {
+    $HRTime .= "$hours hour";
+    if($hours > 1) {
       $HRTime .= 's';
     }
   }
-  if ($h > 0 && $m > 0) {
+  if ($hours > 0 && $minutes > 0) {
     $HRTime .= ' + ';
   }
-  if ($m > 0) {
-    $HRTime .= "$m minute";
-    if($m > 1) {
+  if ($minutes > 0) {
+    $HRTime .= "$minutes minute";
+    if($minutes > 1) {
       $HRTime .= 's';
     }
   }
