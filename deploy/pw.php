@@ -60,7 +60,7 @@ if($arguments['func'] == 'none'){
   //If the URL is configured to be displayed print the URL and associated functions
   if ($displayURL) { 
     print getURL($url); 
-    print getWarning($submitwarning);
+    print getWarning($submitWarning);
   } else { 
     print getWarning('Credential Created!'); 
   } 
@@ -84,7 +84,7 @@ if($arguments['func'] == 'none'){
     
     //Unset the credential variable
     unset($cred);
-    //PrintWarning($retrievewarning);  //Print warning
+    //PrintWarning($criticalWarning);  //Print warning
   }
   print('</div>');
 }

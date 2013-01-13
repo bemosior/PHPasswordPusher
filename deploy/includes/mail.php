@@ -12,7 +12,7 @@ if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) { $sender = $_SERVE
   mail($destemail, $sender . ' sent you a credential. ', $url .
     "\r\n\nThis link contains sensitive information and will be inaccessible after " .
     $xtimehr . ' OR ' . $xviews . " views, whichever occurs first.
-    \r\n$retrievewarning",
+    \r\n$criticalWarning",
      $headers) or die('Email send failed!');
   
   //mail('loggingemailhere', 'PHPassPush: ' . $sender . ' sent a credential to ' . $destemail, '') or die('Email send failed!');

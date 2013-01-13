@@ -43,7 +43,7 @@ function getHeader() {
 //Print the document footer
 function getFooter() {
   require 'includes/config.php';
-  return '<div class="alert alert-error">NEVER leave credentials where they can be easily accessed by others.</div></body></html>'; 
+  return '<div class="alert alert-error">' . $criticalWarning . '</div></body></html>'; 
 }
 
 //Print the navbar
@@ -61,7 +61,7 @@ function getNavBar() {
                       <div class="navbar-inner">
                         <div class="container" >
                           <!-- <img style="height:75px; display:block; position:absolute; left:0px; top:45px;" src="' . $installation . '/' . $logoname . '" /> -->
-                          <div class="brand">PHPasswordPusher</div>
+                          <div class="brand">' . $title . '</div>
                           <ul class="nav">';
                                 
   //For each page in the pages array, determine whether the page is "active" (the current page) and add it to the navbar.

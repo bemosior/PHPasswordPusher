@@ -8,8 +8,8 @@ function InsertCred($id, $encrypted, $xtime, $xviews) {
   $params = array(
       'id'        => $id,
       'seccred'  => $encrypted,
-      'xtime'     => "+" . (is_numeric($xtime) ? $xtime : $xtime_default) . " minutes",
-      'xviews'    => is_numeric($xviews) ? $xviews : $xviews_default,
+      'xtime'     => "+" . (is_numeric($xtime) ? $xtime : $expirationTimeDefault) . " minutes",
+      'xviews'    => is_numeric($xviews) ? $xviews : $expirationViewsDefault,
   );
   
   //Connect to database and insert data
