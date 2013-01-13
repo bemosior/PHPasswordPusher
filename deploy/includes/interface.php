@@ -4,40 +4,40 @@
 function getHeader() {
   require 'includes/config.php';
   return 
-    '<!DOCTYPE HTML>
-     <html lang="en">
-     <head>
-       <meta charset="utf-8">
-       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-       <meta name="description" content="">
-       <meta name="author" content="">
-       <title>' . $title . '</title>
-       
-       <style type="text/css">
-         body {
-           padding-top: 60px;
-           padding-bottom: 40px;
-         }
-       </style>
-       
-       <!-- jQuery -->
-       <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
-       
-       <!-- Twitter Bootstrap -->
-       <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
-       <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-       <link href="includes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-       
-       <!-- Placeholder -->
-       <script src="includes/placeholder/Placeholder.min.js" charset="utf-8"></script>
-       <script>
-         Placeholders.init({
-           live: true, //Apply to future and modified elements too
-           hideOnFocus: true //Hide the placeholder when the element receives focus
-         })
-       </script>
-     </head>
-     <body>';
+   '<!DOCTYPE HTML>
+    <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>' . $title . '</title>
+      
+      <style type="text/css">
+        body {
+          padding-top: 60px;
+          padding-bottom: 40px;
+        }
+      </style>
+      
+      <!-- Twitter Bootstrap -->
+      <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+      <link href="includes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+      <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+      
+      <!-- jQuery -->
+      <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
+             
+      <!-- Placeholder -->
+      <script src="includes/placeholder/Placeholder.min.js" charset="utf-8"></script>
+      <script>
+        Placeholders.init({
+          live: true, //Apply to future and modified elements too
+          hideOnFocus: true //Hide the placeholder when the element receives focus
+        })
+      </script>
+    </head>
+    <body>';
 }
 
 //Print the document footer
@@ -129,7 +129,7 @@ function getFormElements() {
            '<label class="control-label" for="destemail">Destination Email:</label>
             <div class="controls">
               <div class="input-prepend">
-                <span class="add-on"><i class="icon-lock"></i></span>
+                <span class="add-on"><i class="icon-envelope"></i></span>
                 <input type="text" placeholder="email@yourdomain.com" name="destemail" />
               </div>
             </div>
