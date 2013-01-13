@@ -50,7 +50,7 @@ function RetrieveCred($id) {
     
     //Erase all expired entries for good measure.
     EraseExpired($db);  
-    return $result
+    return $result;
     
   } catch (PDOException $e) {
     error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");

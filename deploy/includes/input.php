@@ -61,7 +61,9 @@ function CheckInput($arguments) {
   
   if (isset($arguments['destemail'])) {
     $arguments['destemail'] = SanitizeEmail($arguments['destemail']);
-    print getWarning('FYI: No valid destination email was entered, so no email was sent.');
+    if ($arguments['destemail'] == false) {
+      print getWarning('FYI: No valid destination email was entered, so no email was sent.');
+    }
   }
   return $arguments;
 }
