@@ -2,7 +2,7 @@
 
 
 //Mail the credentials to the recipient.
-function MailURL($url, $destemail, $xtimehr, $xviews) {
+function MailURL($url, $destemail, $expirationTime, $expirationViews) {
 require 'config.php';
 
 $sender = 'phpw';
@@ -11,7 +11,7 @@ if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) { $sender = $_SERVE
   $headers = 'From: ' . $sender  . "\r\n";
   mail($destemail, $sender . ' sent you a credential. ', $url .
     "\r\n\nThis link contains sensitive information and will be inaccessible after " .
-    $xtimehr . ' OR ' . $xviews . " views, whichever occurs first.
+    $expirationTime . ' OR ' . $expirationViews . " views, whichever occurs first.
     \r\n$criticalWarning",
      $headers) or die('Email send failed!');
   

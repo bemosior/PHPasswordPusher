@@ -25,7 +25,7 @@ if($requireAuth && empty($_SERVER['PHP_AUTH_USER'])){
 } 
 
 //If the form function argument doesn't exist, print the form for the user.
-if($arguments['func'] == 'none'){  
+if($arguments['func'] == 'none' || $arguments == false){  
 
   //Get form elements
   print getFormElements();

@@ -110,7 +110,7 @@ function getFormElements() {
             <div class="controls">
               <div class="input-prepend input-append">
                 <span class="add-on"><i class="icon-time"></i></span>
-                <input class="span1" type="text" placeholder="30" name="minutes" />
+                <input class="span1" type="text" placeholder="' . $expirationTimeDefault . '" name="minutes" />
                 <span class="add-on">minutes</span>
               </div>
             </div>
@@ -118,7 +118,7 @@ function getFormElements() {
             <div class="controls">
               <div class="input-prepend input-append">
                 <span class="add-on"><i class="icon-eye-open"></i></span>
-                <input class="span1" type="text" placeholder="2" name="views" />
+                <input class="span1" type="text" placeholder="' . $expirationViewsDefault . '" name="views" />
                 <span class="add-on">views</span>
               </div>
             </div>';
@@ -192,7 +192,7 @@ function getWarning($warning) {
 
 //Print errors to page
 function getError($error) {
-  return '<div class="hero-unit"><span class="alert alert-error">' . $error. '</span></div>';
+  return '<div class="alert alert-error">' . $error. '</div>';
 }
 
 //Determine which elements to include before prompting the user

@@ -7,7 +7,7 @@
 
 //Encryption and security:
   $key = "change this key"; //This is the encryption key. Change it to something secret.
-  $requireAuth = true;  //Require Apache user authentication.
+  $requireAuth = false;  //Require Apache user authentication.
 
 //Email
   $assumedDomain = 'domain.edu';  //The assumed domain of an authenticated user and email sender
@@ -23,9 +23,9 @@
   $displayURL = true;  //Enable display of the URL to the user.
   $expirationTimeDefault = 15; //default minutes until the link expires
   $expirationViewsDefault = 2; //default # of views before the link expires
-  $submitWarning = 'Submitted credentials will expire and be erased according to the time or view limit, '
-    . 'whichever occurs first.';
-  $criticalWarning = 'NEVER leave credentials where they can be easily accessed by others.';
+  $submitWarning = 'Submitted credentials will expire and be erased according to the time or view limit, ' 
+    . 'whichever occurs first.'; //Displayed on form submission
+  $criticalWarning = 'NEVER leave credentials where they can be easily accessed by others.'; //Displayed in every page and email.
 
 
 ?>

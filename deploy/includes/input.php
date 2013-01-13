@@ -36,15 +36,15 @@ function CheckInput($arguments) {
     $arguments['cred'] = SanitizeCred($arguments['cred']);
     if ($arguments['cred'] == false) {
       $arguments['func'] = 'none';
-      //PrintError('Please input a valid credential!');
-      //return false;
+      print getError('Please input a valid credential!');
+      return false;
     }
   }
 
   if (isset($arguments['minutes'])) {
     $arguments['minutes'] = SanitizeNumber($arguments['minutes']);
     if ($arguments['minutes'] == false) {
-      $arguments['minutes'] = 30;
+      $arguments['minutes'] = $expirationTimeDefault;
       //PrintError('Please input a valid time limit (positive whole number)!');
       //return false;
     }
@@ -53,7 +53,7 @@ function CheckInput($arguments) {
   if (isset($arguments['views'])) {
     $arguments['views'] = SanitizeNumber($arguments['views']);
     if ($arguments['views'] == false) {
-      $arguments['views'] = 2;
+      $arguments['views'] = $expirationViewsDefault;
       //PrintError('Please input a valid view limit (positive whole number)!');
       //return false;
     }
