@@ -6,8 +6,10 @@ require 'includes/encryption.php';
 require 'includes/input.php';
 require 'includes/interface.php';
 
-print PrintHeader();
+//Print the header
+print getHeader();
 
+//Print the navbar
 print getNavBar();
 
 //Find user arguments, if any.
@@ -17,88 +19,76 @@ $arguments = CheckInput($arguments);
 //Die if auth is required and no user is defined.
 if($requireAuth && empty($_SERVER['PHP_AUTH_USER'])){  
   //This is a courtesy; PHP_AUTH_USER can possibly be spoofed if web auth isn't configured.
-  printError("User not authenticated!");
-  printFooter();
+  print getError("User not authenticated!");
+  print getFooter();
   die();
 } 
 
-if($arguments['func'] == 'none'){  //If no arguments exist, print the form for the user.
-  print('<div class="hero-unit"><h2>Create the credential:</h2> <form action="' . $_SERVER['PHP_SELF'] . '" method="post">');
+//If the form function argument doesn't exist, print the form for the user.
+if($arguments['func'] == 'none'){  
 
-  if($enableEmail && $requireAuth) {  //Display creator username if email and authentication are configured.
-      print('<label class="control-label" for="destemail">Sender: ' . $_SERVER['PHP_AUTH_USER'] . '</label>'); 
-  }
+  //Get form elements
+  print getFormElements();
   
-  print('
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-lock"></i></span>
-                <textarea rows="3" placeholder="Credential" name="cred" /></textarea>
-              </div>
-            </div>
+  //Else if POST arguments exist and have been verified, process the credential
+} elseif($arguments['func'] == 'post') { 
 
-            <div class="controls">
-              <div class="input-prepend input-append">
-                <span class="add-on"><i class="icon-time"></i></span>
-                <input class="span1" type="text" placeholder="30" name="minutes" />
-                <span class="add-on">minutes</span>
-              </div>
-            </div>
-
-            <div class="controls">
-              <div class="input-prepend input-append">
-                <span class="add-on"><i class="icon-eye-open"></i></span>
-                <input class="span1" type="text" placeholder="2" name="views" />
-                <span class="add-on">views</span>
-              </div>
-            </div>
-            
-            
-            ');
-  if($enableEmail) {  //Display field for destination email if enabled.
-      print('            
-            <label class="control-label" for="destemail">Destination Email:</label>
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-lock"></i></span>
-                <input type="text" placeholder="email@yourdomain.com" name="destemail" />
-              </div>
-            </div>
-      ');
-  }
+  //Encrypt the user's credential.
+  $encrypted = EncryptCred($arguments['cred']); 
   
-  print('<input class="btn btn-primary btn-large" type="submit" value="Submit" /></div>');
+  //Wipe out the variable with the credential.
+  unset($arguments['cred']);  
   
-} elseif($arguments['func'] == 'post') { //If POST arguments exist and have been verified, process the credential
-  $encrypted = EncryptCred($arguments['cred']); //Encrypt the user's credential.
-  unset($arguments['cred']);  //Wipe out the variable with the credential.
-  $id = md5(uniqid());  //Create a unique identifier for the new credential record.
-  InsertCred($id,$encrypted,$arguments['minutes'],$arguments['views']);  //Insert the record into the database.
-  $url = sprintf("https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], $id);  //Generate the retrieval URL.
+  //Create a unique identifier for the new credential record.
+  $id = md5(uniqid());  
   
-  if($enableEmail) { //Send mail if configured.
+  //Insert the record into the database.
+  InsertCred($id,$encrypted,$arguments['minutes'],$arguments['views']);  
+  
+  //Generate the retrieval URL.
+  $url = sprintf("https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], $id);  
+  
+  //Send email if configured.
+  if($enableEmail) {
+    //Check if the email has been filled out (this should be moved elsewhere)
+    if(strlen($arguments['destemail']) > 1) {
+      error_log('Sized: ' . $arguments['destemail']);
       MailURL($url,$arguments['destemail'], CalcHRTime($arguments['minutes']), $arguments['views']); 
+    }
   }  
   
+  //If the URL is configured to be displayed print the URL and associated functions
   if ($displayURL) { 
-    PrintURL($url); 
-    PrintWarning($submitwarning);
-  } else { PrintWarning('Credential Created!'); } //Print the URL and associated functions
+    print getURL($url); 
+    print getWarning($submitwarning);
+  } else { 
+    print getWarning('Credential Created!'); 
+  } 
   
-    
-} elseif($arguments['func'] == 'get') {  //If GET arguments exist and have been verified, retrieve the credential
+  //If GET arguments exist and have been verified, retrieve the credential
+} elseif($arguments['func'] == 'get') {  
   $result = RetrieveCred($arguments['id']);   
   print('<div class="hero-unit">');
-  if(empty($result[0])) {  //If no valid entry, deny access and wipe hypothetically existing records
+  
+  //If no valid entry, deny access and wipe hypothetically existing records
+  if(empty($result[0])) {  
     print('<h2>Woops!</h2>');
-    PrintError('Link Expired');
+    print getError('Link Expired');
   } else {
-    $cred = DecryptCred($result[0]['seccred']);  //Decrypt the credential
-    PrintCred($cred);  //Print credentials
+  
+    //Decrypt the credential
+    $cred = DecryptCred($result[0]['seccred']);  
+    
+    //Print credentials
+    print getCred($cred);  
+    
+    //Unset the credential variable
     unset($cred);
-    // PrintWarning($retrievewarning);  //Print warning
+    //PrintWarning($retrievewarning);  //Print warning
   }
   print('</div>');
 }
-print PrintFooter();
+
+//Print the footer
+print getFooter();
 ?>

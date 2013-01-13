@@ -1,53 +1,52 @@
 <?php
 
 //Print the document header, including title, logo, etc.
-function PrintHeader() {
+function getHeader() {
   require 'includes/config.php';
-  return '<!DOCTYPE HTML>
-            <html lang="en">
-            <head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <meta name="description" content="">
-              <meta name="author" content="">
-              <title>' . $title . '</title>
-              
-              <style type="text/css">
-                body {
-                  padding-top: 60px;
-                  padding-bottom: 40px;
-                }
-              </style>
-              
-              <!-- jQuery -->
-              <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
-              
-              <!-- Twitter Bootstrap -->
-              <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
-              <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-              <link href="includes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-              
-              <!-- Placeholder -->
-              <script src="includes/placeholder/Placeholder.min.js" charset="utf-8"></script>
-              <script>
-                Placeholders.init({
-                  live: true, //Apply to future and modified elements too
-                  hideOnFocus: true //Hide the placeholder when the element receives focus
-                })
-              </script>
-            </head>
-            <body>
-               
-                ';
+  return 
+    '<!DOCTYPE HTML>
+     <html lang="en">
+     <head>
+       <meta charset="utf-8">
+       <meta name="viewport" content="width=device-width, initial-scale=1.0">
+       <meta name="description" content="">
+       <meta name="author" content="">
+       <title>' . $title . '</title>
+       
+       <style type="text/css">
+         body {
+           padding-top: 60px;
+           padding-bottom: 40px;
+         }
+       </style>
+       
+       <!-- jQuery -->
+       <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
+       
+       <!-- Twitter Bootstrap -->
+       <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+       <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+       <link href="includes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+       
+       <!-- Placeholder -->
+       <script src="includes/placeholder/Placeholder.min.js" charset="utf-8"></script>
+       <script>
+         Placeholders.init({
+           live: true, //Apply to future and modified elements too
+           hideOnFocus: true //Hide the placeholder when the element receives focus
+         })
+       </script>
+     </head>
+     <body>';
 }
 
-// Print the document footer
-function PrintFooter() {
+//Print the document footer
+function getFooter() {
   require 'includes/config.php';
   return '<div class="alert alert-error">NEVER leave credentials where they can be easily accessed by others.</div></body></html>'; 
 }
 
-// Print the navbar
+//Print the navbar
 function getNavBar() { 
   require 'includes/config.php';
   
@@ -57,19 +56,19 @@ function getNavBar() {
     array('about.php', 'About')
   );
                   
-  // Initial returnString definition
+  //First part of the navbar
   $returnString =  '<div class="navbar navbar-fixed-top">
                       <div class="navbar-inner">
                         <div class="container" >
                           <!-- <img style="height:75px; display:block; position:absolute; left:0px; top:45px;" src="' . $installation . '/' . $logoname . '" /> -->
-                          <a class="brand" href="#">PHPasswordPusher</a>
+                          <div class="brand">PHPasswordPusher</div>
                           <ul class="nav">';
                                 
-  // For each page in the pages array, determine whether the page is "active" (the current page) and add it to the navbar.
+  //For each page in the pages array, determine whether the page is "active" (the current page) and add it to the navbar.
   for ($i = 0; $i < sizeof($pages); $i++){
     $class = '';
   
-    // Basename gets the filename listed in the REQUEST_URI
+    //Basename gets the filename listed in the REQUEST_URI
     if(basename($_SERVER["REQUEST_URI"]) == $pages[$i][0]) {
       $class = ' class="active"';
     }         
@@ -87,16 +86,70 @@ function getNavBar() {
   return $returnString;
 }
 
+//Print the credential creation form inputs
+function getFormElements() {
+  require 'includes/config.php';
+  
+  //Create basic credential form layout
+  $returnString = '<div class="hero-unit"><h2>Create the credential:</h2> <form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+  
+   //Display creator username if email and authentication are configured.
+   if($enableEmail && $requireAuth) {  
+      $returnString .= '<label class="control-label" for="destemail">Sender: ' . $_SERVER['PHP_AUTH_USER'] . '</label>'; 
+  }
+  
+  //Create the basic credential creation form
+  $returnString .= 
+           '<div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-lock"></i></span>
+                <textarea rows="3" placeholder="Credential" name="cred" /></textarea>
+              </div>
+            </div>
 
+            <div class="controls">
+              <div class="input-prepend input-append">
+                <span class="add-on"><i class="icon-time"></i></span>
+                <input class="span1" type="text" placeholder="30" name="minutes" />
+                <span class="add-on">minutes</span>
+              </div>
+            </div>
+
+            <div class="controls">
+              <div class="input-prepend input-append">
+                <span class="add-on"><i class="icon-eye-open"></i></span>
+                <input class="span1" type="text" placeholder="2" name="views" />
+                <span class="add-on">views</span>
+              </div>
+            </div>';
+            
+  //Display field for destination email if enabled.
+  if($enableEmail) {  
+      $returnString .=           
+           '<label class="control-label" for="destemail">Destination Email:</label>
+            <div class="controls">
+              <div class="input-prepend">
+                <span class="add-on"><i class="icon-lock"></i></span>
+                <input type="text" placeholder="email@yourdomain.com" name="destemail" />
+              </div>
+            </div>
+      ';
+  }
+  
+  //Add the submit button
+  $returnString .= '<input class="btn btn-primary btn-large" type="submit" value="Submit" /></div>';
+  
+  return $returnString;
+}
 
 //Print the credential
-function PrintCred($cred) {
-  print('<h2>The shared credential:</h2><div class="pagination-centered"><pre class="text-error">' . $cred . '</pre></div>');   
+function getCred($cred) {
+  return '<h2>The shared credential:</h2><div class="pagination-centered"><pre class="text-error">' . $cred . '</pre></div>';   
 }
 
 //Prints the URL and the ZeroClipboard javascript
-function PrintURL($url) {
-  print('<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
+function getURL($url) {
+  return '<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
     '<div class="pagination-centered"><div><code>' . $url . '</code></div>
       <script type="text/javascript" src="includes/ZeroClipboard/ZeroClipboard.js" ></script>
       <span style="display: inline-block;">
@@ -125,16 +178,21 @@ function PrintURL($url) {
             clip.glue( \'d_clip_button\' );
         }
     </script>
-    </div>');
+    </div>';
 }
 
-function PrintWarning($warning) {
-  print('<div class="alert">' . $warning . '</div>');
+//Print success message to page
+function getSuccess($message) {
+  return '<div class="alert alert-success">' . $message . '</div>';
+}
+//Print warning to page
+function getWarning($warning) {
+  return '<div class="alert">' . $warning . '</div>';
 }
 
 //Print errors to page
-function PrintError($error) {
-  print('<div class="hero-unit"><span class="alert alert-error">' . $error. '</span></div>');
+function getError($error) {
+  return '<div class="hero-unit"><span class="alert alert-error">' . $error. '</span></div>';
 }
 
 //Determine which elements to include before prompting the user

@@ -11,6 +11,7 @@ require 'config.php';
    return $encrypted;
 }
 
+//Decrypt the credential from the database.
 function DecryptCred($encrypted) {
   require 'config.php';
       $decrypted = mcrypt_decrypt(

@@ -14,7 +14,7 @@ $submitwarning = 'Submitted credentials will expire and be erased according to t
 $retrievewarning = 'NEVER leave credentials where they can be easily accessed by others.';
 
 //Email
-$enableEmail = 0;  //Enable email functionality. 
+$enableEmail = true;  //Enable email functionality. 
 //It is highly recommended that authentication be required as well to prevent spam!
 
 $enableSender = 0;  //Enable user-specific senders

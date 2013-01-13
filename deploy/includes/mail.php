@@ -17,7 +17,7 @@ if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) { $sender = $_SERVE
   
   //mail('loggingemailhere', 'PHPassPush: ' . $sender . ' sent a credential to ' . $destemail, '') or die('Email send failed!');
   sleep(1);
-  print("Email sent to $destemail.");
+  print getSuccess("Email sent to $destemail.");
 }
 
 

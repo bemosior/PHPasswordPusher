@@ -1,6 +1,7 @@
 <?php
 //Insert the credential into the database
 function InsertCred($id, $encrypted, $xtime, $xviews) {
+
   //Connect to database and insert credential
   $query = "insert into phpasspush(id,seccred,ctime,views,xtime,xviews) values
       (:id, :seccred, UTC_TIMESTAMP(), 0, UTC_TIMESTAMP()+ INTERVAL :xtime MINUTE, :xviews)";
@@ -16,7 +17,10 @@ function InsertCred($id, $encrypted, $xtime, $xviews) {
     $db = ConnectDB();
     $statement = $db->prepare($query);
     $statement->execute($params);
-	  EraseExpired($db);  //Erase all expired entries for good measure.
+    
+    //Erase all expired entries for good measure.
+	  EraseExpired($db);  
+    
   } catch (PDOException $e) {
     error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
   }
@@ -27,18 +31,27 @@ function RetrieveCred($id) {
 	$update_query = "update phpasspush set views=views+1 where id=:id and xviews>views";
   $select_query = "select seccred,views from phpasspush where id=:id and xtime>UTC_TIMESTAMP()";
   $params = array('id' => $id);
-  try{ //First update the view count
+  
+  //First update the view count
+  try{ 
     $db = ConnectDB();
     $statement = $db->prepare($update_query);
     $statement->execute($params);
-    if (! $statement->rowCount()) {  //If views update fails, end immediately before printing credentials.
+    
+    //If views update fails, end immediately before printing credentials.
+    if (! $statement->rowCount()) {  
       return false;
     }
+    
+    //Prepare and execute the retrieval query
     $statement = $db->prepare($select_query);
     $statement->execute($params);
     $result = $statement->fetchAll();
-    EraseExpired($db);  //Erase all expired entries for good measure.
-    return $result;
+    
+    //Erase all expired entries for good measure.
+    EraseExpired($db);  
+    return $result
+    
   } catch (PDOException $e) {
     error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
   }

@@ -58,20 +58,16 @@ function CheckInput($arguments) {
       //return false;
     }
   }
-//  TODO: config for mailing service
-  // if (isset($arguments['destemail'])) {
-    // $arguments['destemail'] = SanitizeEmail($arguments['destemail']);
-    // if ($arguments['destemail'] == false) {
-      // PrintError('Please input a valid email!');
-      // return false;
-    // }
-  // }
+  
+  if (isset($arguments['destemail'])) {
+    $arguments['destemail'] = SanitizeEmail($arguments['destemail']);
+    print getWarning('FYI: No valid destination email was entered, so no email was sent.');
+  }
   return $arguments;
 }
 
 //Check and Sanitize the user's email.
-function SanitizeEmail($email)
-{
+function SanitizeEmail($email) {
   if (strlen($email) > 50 || empty($email) || !filter_var($email, FILTER_VALIDATE_EMAIL )) {
     return false;
   } else {
@@ -82,9 +78,7 @@ function SanitizeEmail($email)
 }
 
 //Sanitize number entry
-function SanitizeNumber($number)
-{
-
+function SanitizeNumber($number) {
   if (!filter_var($number, FILTER_VALIDATE_INT) || $number < 0) {
     return false;
   }else {
