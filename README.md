@@ -64,5 +64,5 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher
 * ZeroClipboard: https://github.com/jonrohan/ZeroClipboard
 * Placeholder.js: https://github.com/jamesallardice/Placeholders.js
-* Twitter Bootstrap: http//twitter.github.com/bootstrap/
+* Twitter Bootstrap: http://twitter.github.com/bootstrap
 
