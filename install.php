@@ -9,7 +9,7 @@ $rootdbpass = 'rootpw';  //Privileged user's password (please remove this value 
 
 //STOP. Have you configured "pwpusher_private/config.php" yet?
 
-require 'config.php';
+require 'pwpusher_private/config.php';
 
 //Create Database
 try{
