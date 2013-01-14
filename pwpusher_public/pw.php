@@ -94,12 +94,21 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         //Print credentials
         print getCred($cred);  
         
+        print ('<a href="' . $_SERVER['REQUEST_URI'] . '&remove=1">' . 
+            '<div class="pagination-centered">' .
+            '<button class="btn btn-mini btn-danger">Delete Link</button></a>' .
+            '</div>');
+        
         //Unset the credential variable
         unset($cred);
     }
     print('</div>');
+} elseif ($arguments['func'] == 'remove') {
+    //If credential removal is specifically requested
+    
+    //Erase the credential
+    eraseCred($arguments['id']);
 }
-
 //Print the footer
 print getFooter();
 ?>

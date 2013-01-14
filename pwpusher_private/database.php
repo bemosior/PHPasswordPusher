@@ -53,6 +53,7 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
         eraseExpired($db);
       
     } catch (PDOException $e) {
+        print getError("Something went wrong with the database.");
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
 }
@@ -93,6 +94,7 @@ function retrieveCred($id)
         return $result;
       
     } catch (PDOException $e) {
+        print getError("Something went wrong with the database.");
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
     return false;
@@ -105,7 +107,6 @@ function retrieveCred($id)
  * @param PDO $db database connection instance
  *
  * @return none
- * @TODO: Verify that this actually works
  */
 function eraseExpired($db) 
 {
@@ -115,9 +116,31 @@ function eraseExpired($db)
         $statement = $db->prepare($query);
         $statement->execute();
     } catch (PDOException $e) {
+        print getError("Something went wrong with the database.");
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
- 
+}
+
+/**
+ * Remove a specific record
+ *
+ * @param string $id record to remove
+ *
+ * @return none
+ */
+function eraseCred($id) 
+{
+    $query = 'delete from phpasspush where id=:id';
+    $params = array('id' => $id);
+    try{
+        $db = connectDB();
+        $statement = $db->prepare($query);
+        $statement->execute($params);
+        print getSuccess('Link corresponding to ID ' . $id . ' erased.');
+    } catch (PDOException $e) {
+        print getError("Something went wrong with the database.");
+        error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
+    }
 }
 
 

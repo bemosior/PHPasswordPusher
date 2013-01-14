@@ -18,6 +18,11 @@ function getArguments()
         $arguments['id'] = $_GET['id'];
         $arguments['func'] = 'get';
     }
+    if (isset($_GET['remove'])) { 
+        $arguments['remove'] = $_GET['remove'];
+        $arguments['func'] = 'remove';
+    }
+    
     if (isset($_POST['cred'])) { 
         $arguments['cred'] = $_POST['cred']; 
         $arguments['func'] = 'post';

@@ -224,8 +224,10 @@ function getURL($url)
       
     $returnString .= getZeroClipboard($url);
     
-    $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p></div>';
-    
+    $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p>' . 
+        '<a href="' . $url . '&remove=1">' . 
+        '<button class="btn btn-mini btn-danger">Delete Link</button></a></div>';
+        
     $returnString .= '</div>';
     
     return $returnString;
@@ -244,7 +246,7 @@ function getZeroClipboard($content)
             'src="ZeroClipboard/ZeroClipboard.js" ></script>
         <span style="display: inline-block;">
           <div id="d_clip_button">
-            <button id="clip_button" class="btn btn-primary">' . 
+            <button id="clip_button" class="btn btn-small btn-primary">' . 
                 '<span id="precopy">Copy To Clipboard</span>' .
                 '<span id="postcopy" style="display:none">' . 
                 'Succesfully Copied!' . 
@@ -263,7 +265,7 @@ function getZeroClipboard($content)
               clip.setCSSEffects( true );
           clip.addEventListener( \'onComplete\', function(client, text) {
                 var button = document.getElementById(\'clip_button\');
-                button.className = \'btn\';
+                button.className = \'btn btn-small\';
                 var clip1 = document.getElementById(\'precopy\');
                 var clip2 = document.getElementById(\'postcopy\');
                 clip1.style.display = \'none\';
