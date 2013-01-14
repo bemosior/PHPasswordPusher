@@ -9,8 +9,8 @@ information persist in email, chat, etc...
 
 
 ## Overview
-A user will enter the sensitive information (password, etc.) into the pwlink 
-script, set a view and time limit, and receive a link. That link is 
+A user will enter the sensitive information (password, etc.) into the link form,
+set a view and time limit, and receive a link. That link is 
 communicated to the intended recipient, who then can retrieve the sensitive
 information until the view or time limits are breached.
 
