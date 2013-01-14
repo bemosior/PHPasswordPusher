@@ -5,12 +5,12 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
  
-require 'includes/config.php'; 
-require 'includes/database.php';
-require 'includes/mail.php';
-require 'includes/encryption.php';
-require 'includes/input.php';
-require 'includes/interface.php';
+require '../pwpusher_private/config.php'; 
+require '../pwpusher_private/database.php';
+require '../pwpusher_private/mail.php';
+require '../pwpusher_private/encryption.php';
+require '../pwpusher_private/input.php';
+require '../pwpusher_private/interface.php';
 
 //Print the header
 print getHeader();

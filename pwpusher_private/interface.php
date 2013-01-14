@@ -13,7 +13,7 @@
  */
 function getHeader() 
 {
-    include 'includes/config.php';
+    include 'config.php';
     return 
      '<!DOCTYPE HTML>
       <html lang="en">
@@ -32,19 +32,19 @@ function getHeader()
         </style>
         
         <!-- Twitter Bootstrap -->
-        <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
         
-        <link href="includes/bootstrap/css/bootstrap-responsive.css" 
+        <link href="bootstrap/css/bootstrap-responsive.css" 
             rel="stylesheet">
             
-        <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8">
+        <script src="bootstrap/js/bootstrap.min.js" charset="utf-8">
         </script>
         
         <!-- jQuery -->
-        <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
+        <script src="jQuery/jQuery.js" charset="utf-8"></script>
                
         <!-- Placeholder -->
-        <script src="includes/placeholder/Placeholder.min.js" charset="utf-8">
+        <script src="placeholder/Placeholder.min.js" charset="utf-8">
         </script>
         
         <script>
@@ -64,7 +64,7 @@ function getHeader()
  */
 function getFooter() 
 {
-    include 'includes/config.php';
+    include 'config.php';
     return '<div class="alert alert-error">' . 
         $criticalWarning . '</div></body></html>'; 
 }
@@ -76,7 +76,7 @@ function getFooter()
  */
 function getNavBar() 
 { 
-    include 'includes/config.php';
+    include 'config.php';
     
     //Define the pages
     $pages = array( 
@@ -129,7 +129,7 @@ function getNavBar()
  */
 function getFormElements() 
 {
-    include 'includes/config.php';
+    include 'config.php';
     
     //Create basic credential form layout
     $returnString = '<div class="hero-unit"><h2>Create the credential:</h2>' . 
@@ -237,7 +237,7 @@ function getURL($url)
 function getZeroClipboard($content)
 {
     $returnString = '<script type="text/javascript" ' . 
-            'src="includes/ZeroClipboard/ZeroClipboard.js" ></script>
+            'src="ZeroClipboard/ZeroClipboard.js" ></script>
         <span style="display: inline-block;">
           <div id="d_clip_button">
             <button id="clip_button" class="btn btn-primary">' . 
@@ -253,7 +253,7 @@ function getZeroClipboard($content)
         window.onload = function(){
             var clip = new ZeroClipboard.Client();
             ZeroClipboard.setMoviePath(' . 
-            '\'includes/ZeroClipboard/ZeroClipboard.swf\');
+            '\'ZeroClipboard/ZeroClipboard.swf\');
               clip.setText( \'' . $content . '\' );
           clip.setHandCursor( true );
               clip.setCSSEffects( true );

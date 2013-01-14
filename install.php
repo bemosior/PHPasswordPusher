@@ -1,7 +1,13 @@
 <?php
+/**
+ * PHPasswordPusher MySQL table installer
+ */
+
 //SETUP:
 $rootdbuser = 'root';  //Privileged user to perform database creation and privilege granting.
-$rootdbpass = 'rootpw';  //Privileged user's password (please remove this value when finished)
+$rootdbpass = 'rootpw';  //Privileged user's password (please remove this value when finished!).
+
+//STOP. Have you configured "pwpusher_private/config.php" yet?
 
 require 'config.php';
 
