@@ -56,7 +56,7 @@ function checkInput($arguments)
         $arguments['cred'] = sanitizeCred($arguments['cred']);
         if ($arguments['cred'] == false) {
             $arguments['func'] = 'none';
-            print getError('Please enter a valid credential!');
+            print getError('Please enter the secret (whatever it may be)!');
             return false;
         }
     }

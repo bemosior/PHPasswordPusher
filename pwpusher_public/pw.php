@@ -70,9 +70,8 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     //If the URL is configured to be displayed print the URL and associated functions
     if ($displayURL) { 
         print getURL($url); 
-        print getWarning($submitWarning);
     } else { 
-        print getWarning('Credential Created!'); 
+        print getSuccess('Credential Created!'); 
     } 
   
   

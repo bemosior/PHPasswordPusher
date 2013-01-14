@@ -128,7 +128,7 @@ function getFormElements()
     include 'config.php';
     
     //Create basic credential form layout
-    $returnString = '<div class="hero-unit"><h2>Create the credential:</h2>' . 
+    $returnString = '<div class="hero-unit"><h2>Create the link:</h2>' . 
         '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
     
      //Display creator username if email and authentication are configured.
@@ -142,7 +142,7 @@ function getFormElements()
              '<div class="controls">
                 <div class="input-prepend">
                   <span class="add-on"><i class="icon-lock"></i></span>' .
-                  '<textarea rows="3" placeholder="Credential" name="cred" />' .
+                  '<textarea rows="3" placeholder="Secret" name="cred" />' .
                   '</textarea>
                 </div>
               </div>
@@ -212,10 +212,14 @@ function getCred($cred)
  */
 function getURL($url) 
 {
-    $returnString = '<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
+    include 'config.php';
+    
+    $returnString = '<div class="hero-unit"><h2>Here\'s the link:</h2>' .
       '<div class="pagination-centered"><div><code>' . $url . '</code></div>';
       
     $returnString .= getZeroClipboard($url);
+    
+    $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p></div>';
     
     $returnString .= '</div>';
     
