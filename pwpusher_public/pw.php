@@ -82,8 +82,8 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     
     //If no valid entry, deny access and wipe hypothetically existing records
     if (empty($result[0])) {  
-        print('<h2>Sorry!</h2>');
-        print getError('Link Expired');
+        print('<h2>Sorry! This link has expired.</h2>');
+        //print getError('Link Expired');
       
       
     } else {
