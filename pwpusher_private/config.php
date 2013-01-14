@@ -15,11 +15,7 @@
     
     //The MySQL user's password
     $dbpass = 'phpass!3#.';  
-    
-    //The installation location (path to where PHPasswordPusher is hosted)
-    $installation = '/phpw';  
-
-    
+        
 //Encryption and security:
     //This is the encryption key. Change it to something secret.
     $key = "change this key"; 

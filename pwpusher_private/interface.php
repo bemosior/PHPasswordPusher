@@ -113,7 +113,7 @@ function getNavBar()
                       <div class="container">
                       <img style="height:50px; display:block; 
                           margin-left:auto; margin-right:auto;"
-                          src="' . $installation . '/' . $logo . '" />';    
+                          src="' . $logo . '" />';    
                       
     return $returnString;
 }
