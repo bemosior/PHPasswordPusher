@@ -31,10 +31,10 @@ PHPasswordPusher has so far been tested with the following environment:
 ```         
 ##### PHPasswordPusher #####
 
-### Change "/your/installation/dir" to fit your installation:
+### Change "/youralias/" and "/your/installation/dir/" to fit your installation:
 Alias /youralias/ /your/installation/dir/pwpusher_public/
 
-### Change "/your/installation/dir" to fit your installation:
+### Change "/your/installation/dir/" to fit your installation:
 <Directory /your/installation/dir/pwpusher_public/>
 
     #If you use the email functionality, you should definitely enable authentication:
@@ -49,13 +49,15 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
     DirectoryIndex pw.php  
 </Directory>
 
-### Change "/your/installation/dir" to fit your installation:
+### Change "/your/installation/dir/" to fit your installation:
 <Directory /your/installation/dir/pwpusher_private/>
     AllowOverride None
     Order deny,allow
     Deny from all
 </Directory>
 ```
+6. Test your installation by navigating to http(s)://yourwebserver/youralias/
+7. Celebrate victory.
 
 ## Other Projects Utilized
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher
