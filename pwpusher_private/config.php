@@ -19,6 +19,7 @@
     //The installation location (path to where PHPasswordPusher is hosted)
     $installation = '/phpw';  
 
+    
 //Encryption and security:
     //This is the encryption key. Change it to something secret.
     $key = "change this key"; 
@@ -26,6 +27,7 @@
     //Require Apache user authentication.
     $requireAuth = false;  
 
+    
 //Email:
     
     //It is highly recommended that authentication be required when enabling the 
@@ -44,13 +46,14 @@
     //authenticated user. For example, if your apache auth username is 'user', and 
     //the assumed domain is 'your.domain', the sender would be 'user@your.domain'.
     
+    
 //User interface misc.:
 
     //Logo location relative to the deploy directory
     $logo = "phpwpusher.png"; 
     
     //Site Title
-    $title = 'PHPasswordPusher';
+    $title = 'PHPassword Pusher';
     
     //Enable display of the URL to the user.
     $displayURL = true;  

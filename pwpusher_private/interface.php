@@ -88,13 +88,6 @@ function getNavBar()
     $returnString =  '<div class="navbar navbar-fixed-top">
                         <div class="navbar-inner">
                           <div class="container" >
-                            <!-- <img style="
-                                height:75px; 
-                                display:block; 
-                                position:absolute; 
-                                left:0px; 
-                                top:45px;" 
-                                src="' . $installation . '/' . $logo . '" /> -->
                             <div class="brand">' . $title . '</div>
                             <ul class="nav">';
                                   
@@ -117,7 +110,10 @@ function getNavBar()
                           </div>
                         </div>
                       </div>
-                      <div class="container">';    
+                      <div class="container">
+                      <img style="height:50px; display:block; 
+                          margin-left:auto; margin-right:auto;"
+                          src="' . $installation . '/' . $logo . '" />';    
                       
     return $returnString;
 }
