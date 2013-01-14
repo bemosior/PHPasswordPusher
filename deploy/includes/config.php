@@ -1,6 +1,8 @@
 <?php
 /**
  * Configuration Options
+ *
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
  
 //MySQL and Apache configuration:

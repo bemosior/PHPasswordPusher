@@ -1,6 +1,8 @@
 <?php 
 /**
  * Mailer functionality
+ *
+ * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
  
  
