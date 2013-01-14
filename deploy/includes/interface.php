@@ -1,244 +1,366 @@
 <?php
 
-//Print the document header, including title, logo, etc.
-function getHeader() {
-  require 'includes/config.php';
-  return 
-   '<!DOCTYPE HTML>
-    <html lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <title>' . $title . '</title>
-      
-      <style type="text/css">
-        body {
-          padding-top: 60px;
-          padding-bottom: 40px;
-        }
-      </style>
-      
-      <!-- Twitter Bootstrap -->
-      <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
-      <link href="includes/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-      <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
-      
-      <!-- jQuery -->
-      <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
-             
-      <!-- Placeholder -->
-      <script src="includes/placeholder/Placeholder.min.js" charset="utf-8"></script>
-      <script>
-        Placeholders.init({
-          live: true, //Apply to future and modified elements too
-          hideOnFocus: true //Hide the placeholder when the element receives focus
-        })
-      </script>
-    </head>
-    <body>';
+/**
+ * User Interface Functions
+ */
+
+/**
+ * Print the document header, including title, logo, etc.
+ *
+ * @return string returnString
+ */
+function getHeader() 
+{
+    include 'includes/config.php';
+    return 
+     '<!DOCTYPE HTML>
+      <html lang="en">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>' . $title . '</title>
+        
+        <style type="text/css">
+          body {
+            padding-top: 60px;
+            padding-bottom: 40px;
+          }
+        </style>
+        
+        <!-- Twitter Bootstrap -->
+        <link href="includes/bootstrap/css/bootstrap.css" rel="stylesheet">
+        
+        <link href="includes/bootstrap/css/bootstrap-responsive.css" 
+            rel="stylesheet">
+            
+        <script src="includes/bootstrap/js/bootstrap.min.js" charset="utf-8">
+        </script>
+        
+        <!-- jQuery -->
+        <script src="includes/jQuery/jQuery.js" charset="utf-8"></script>
+               
+        <!-- Placeholder -->
+        <script src="includes/placeholder/Placeholder.min.js" charset="utf-8">
+        </script>
+        
+        <script>
+          Placeholders.init({
+            live: true, //Apply to future and modified elements too
+            hideOnFocus: true //Hide the placeholder when the element receives focus
+          })
+        </script>
+      </head>
+      <body>';
 }
 
-//Print the document footer
-function getFooter() {
-  require 'includes/config.php';
-  return '<div class="alert alert-error">' . $criticalWarning . '</div></body></html>'; 
+/** 
+ * Print the document footer
+ *
+ * @return returnString
+ */
+function getFooter() 
+{
+    include 'includes/config.php';
+    return '<div class="alert alert-error">' . 
+        $criticalWarning . '</div></body></html>'; 
 }
 
-//Print the navbar
-function getNavBar() { 
-  require 'includes/config.php';
-  
-  //Define the pages
-  $pages = array( 
-    array('pw.php', 'Create'),
-    array('about.php', 'About')
-  );
-                  
-  //First part of the navbar
-  $returnString =  '<div class="navbar navbar-fixed-top">
-                      <div class="navbar-inner">
-                        <div class="container" >
-                          <!-- <img style="height:75px; display:block; position:absolute; left:0px; top:45px;" src="' . $installation . '/' . $logoname . '" /> -->
-                          <div class="brand">' . $title . '</div>
-                          <ul class="nav">';
-                                
-  //For each page in the pages array, determine whether the page is "active" (the current page) and add it to the navbar.
-  for ($i = 0; $i < sizeof($pages); $i++){
-    $class = '';
-  
-    //Basename gets the filename listed in the REQUEST_URI
-    if(basename($_SERVER["REQUEST_URI"]) == $pages[$i][0]) {
-      $class = ' class="active"';
-    }         
-    //Set the finished link.                        
-    $returnString .= '<li' . $class . '><a href="' . $pages[$i][0] . '">' . $pages[$i][1] . '</a></li>';
-  }
-  
-  //Finish off the returnString
-  $returnString .= '      </ul>
+/**
+ * Print the navbar
+ *
+ * @return returnString
+ */
+function getNavBar() 
+{ 
+    include 'includes/config.php';
+    
+    //Define the pages
+    $pages = array( 
+        array('pw.php', 'Create'),
+        array('about.php', 'About')
+    );
+                    
+    //First part of the navbar
+    $returnString =  '<div class="navbar navbar-fixed-top">
+                        <div class="navbar-inner">
+                          <div class="container" >
+                            <!-- <img style="
+                                height:75px; 
+                                display:block; 
+                                position:absolute; 
+                                left:0px; 
+                                top:45px;" 
+                                src="' . $installation . '/' . $logo . '" /> -->
+                            <div class="brand">' . $title . '</div>
+                            <ul class="nav">';
+                                  
+    //For each page in the pages array, determine whether the page is "active" 
+    //(the current page) and add it to the navbar.
+    for ($i = 0; $i < sizeof($pages); $i++) {
+        $class = '';
+        
+        //Basename gets the filename listed in the REQUEST_URI
+        if (basename($_SERVER["REQUEST_URI"]) == $pages[$i][0]) {
+            $class = ' class="active"';
+        }         
+        //Set the finished link.                        
+        $returnString .= '<li' . $class . '><a href="' . $pages[$i][0] . '">' . 
+            $pages[$i][1] . '</a></li>';
+    }
+    
+    //Finish off the returnString
+    $returnString .= '      </ul>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="container">';    
-                    
-  return $returnString;
+                      <div class="container">';    
+                      
+    return $returnString;
 }
 
-//Print the credential creation form inputs
-function getFormElements() {
-  require 'includes/config.php';
-  
-  //Create basic credential form layout
-  $returnString = '<div class="hero-unit"><h2>Create the credential:</h2> <form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
-  
-   //Display creator username if email and authentication are configured.
-   if($enableEmail && $requireAuth) {  
-      $returnString .= '<label class="control-label" for="destemail">Sender: ' . $_SERVER['PHP_AUTH_USER'] . '</label>'; 
-  }
-  
-  //Create the basic credential creation form
-  $returnString .= 
-           '<div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-lock"></i></span>
-                <textarea rows="3" placeholder="Credential" name="cred" /></textarea>
+/**
+ * Print the credential creation form inputs
+ *
+ * @return string returnString
+ */
+function getFormElements() 
+{
+    include 'includes/config.php';
+    
+    //Create basic credential form layout
+    $returnString = '<div class="hero-unit"><h2>Create the credential:</h2>' . 
+        '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+    
+     //Display creator username if email and authentication are configured.
+    if ($enableEmail && $requireAuth) {  
+        $returnString .= '<label class="control-label" for="destemail">Sender: ' . 
+            $_SERVER['PHP_AUTH_USER'] . '</label>'; 
+    }
+    
+    //Create the basic credential creation form
+    $returnString .= 
+             '<div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on"><i class="icon-lock"></i></span>' .
+                  '<textarea rows="3" placeholder="Credential" name="cred" />' .
+                  '</textarea>
+                </div>
               </div>
-            </div>
-
-            <div class="controls">
-              <div class="input-prepend input-append">
-                <span class="add-on"><i class="icon-time"></i></span>
-                <input class="span1" type="text" placeholder="' . $expirationTimeDefault . '" name="minutes" />
-                <span class="add-on">minutes</span>
+    
+              <div class="controls">
+                <div class="input-prepend input-append">
+                  <span class="add-on"><i class="icon-time"></i></span>
+                  <input class="span1" type="text" placeholder="' . 
+                      $expirationTimeDefault . 
+                      '" name="minutes" />
+                  <span class="add-on">minutes</span>
+                </div>
               </div>
-            </div>
-
-            <div class="controls">
-              <div class="input-prepend input-append">
-                <span class="add-on"><i class="icon-eye-open"></i></span>
-                <input class="span1" type="text" placeholder="' . $expirationViewsDefault . '" name="views" />
-                <span class="add-on">views</span>
+    
+              <div class="controls">
+                <div class="input-prepend input-append">
+                  <span class="add-on"><i class="icon-eye-open"></i></span>
+                  <input class="span1" type="text" ' . 'placeholder="' . 
+                      $expirationViewsDefault . 
+                      '" name="views" />
+                  <span class="add-on">views</span>
+                </div>
+              </div>';
+              
+    //Display field for destination email if enabled.
+    if ($enableEmail) {  
+        $returnString .=           
+             '<label class="control-label" for="destemail">Destination Email:</label>
+              <div class="controls">
+                <div class="input-prepend">
+                  <span class="add-on"><i class="icon-envelope"></i></span>
+                  <input 
+                      type="text" 
+                      placeholder="email@yourdomain.com" 
+                      name="destemail" />
+                </div>
               </div>
-            </div>';
-            
-  //Display field for destination email if enabled.
-  if($enableEmail) {  
-      $returnString .=           
-           '<label class="control-label" for="destemail">Destination Email:</label>
-            <div class="controls">
-              <div class="input-prepend">
-                <span class="add-on"><i class="icon-envelope"></i></span>
-                <input type="text" placeholder="email@yourdomain.com" name="destemail" />
-              </div>
-            </div>
-      ';
-  }
-  
-  //Add the submit button
-  $returnString .= '<input class="btn btn-primary btn-large" type="submit" value="Submit" /></div>';
-  
-  return $returnString;
+        ';
+    }
+    
+    //Add the submit button
+    $returnString .= '<input class="btn btn-primary btn-large" ' . 
+        'type="submit" value="Submit" /></div>';
+    
+    return $returnString;
 }
 
-//Print the credential
-function getCred($cred) {
-  return '<h2>The shared credential:</h2><div class="pagination-centered"><pre class="text-error">' . $cred . '</pre></div>';   
+/** 
+ * Print the credential
+ *
+ * @param string $cred the unencrypted credential
+ *
+ * @return string returnString
+ */ 
+function getCred($cred) 
+{
+    $returnString = '<h2>The shared credential:</h2>' . 
+        '<pre class="text-error">' . $cred . '</pre>';  
+    return $returnString;
 }
 
-//Prints the URL and the ZeroClipboard javascript
-function getURL($url) {
-  return '<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
-    '<div class="pagination-centered"><div><code>' . $url . '</code></div>
-      <script type="text/javascript" src="includes/ZeroClipboard/ZeroClipboard.js" ></script>
-      <span style="display: inline-block;">
-        <div id="d_clip_button">
-          <button id="clip_button" class="btn btn-primary"><span id="precopy">Copy To Clipboard</span><span id="postcopy" style="display:none">Succesfully Copied!</span></button>
-          <!-- <div id="copyblock" style="display:none;"><span class="alert alert-success">Text Copied!</span></div> -->
-        </div>
-      </span>
-    </div>
+/**
+ * Generates the credential URL page
+ *
+ * @param string $url URL used to access the credential
+ *
+ * @return string returnString
+ */
+function getURL($url) 
+{
+    $returnString = '<div class="hero-unit"><h2>Here\'s your URL:</h2>' .
+      '<div class="pagination-centered"><div><code>' . $url . '</code></div>';
+      
+    $returnString .= getZeroClipboard($url);
+    
+    $returnString .= '</div>';
+    
+    return $returnString;
+}
 
-    <script language="JavaScript" >
-      window.onload = function(){
-          var clip = new ZeroClipboard.Client();
-          ZeroClipboard.setMoviePath( \'includes/ZeroClipboard/ZeroClipboard.swf\');
-            clip.setText( \'' . $url . '\' );
-        clip.setHandCursor( true );
-            clip.setCSSEffects( true );
-        clip.addEventListener( \'onComplete\', function(client, text) {
-              var button = document.getElementById(\'clip_button\');
-              button.className = \'btn\';
-              var clip1 = document.getElementById(\'precopy\');
-              var clip2 = document.getElementById(\'postcopy\');
-              clip1.style.display = \'none\';
-              clip2.style.display = \'inline\';
-            } );
-            clip.glue( \'d_clip_button\' );
+/**
+ * Generates the ZeroClipboard functionality
+ *
+ * @param string $content content to be copied to the clipboard
+ *
+ * @return returnString
+ */
+function getZeroClipboard($content)
+{
+    $returnString = '<script type="text/javascript" ' . 
+            'src="includes/ZeroClipboard/ZeroClipboard.js" ></script>
+        <span style="display: inline-block;">
+          <div id="d_clip_button">
+            <button id="clip_button" class="btn btn-primary">' . 
+                '<span id="precopy">Copy To Clipboard</span>' .
+                '<span id="postcopy" style="display:none">' . 
+                'Succesfully Copied!' . 
+                '</span></button>
+          </div>
+        </span>
+      </div>
+    
+      <script language="JavaScript" >
+        window.onload = function(){
+            var clip = new ZeroClipboard.Client();
+            ZeroClipboard.setMoviePath(' . 
+            '\'includes/ZeroClipboard/ZeroClipboard.swf\');
+              clip.setText( \'' . $content . '\' );
+          clip.setHandCursor( true );
+              clip.setCSSEffects( true );
+          clip.addEventListener( \'onComplete\', function(client, text) {
+                var button = document.getElementById(\'clip_button\');
+                button.className = \'btn\';
+                var clip1 = document.getElementById(\'precopy\');
+                var clip2 = document.getElementById(\'postcopy\');
+                clip1.style.display = \'none\';
+                clip2.style.display = \'inline\';
+              } );
+              clip.glue( \'d_clip_button\' );
+          }
+      </script>';
+      
+    return $returnString;
+}
+
+
+/**
+ * Print success message to page
+ *
+ * @param string $message message to print
+ *
+ * @return returnString
+ */
+function getSuccess($message) 
+{
+    return '<div class="alert alert-success">' . $message . '</div>';
+}
+
+
+/** 
+ * Print warning to page
+ *
+ * @param string $warning warningto print
+ *
+ * @return returnString
+ */
+function getWarning($warning) 
+{
+    return '<div class="alert">' . $warning . '</div>';
+}
+
+
+/** 
+ * Print errors to page
+ *
+ * @param string $error error to print
+ *
+ * @return returnString
+ */
+function getError($error) 
+{
+    return '<div class="alert alert-error">' . $error. '</div>';
+}
+
+
+/**
+ * Calculate the expiration time 
+ *
+ * @param integer $minutes minutes to be converted 
+ *
+ * @return string $timePhrase human-readable time phrase
+ */
+function calcExpirationDisplay($minutes) 
+{
+    //The phrase that communicates a human-readable time breakdown
+    $timePhrase = '';
+    
+    //Determine rough breakdown of time between days, hours, and minutes.
+    $days = floor($minutes / 1440);
+    $hours = floor(($minutes - $days * 1440) / 60);
+    $minutes = $minutes - ($days * 1440) - ($hours * 60);
+   
+    //Determine days
+    if ($days > 0) {
+        $timePhrase .= "$days day";
+        if ($days > 1) {
+            $timePhrase .= 's';
         }
-    </script>
-    </div>';
-}
-
-//Print success message to page
-function getSuccess($message) {
-  return '<div class="alert alert-success">' . $message . '</div>';
-}
-//Print warning to page
-function getWarning($warning) {
-  return '<div class="alert">' . $warning . '</div>';
-}
-
-//Print errors to page
-function getError($error) {
-  return '<div class="alert alert-error">' . $error. '</div>';
-}
-
-//Calculate the expiration time
-function calcExpirationDisplay($minutes) {
-  //The phrase that communicates a human-readable time breakdown
-  $timePhrase = '';
-  
-  //Determine rough breakdown of time between days, hours, and minutes.
-  $days = floor ($minutes / 1440);
-  $hours = floor (($minutes - $days * 1440) / 60);
-  $minutes = $minutes - ($days * 1440) - ($hours * 60);
-
-  //Determine days
-  if ($days > 0) {
-    $timePhrase .= "$days day";
-    if($days > 1) {
-      $timePhrase .= 's';
     }
-  }
-  
-  //Determine if there are leftover hours and minutes
-  if ($days > 0 && ($hours + $minutes) > 0) {
-    $timePhrase .= ' + ';
-  }
-  
-  //Determine hours
-  if ($hours > 0) {
-    $timePhrase .= "$hours hour";
-    if($hours > 1) {
-      $timePhrase .= 's';
+    
+    //Determine if there are leftover hours and minutes
+    if ($days > 0 && ($hours + $minutes) > 0) {
+        $timePhrase .= ' + ';
     }
-  }
-  
-  //Determine if there are leftover minutes
-  if ($hours > 0 && $minutes > 0) {
-    $timePhrase .= ' + ';
-  }
-  
-  //Determine minutes
-  if ($minutes > 0) {
-    $timePhrase .= "$minutes minute";
-    if($minutes > 1) {
-      $timePhrase .= 's';
+    
+    //Determine hours
+    if ($hours > 0) {
+        $timePhrase .= "$hours hour";
+        if ($hours > 1) {
+            $timePhrase .= 's';
+        }
     }
-  }
-  
-  return $timePhrase;
+    
+    //Determine if there are leftover minutes
+    if ($hours > 0 && $minutes > 0) {
+        $timePhrase .= ' + ';
+    }
+    
+    //Determine minutes
+    if ($minutes > 0) {
+        $timePhrase .= "$minutes minute";
+        if ($minutes > 1) {
+            $timePhrase .= 's';
+        }
+    }
+    
+    return $timePhrase;
 }
 ?>
