@@ -95,8 +95,8 @@ function checkInput($arguments)
             }                    
         }
         
-        //Check against 90-day hard limit
-        if ($arguments['time'] > (60 * 24 * 90)) {
+        //Check against maximum lifetime
+        if ($arguments['time'] > $credMaxLife) {
           print getError(
                 'Please enter a time limit fewer than ' . 
                     calcExpirationDisplay($credMaxLife) . 
