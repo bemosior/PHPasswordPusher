@@ -152,8 +152,13 @@ function getFormElements()
                   <span class="add-on"><i class="icon-time"></i></span>
                   <input class="span1" type="text" placeholder="' . 
                       $expirationTimeDefault . 
-                      '" name="minutes" />
-                  <span class="add-on">minutes</span>
+                      '" name="time" />
+                  <select name="units" style="width:90px; background-color:#eee;">
+                      <option>minutes</option>
+                      <option>hours</option>
+                      <option>days</option>
+                      </select>
+                  
                 </div>
               </div>
     

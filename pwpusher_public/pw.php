@@ -50,7 +50,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     $id = md5(uniqid());  
     
     //Insert the record into the database.
-    insertCred($id, $encrypted, $arguments['minutes'], $arguments['views']);  
+    insertCred($id, $encrypted, $arguments['time'], $arguments['views']);  
     
     //Generate the retrieval URL.
     $url = sprintf(
@@ -62,7 +62,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         mailURL(
             $url, 
             $arguments['destemail'], 
-            calcExpirationDisplay($arguments['minutes']), 
+            calcExpirationDisplay($arguments['time']), 
             $arguments['views']
         ); 
     }  

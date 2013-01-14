@@ -22,17 +22,17 @@ function getArguments()
         $arguments['cred'] = $_POST['cred']; 
         $arguments['func'] = 'post';
     }
-    if (isset($_POST['minutes'])) {
-        $arguments['minutes'] = $_POST['minutes'];
-        $arguments['func'] = 'post';
+    if (isset($_POST['time'])) {
+        $arguments['time'] = $_POST['time'];
+    }
+    if (isset($_POST['units'])) {
+        $arguments['units'] = $_POST['units'];
     }
     if (isset($_POST['views'])) { 
         $arguments['views'] = $_POST['views'];
-        $arguments['func'] = 'post';
     }
     if (isset($_POST['destemail'])) { 
         $arguments['destemail'] = $_POST['destemail'];
-        $arguments['func'] = 'post';
     }
     if (!$arguments) {
         $arguments['func'] = 'none';
@@ -62,21 +62,51 @@ function checkInput($arguments)
     }
     
     //Check Minutes
-    if (isset($arguments['minutes'])) {
+    if (isset($arguments['time'])) {
     
         //Set to the default value if empty
-        if (empty($arguments['minutes'])) {
-            $arguments['minutes'] = $expirationTimeDefault;
+        if (empty($arguments['time'])) {
+            $arguments['time'] = $expirationTimeDefault;
         }
         
         //Sanitize the input
-        $arguments['minutes'] = sanitizeNumber($arguments['minutes']);
-        if ($arguments['minutes'] == false) { 
+        $arguments['time'] = sanitizeNumber($arguments['time']);
+        if ($arguments['time'] == false) { 
             print getError(
                 'Please enter a valid time limit (positive whole number)!'
             );
             return false;
         }
+        
+        //Apply unit conversion
+        if (isset($arguments['units'])) {
+            switch ($arguments['units']) {
+                case "minutes":
+                    //Do nothing, as time is already stored in minutes.
+                    break;
+                case "hours":
+                    //Convert hours to minutes
+                    $arguments['time'] = ($arguments['time'] * 60);
+                    break;
+                case "days":
+                    //Convert days to minutes
+                    $arguments['time'] = ($arguments['time'] * 60 * 24);
+                    break;
+            }                    
+        }
+        
+        //Check against 90-day hard limit
+        if ($arguments['time'] > (60 * 24 * 90)) {
+          print getError(
+                'Please enter a time limit fewer than ' . 
+                    calcExpirationDisplay($credMaxLife) . 
+                    ' in the future!'
+            );
+          return false;
+        }
+        
+        
+        
     }
     
     //Check Views
@@ -101,11 +131,12 @@ function checkInput($arguments)
     if (isset($arguments['destemail'])) {
         //Ignore if empty
         if (empty($arguments['destemail'])) {
-            print getSuccess('No email address was entered, so no email has been sent.');
+            print getWarning('No email address was entered, so no email has been sent.');
         } else {
             $arguments['destemail'] = sanitizeEmail($arguments['destemail']);
             if ($arguments['destemail'] == false) {
                 print getWarning('Please enter a valid email address!');
+                return false;
             }
         }
     }

@@ -26,6 +26,9 @@
     
     //Require Apache user authentication.
     $requireAuth = false;  
+    
+    //Maximum life of a shared credential/password (in minutes).
+    $credMaxLife = (60 * 24 * 90); //90 days
 
     
 //Email:
