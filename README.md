@@ -20,7 +20,7 @@ PHPasswordPusher has so far been tested with the following environment:
 * Linux (RHEL 5 and CentOS 5, though other distributions should work.)
 * Apache
 * MySQL
-* PHP
+* PHP 5.3
 
 ## Installation
 1. Change configuration options in ./pwpusher_private/config.php   
