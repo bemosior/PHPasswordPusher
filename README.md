@@ -55,6 +55,7 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
     Order deny,allow
     Deny from all
 </Directory>
+
 ```
 6. Test your installation by navigating to http(s)://yourwebserver/youralias/
 7. Celebrate victory.
