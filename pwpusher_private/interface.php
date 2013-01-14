@@ -170,13 +170,12 @@ function getFormElements()
     //Display field for destination email if enabled.
     if ($enableEmail) {  
         $returnString .=           
-             '<label class="control-label" for="destemail">Destination Email:</label>
-              <div class="controls">
+             '<div class="controls">
                 <div class="input-prepend">
                   <span class="add-on"><i class="icon-envelope"></i></span>
                   <input 
                       type="text" 
-                      placeholder="email@yourdomain.com" 
+                      placeholder="recipient@your.domain" 
                       name="destemail" />
                 </div>
               </div>
