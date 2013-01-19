@@ -17,8 +17,13 @@
     $dbpass = 'phpass!3#.';  
         
 //Encryption and security:
-    //This is the encryption key. Change it to something secret.
-    $key = "change this key"; 
+    //The encryption key for the credentials. Change it to something secret.
+    $key = 'change this key please!'; 
+    
+    //The salt for the ID hash. Change it to something secret (not the $key).
+    //This field needs to be 22 alphanumberic characters. Anything past 22
+    //will be cut off.
+    $salt = 'changethiskey098please';
     
     //Require Apache user authentication.
     $requireAuth = false;  
@@ -36,7 +41,7 @@
     $assumedDomain = 'your.domain';  
     
     //Allow the credentials to be sent via email at the web form.
-    $enableEmail = true;  
+    $enableEmail = false;  
     
     //Set the username as the email sender (requires authentication)
     $enableSender = true; 

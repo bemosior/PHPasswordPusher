@@ -23,11 +23,12 @@ PHPasswordPusher has so far been tested with the following environment:
 * PHP 5.3
 
 ## Installation
-1. Change configuration options in ./pwpusher_private/config.php   
-2. Change configuration options in ./install.php. Remember to remove the credentials in this file when you're done with steps 2 and 3!
-3. From the command-line interface, run `php install.php` 
-4. Copy the pwpusher_private and pwpusher_public directories to the same NON-PUBLIC directory of your choice (for instance, /var/www, but not inside public_html).
-5. Configure Apache (customize the below sample as noted). If you care about security enough to use this project, you should definitely be using SSL and redirecting users requests from non-secure ports (for instance 80, in the default configuration) to whatever port is SSL-enabled (typically 443). The Apache documentation will help here: http://httpd.apache.org/docs/2.2/ssl/ssl_faq.html 
+1. Set up the environment. You will need these packages: mysqld, httpd (apache2), php, php-mcrypt, php-pdo, and uuid-php.
+2. Change configuration options in ./pwpusher_private/config.php   
+3. Change configuration options in ./install.php. Remember to remove the credentials in this file when you're done with steps 2 and 3!
+4. From the command-line interface, run `php install.php` 
+5. Copy the pwpusher_private and pwpusher_public directories to the same NON-PUBLIC directory of your choice (for instance, /var/www, but not inside public_html).
+6. Configure Apache (customize the below sample as noted). If you care about security enough to use this project, you should definitely be using SSL and redirecting users requests from non-secure ports (for instance 80, in the default configuration) to whatever port is SSL-enabled (typically 443). The Apache documentation will help here: http://httpd.apache.org/docs/2.2/ssl/ssl_faq.html 
 
 ```         
 ##### PHPasswordPusher #####
@@ -57,8 +58,8 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
     Deny from all
 </Directory>
 ```
-6. Test your installation by navigating to http(s)://yourwebserver/youralias/
-7. Celebrate victory.
+7. Test your installation by navigating to http(s)://yourwebserver/youralias/
+8. Celebrate victory.
 
 ## Other Projects Utilized
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher

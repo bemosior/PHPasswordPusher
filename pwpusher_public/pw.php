@@ -8,7 +8,7 @@
 require '../pwpusher_private/config.php'; 
 require '../pwpusher_private/database.php';
 require '../pwpusher_private/mail.php';
-require '../pwpusher_private/encryption.php';
+require '../pwpusher_private/security.php';
 require '../pwpusher_private/input.php';
 require '../pwpusher_private/interface.php';
 
@@ -47,16 +47,16 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     unset($arguments['cred']);  
     
     //Create a unique identifier for the new credential record.
-    $id = md5(uniqid());  
+    $id = getUniqueId(); 
     
     //Insert the record into the database.
-    insertCred($id, $encrypted, $arguments['time'], $arguments['views']);  
+    insertCred(hashId($id, $salt), $encrypted, $arguments['time'], $arguments['views']);  
     
     //Generate the retrieval URL.
     $url = sprintf(
-        "https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], $id
+        "https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], urlencode($id)
     );  
-    
+
     //Send email if configured and if the email has been filled out
     if ($enableEmail && !empty($arguments['destemail'])) {
         mailURL(
@@ -76,8 +76,9 @@ if ($arguments['func'] == 'none' || $arguments == false) {
   
   
 } elseif ($arguments['func'] == 'get') {  
-    //If GET arguments exist and have been verified, retrieve the credential
-    $result = retrieveCred($arguments['id']);   
+    //If GET arguments exist and have been verified (via hash comparison), retrieve the credential
+    $result = retrieveCred(hashId(urldecode($arguments['id']), $salt));   
+    
     print('<div class="hero-unit">');
     
     //If no valid entry, deny access and wipe hypothetically existing records
@@ -107,7 +108,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     //If credential removal is specifically requested
     
     //Erase the credential
-    eraseCred($arguments['id']);
+    eraseCred(hashId($arguments['id'], $salt));
 }
 //Print the footer
 print getFooter();
