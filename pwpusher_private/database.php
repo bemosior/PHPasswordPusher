@@ -53,7 +53,7 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
         eraseExpired($db);
       
     } catch (PDOException $e) {
-        print getError("Something went wrong with the database.");
+        print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
 }
@@ -94,7 +94,7 @@ function retrieveCred($id)
         return $result;
       
     } catch (PDOException $e) {
-        print getError("Something went wrong with the database.");
+        print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
     return false;
@@ -116,7 +116,7 @@ function eraseExpired($db)
         $statement = $db->prepare($query);
         $statement->execute();
     } catch (PDOException $e) {
-        print getError("Something went wrong with the database.");
+        print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
 }
@@ -138,7 +138,7 @@ function eraseCred($id)
         $statement->execute($params);
         print getSuccess('Link erased.');
     } catch (PDOException $e) {
-        print getError("Something went wrong with the database.");
+        print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
 }

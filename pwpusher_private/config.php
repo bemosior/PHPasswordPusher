@@ -19,6 +19,9 @@
 //Encryption and security:
     //The encryption key for the credentials. Change it to something secret.
     $key = 'change this key please!'; 
+	
+	//The salt for the link hash. Change it to something else secret.
+    $salt = 'change this salt please!'; 
     
     //Require Apache user authentication.
     $requireAuth = false;  
@@ -53,6 +56,9 @@
     
     //Site Title
     $title = 'PHPassword Pusher';
+	
+	//Site Language (corresponds to $language.php)
+	$language = 'en'; 
     
     //Enable display of the URL to the user.
     $displayURL = true;  

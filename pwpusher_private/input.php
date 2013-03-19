@@ -61,7 +61,7 @@ function checkInput($arguments)
         $arguments['cred'] = sanitizeCred($arguments['cred']);
         if ($arguments['cred'] == false) {
             $arguments['func'] = 'none';
-            print getError('Please enter the secret (whatever it may be)!');
+            print getError(translate('enterSecret'));
             return false;
         }
     }
@@ -77,9 +77,7 @@ function checkInput($arguments)
         //Sanitize the input
         $arguments['time'] = sanitizeNumber($arguments['time']);
         if ($arguments['time'] == false) { 
-            print getError(
-                'Please enter a valid time limit (positive whole number)!'
-            );
+            print getError(translate('enterTime'));
             return false;
         }
         
@@ -103,9 +101,8 @@ function checkInput($arguments)
         //Check against maximum lifetime
         if ($arguments['time'] > $credMaxLife) {
           print getError(
-                'Please enter a time limit fewer than ' . 
-                    calcExpirationDisplay($credMaxLife) . 
-                    ' in the future!'
+                translate('validTimeLimit') . ' ' .
+                calcExpirationDisplay($credMaxLife)
             );
           return false;
         }
@@ -125,9 +122,7 @@ function checkInput($arguments)
         //Sanitize the input
         $arguments['views'] = sanitizeNumber($arguments['views']);
         if ($arguments['views'] == false) {
-            print getError(
-                'Please enter a valid view limit (positive whole number)!'
-            );
+            print getError(translate('validViewLimit'));
             return false;
         }
     }
@@ -136,11 +131,11 @@ function checkInput($arguments)
     if (isset($arguments['destemail'])) {
         //Ignore if empty
         if (empty($arguments['destemail'])) {
-            print getWarning('No email address was entered, so no email has been sent.');
+            print getWarning(translate('noEmail'));
         } else {
             $arguments['destemail'] = sanitizeEmail($arguments['destemail']);
             if ($arguments['destemail'] == false) {
-                print getWarning('Please enter a valid email address!');
+                print getWarning(translate('validEmail'));
                 return false;
             }
         }

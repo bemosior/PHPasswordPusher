@@ -26,7 +26,7 @@ $arguments = checkInput($arguments);
 if ($requireAuth && empty($_SERVER['PHP_AUTH_USER'])) {
     //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
     //if web auth isn't configured.
-    print getError("User not authenticated!");
+    print getError(translate('userNotAuthenticated'));
     print getFooter();
     die();
 } 
@@ -71,7 +71,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     if ($displayURL) { 
         print getURL($url); 
     } else { 
-        print getSuccess('Credential Created!'); 
+        print getSuccess(translate('credentialsCreated')); 
     } 
   
   
@@ -83,7 +83,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     
     //If no valid entry, deny access and wipe hypothetically existing records
     if (empty($result[0])) {  
-        print('<h2>Sorry! This link has expired.</h2>');
+        print('<h2>' . translate('expiredLink') . '</h2>');
         //print getError('Link Expired');
       
       

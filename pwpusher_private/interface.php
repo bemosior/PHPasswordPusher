@@ -80,8 +80,8 @@ function getNavBar()
     
     //Define the pages
     $pages = array( 
-        array('pw.php', 'Create'),
-        array('about.php', 'About')
+        array('pw.php', translate('createNavLink')),
+        array('about.php', translate('aboutNavLink'))
     );
                     
     //First part of the navbar
@@ -128,7 +128,7 @@ function getFormElements()
     include 'config.php';
     
     //Create basic credential form layout
-    $returnString = '<div class="hero-unit"><h2>Create the link:</h2>' . 
+    $returnString = '<div class="hero-unit"><h2>' . translate('createLink') . '</h2>' . 
         '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
     
      //Display creator username if email and authentication are configured.
@@ -142,7 +142,7 @@ function getFormElements()
              '<div class="controls">
                 <div class="input-prepend">
                   <span class="add-on"><i class="icon-lock"></i></span>' .
-                  '<textarea rows="3" placeholder="Secret" name="cred" />' .
+                  '<textarea rows="3" placeholder="' . translate('secret') . '" name="cred" />' .
                   '</textarea>
                 </div>
               </div>
@@ -219,14 +219,14 @@ function getURL($url)
 {
     include 'config.php';
     
-    $returnString = '<div class="hero-unit"><h2>Here\'s the link:</h2>' .
+    $returnString = '<div class="hero-unit"><h2>' . translate('giveLink') . '</h2>' .
       '<div class="pagination-centered"><div><code>' . $url . '</code></div>';
       
     $returnString .= getZeroClipboard($url);
     
     $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p>' . 
         '<a href="' . $url . '&remove=1">' . 
-        '<button class="btn btn-mini btn-danger">Delete Link</button></a></div>';
+        '<button class="btn btn-mini btn-danger">' . translate('deleteLink') . '</button></a></div>';
         
     $returnString .= '</div>';
     
@@ -247,9 +247,9 @@ function getZeroClipboard($content)
         <span style="display: inline-block;">
           <div id="d_clip_button">
             <button id="clip_button" class="btn btn-small btn-primary">' . 
-                '<span id="precopy">Copy To Clipboard</span>' .
+                '<span id="precopy">' . translate('copyToClipboard') . '</span>' .
                 '<span id="postcopy" style="display:none">' . 
-                'Succesfully Copied!' . 
+                translate('copySuccess') . 
                 '</span></button>
           </div>
         </span>
@@ -370,5 +370,20 @@ function calcExpirationDisplay($minutes)
     }
     
     return $timePhrase;
+}
+
+/**
+ * Translate using the language files
+ * @param $phrase
+ *
+ * @return $translatedPhrase
+ */
+function translate($phrase) {
+    require 'config.php';
+    require 'languages/' . $language . '.php';
+	
+	return ${$phrase};
+	
+ 
 }
 ?>
