@@ -136,7 +136,7 @@ function eraseCred($id)
         $db = connectDB();
         $statement = $db->prepare($query);
         $statement->execute($params);
-        print getSuccess('Link erased.');
+        print getSuccess(translate('linkErased'));
     } catch (PDOException $e) {
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");

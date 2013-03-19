@@ -203,7 +203,7 @@ function getFormElements()
  */ 
 function getCred($cred) 
 {
-    $returnString = '<h2>The shared credential:</h2>' . 
+    $returnString = '<h2>' . translate('sharedCredential') . '</h2>' . 
         '<pre class="text-error">' . $cred . '</pre>';  
     return $returnString;
 }
