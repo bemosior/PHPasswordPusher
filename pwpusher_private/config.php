@@ -20,11 +20,6 @@
     //The encryption key for the credentials. Change it to something secret.
     $key = 'change this key please!'; 
     
-    //The salt for the ID hash. Change it to something secret (not the $key).
-    //This field needs to be 22 alphanumberic characters. Anything past 22
-    //will be cut off.
-    $salt = 'changethiskey098please';
-    
     //Require Apache user authentication.
     $requireAuth = false;  
     
