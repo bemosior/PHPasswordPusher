@@ -58,7 +58,7 @@
     $title = 'PHPassword Pusher';
 	
 	//Site Language (corresponds to $language.php)
-	$language = 'es'; 
+	$language = 'en'; 
     
     //Enable display of the URL to the user.
     $displayURL = true;  
