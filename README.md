@@ -23,7 +23,7 @@ PHPasswordPusher has so far been tested with the following environment:
 * PHP 5.3
 
 ## Installation
-1. Set up the environment. You will need these packages: mysqld, httpd (apache2), php53, php53-mcrypt, php53-pdo, php53-mysql, and uuid-php.
+1. Set up the environment. You will need these packages: mysqld, httpd (apache2), php, php-mcrypt, php-pdo, php-mysql.
 2. Change configuration options in ./pwpusher_private/config.php   
 3. Change configuration options in ./install.php. Remember to remove the credentials in this file when you're done with steps 2 and 3!
 4. From the command-line interface, run `php install.php` 
