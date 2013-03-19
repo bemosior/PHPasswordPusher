@@ -23,9 +23,9 @@ PHPasswordPusher has so far been tested with the following environment:
 * PHP 5.3
 
 ## Installation
-1. Set up the environment. You will need these packages: mysqld, httpd (apache2), php, php-mcrypt, php-pdo, php-mysql.
+1. Set up the environment. You will need to install these packages: mysql-server, httpd (apache2), php, php-mcrypt, php-pdo, php-mysql.
 2. Change configuration options in ./pwpusher_private/config.php   
-3. Change configuration options in ./install.php. Remember to remove the credentials in this file when you're done with steps 2 and 3!
+3. Change configuration options in ./install.php. Remember to remove the credentials in this file when you're done with step 4!
 4. From the command-line interface, run `php install.php` 
 5. Copy the pwpusher_private and pwpusher_public directories to the same NON-PUBLIC directory of your choice (for instance, /var/www, but not inside public_html).
 6. Configure Apache (customize the below sample as noted). If you care about security enough to use this project, you should definitely be using SSL and redirecting users requests from non-secure ports (for instance 80, in the default configuration) to whatever port is SSL-enabled (typically 443). The Apache documentation will help here: http://httpd.apache.org/docs/2.2/ssl/ssl_faq.html 
@@ -60,6 +60,10 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
 ```
 7. Test your installation by navigating to http(s)://yourwebserver/youralias/
 8. Celebrate victory.
+
+## Languages
+Language functionality has been added. The pwpusher_private/language/ files may be modified, 
+and new languages can be added. Simply follow the examples already there and update the config.php.
 
 ## Other Projects Utilized
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher
