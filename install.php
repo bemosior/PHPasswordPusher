@@ -21,6 +21,7 @@ try{
   $db->exec('CREATE EVENT phpasspush_tidy ON SCHEDULE EVERY 1 MINUTE DO DELETE FROM ' . $dbname . '.phpasspush WHERE xtime<UTC_TIMESTAMP() OR views>=xviews;');
   $db->exec('SET GLOBAL event_scheduler = 1;');
   $db->exec('GRANT ALL PRIVILEGES ON ' . $dbname . '.* TO \'' . $dbuser . '\'@\'localhost\' IDENTIFIED BY \'' . $dbpass . '\';') ;
+  $db->exec('FLUSH PRIVILEGES;');
   echo "MySQL setup is successful!\n";
 } catch (PDOException $e) {
   echo 'Problem: ' . $e->getMessage() . "\n";
