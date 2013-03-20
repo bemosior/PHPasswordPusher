@@ -132,8 +132,8 @@ function getFormElements()
         '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
     
      //Display creator username if email and authentication are configured.
-    if ($enableEmail && $requireApacheAuth) {  
-        $returnString .= '<label class="control-label" for="destemail">Sender: ' . 
+    if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {  
+        $returnString .= '<label class="control-label" for="destemail">' . translate('sender') . ': ' . 
             $_SERVER['PHP_AUTH_USER'] . '</label>'; 
     }
     

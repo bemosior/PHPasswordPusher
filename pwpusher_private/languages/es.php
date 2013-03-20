@@ -28,6 +28,7 @@ $minute = 'minuto';
 $minutes = 'minutos';
 $noEmail = 'Email no usado';
 $secret = 'Secreto';
+$sender = 'Remitente';
 $sentCredential = 'enviado una credencial.';
 $sharedCredential = 'El Secreto:';
 $userNotAuthenticated = 'Usuario no autenticado.';

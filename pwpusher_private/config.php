@@ -26,13 +26,17 @@
     //Require Apache user authentication.
     $requireApacheAuth = false;  
 	
-	//Require CAS user authentication.
+	//Require CAS user authentication. By default anyone can retrieve.
     $requireCASAuth = true;  
 	$cas_host = 'cas.example.com';
 	$cas_context = '/cas';
 	$cas_port = 443;
-    $cas_server_ca_cert_path = '/path/to/cachain.pem';
-
+    $cas_server_ca_cert_path = '/physical/path/to/cachain.pem';
+	
+	//Protect credential retrieval as well (if set to false and using authentication, 
+	//only authenticated users can create credentials, but anyone can retrieve).
+    $protectRetrieve = true;
+	
     //Maximum life of a shared credential/password (in minutes).
     $credMaxLife = (60 * 24 * 90); //90 days
 
@@ -46,7 +50,7 @@
     $assumedDomain = 'your.domain';  
     
     //Allow the credentials to be sent via email at the web form.
-    $enableEmail = false;  
+    $enableEmail = true;  
     
     //Set the username as the email sender (requires authentication)
     $enableSender = true; 

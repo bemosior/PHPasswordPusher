@@ -27,25 +27,49 @@ $arguments = checkInput($arguments);
 if($requireCASAuth) {
     phpCAS::setDebug();
     $phpcas_path = '../pwpusher_private/CAS';
+	phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+	
+	//Comment the following line and uncomment the one after if testing and you want to avoid cert errors
+	phpCAS::setCasServerCACert($cas_server_ca_cert_path);
+	//phpCAS::setNoCasServerValidation();
 }
-
-//Die if auth is required and no user is defined.
-if (($requireApacheAuth || $requireCASAuth) && empty($_SERVER['PHP_AUTH_USER'])) {
-    //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
-    //if web auth isn't configured.
-    print getError(translate('userNotAuthenticated'));
-    print getFooter();
-    die();
-} 
 
 //If the form function argument doesn't exist, print the form for the user.
 if ($arguments['func'] == 'none' || $arguments == false) {  
+
+    //Force CAS Authentication in order to load the form
+	if($requireCASAuth) { 
+	    phpCAS::forceAuthentication();
+	    $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
+		
+	//Fail Apache Authentication if configured but not successful
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+	        //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
+        //if web auth isn't configured.
+        print getError(translate('userNotAuthenticated'));
+        print getFooter();
+        die();
+	}
 
     //Get form elements
     print getFormElements();
   
   
 } elseif ($arguments['func'] == 'post') { 
+
+    //Force CAS Authentication in order to post the form
+	if($requireCASAuth) { 
+	    phpCAS::forceAuthentication();
+	    $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
+	} elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+	        //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
+        //if web auth isn't configured.
+        print getError(translate('userNotAuthenticated'));
+        print getFooter();
+        die();
+	}
+
+
     //Else if POST arguments exist and have been verified, process the credential
     //Encrypt the user's credential.
     $encrypted = encryptCred($arguments['cred']); 
@@ -82,7 +106,22 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     } 
   
   
-} elseif ($arguments['func'] == 'get') {  
+} elseif ($arguments['func'] == 'get') {
+
+    //Force CAS Authentication in order to load a credential
+	if($requireCASAuth && $protectRetrieve) { 
+	    phpCAS::forceAuthentication();
+	    $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
+		
+	//Fail Apache Authentication if configured but not successful
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) && $protectRetrieve) {
+	        //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
+        //if web auth isn't configured.
+        print getError(translate('userNotAuthenticated'));
+        print getFooter();
+        die();
+	}
+
     //If GET arguments exist and have been verified (via hash comparison), retrieve the credential
     $result = retrieveCred(hashId(urldecode($arguments['id']), $salt));   
     
@@ -113,7 +152,21 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     print('</div>');
 } elseif ($arguments['func'] == 'remove') {
     //If credential removal is specifically requested
-    
+	
+	//Force CAS Authentication in order to remove the credential
+	if($requireCASAuth && $protectRetrieve) { 
+	    phpCAS::forceAuthentication();
+	    $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
+		
+	//Fail Apache Authentication if configured but not successful
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) && $protectRetrieve) {
+	        //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
+        //if web auth isn't configured.
+        print getError(translate('userNotAuthenticated'));
+        print getFooter();
+        die();
+	}
+	
     //Erase the credential
     eraseCred(hashId($arguments['id'], $salt));
 }
