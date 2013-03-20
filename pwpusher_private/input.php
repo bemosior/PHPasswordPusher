@@ -84,14 +84,14 @@ function checkInput($arguments)
         //Apply unit conversion
         if (isset($arguments['units'])) {
             switch ($arguments['units']) {
-                case "minutes":
+                case translate('minutes'):
                     //Do nothing, as time is already stored in minutes.
                     break;
-                case "hours":
+                case translate('hours'):
                     //Convert hours to minutes
                     $arguments['time'] = ($arguments['time'] * 60);
                     break;
-                case "days":
+                case translate('days'):
                     //Convert days to minutes
                     $arguments['time'] = ($arguments['time'] * 60 * 24);
                     break;

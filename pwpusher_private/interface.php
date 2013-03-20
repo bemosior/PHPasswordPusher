@@ -154,9 +154,9 @@ function getFormElements()
                       $expirationTimeDefault . 
                       '" name="time" />
                   <select name="units" style="width:90px; background-color:#eee;">
-                      <option>minutes</option>
-                      <option>hours</option>
-                      <option>days</option>
+                      <option>' . translate('minutes') . '</option>
+                      <option>' . translate('hours') . '</option>
+                      <option>' . translate('days') . '</option>
                       </select>
                   
                 </div>
@@ -168,7 +168,7 @@ function getFormElements()
                   <input class="span1" type="text" ' . 'placeholder="' . 
                       $expirationViewsDefault . 
                       '" name="views" />
-                  <span class="add-on">views</span>
+                  <span class="add-on">' . translate('views') . '</span>
                 </div>
               </div>';
               
