@@ -19,8 +19,8 @@ PHPasswordPusher has so far been tested with the following environment:
 
 * Linux (RHEL 5 and CentOS 5, though other distributions should work.)
 * Apache
-* MySQL
-* PHP 5.3
+* MySQL 5.1.6+
+* PHP 5.3+
 * Central Authentication Service (CAS) 3.5.1 (optional)
 
 ## Installation
@@ -41,8 +41,8 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
 <Directory /your/installation/dir/pwpusher_public/>
 
     #If you use the email functionality, you should definitely enable authentication of some sort.
-	#PHPassword Pusher supports both Apache auth (below) and CAS authentication (see config.ini for details)
-	
+    #PHPassword Pusher supports both Apache auth (below) and CAS authentication (see config.ini for details)
+    
     #AuthName "Your login message."
     #AuthType Basic
     #AuthUserFile /your/.htpasswd

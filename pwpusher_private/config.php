@@ -19,24 +19,24 @@
 //Encryption and security:
     //The encryption key for the credentials. Change it to something secret.
     $key = 'change this key please!'; 
-	
-	//The salt for the link hash. Change it to something else secret.
+    
+    //The salt for the link hash. Change it to something else secret.
     $salt = 'change this salt please!'; 
     
     //Require Apache user authentication.
     $requireApacheAuth = false;  
-	
-	//Require CAS user authentication. By default anyone can retrieve.
+    
+    //Require CAS user authentication. By default anyone can retrieve.
     $requireCASAuth = false;  
-	$cas_host = 'cas.example.com';
-	$cas_context = '/cas';
-	$cas_port = 443;
+    $cas_host = 'cas.example.com';
+    $cas_context = '/cas';
+    $cas_port = 443;
     $cas_server_ca_cert_path = '/physical/path/to/cachain.pem';
-	
-	//Protect credential retrieval as well (if set to false and using authentication, 
-	//only authenticated users can create credentials, but anyone can retrieve).
+    
+    //Protect credential retrieval as well (if set to false and using authentication, 
+    //only authenticated users can create credentials, but anyone can retrieve).
     $protectRetrieve = true;
-	
+    
     //Maximum life of a shared credential/password (in minutes).
     $credMaxLife = (60 * 24 * 90); //90 days
 
@@ -67,9 +67,9 @@
     
     //Site Title
     $title = 'PHPassword Pusher';
-	
-	//Site Language (corresponds to $language.php)
-	$language = 'en'; 
+    
+    //Site Language (corresponds to $language.php)
+    $language = 'en'; 
     
     //Enable display of the URL to the user.
     $displayURL = true;  

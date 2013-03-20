@@ -340,8 +340,8 @@ function calcExpirationDisplay($minutes)
         if ($days > 1) {
             $timePhrase .= $days . ' ' . translate('days');
         } else {
-		    $timePhrase .= $days . ' ' . translate('day');
-		}
+            $timePhrase .= $days . ' ' . translate('day');
+        }
     }
     
     //Determine if there are leftover hours and minutes
@@ -355,8 +355,8 @@ function calcExpirationDisplay($minutes)
         if ($hours > 1) {
             $timePhrase .= $hours . ' ' . translate('hours');
         } else {
-		    $timePhrase .= $hours . ' ' . translate('hour');
-	    }
+            $timePhrase .= $hours . ' ' . translate('hour');
+        }
     }
     
     //Determine if there are leftover minutes
@@ -370,8 +370,8 @@ function calcExpirationDisplay($minutes)
         if ($minutes > 1) {
             $timePhrase .= $minutes . ' ' . translate('minutes');
         } else {
-		    $timePhrase .= $minutes . ' ' . translate('minute');
-		}
+            $timePhrase .= $minutes . ' ' . translate('minute');
+        }
     }
     
     return $timePhrase;
@@ -386,9 +386,9 @@ function calcExpirationDisplay($minutes)
 function translate($phrase) {
     require 'config.php';
     require 'languages/' . $language . '.php';
-	
-	return ${$phrase};
-	
+    
+    return ${$phrase};
+    
  
 }
 ?>
