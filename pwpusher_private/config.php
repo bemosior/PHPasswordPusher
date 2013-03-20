@@ -39,7 +39,7 @@
     $assumedDomain = 'your.domain';  
     
     //Allow the credentials to be sent via email at the web form.
-    $enableEmail = true;  
+    $enableEmail = false;  
     
     //Set the username as the email sender (requires authentication)
     $enableSender = true; 
@@ -58,13 +58,13 @@
     $title = 'PHPassword Pusher';
 	
 	//Site Language (corresponds to $language.php)
-	$language = 'es'; 
+	$language = 'en'; 
     
     //Enable display of the URL to the user.
     $displayURL = true;  
     
     //default minutes until the link expires
-    $expirationTimeDefault = 15; 
+    $expirationTimeDefault = 30; 
     
     //default # of views before the link expires
     $expirationViewsDefault = 2; 
