@@ -337,10 +337,11 @@ function calcExpirationDisplay($minutes)
    
     //Determine days
     if ($days > 0) {
-        $timePhrase .= "$days day";
         if ($days > 1) {
-            $timePhrase .= 's';
-        }
+            $timePhrase .= $days . ' ' . translate('days');
+        } else {
+		    $timePhrase .= $days . ' ' . translate('day');
+		}
     }
     
     //Determine if there are leftover hours and minutes
@@ -350,10 +351,12 @@ function calcExpirationDisplay($minutes)
     
     //Determine hours
     if ($hours > 0) {
-        $timePhrase .= "$hours hour";
+       
         if ($hours > 1) {
-            $timePhrase .= 's';
-        }
+            $timePhrase .= $hours . ' ' . translate('hours');
+        } else {
+		    $timePhrase .= $hours . ' ' . translate('hour');
+	    }
     }
     
     //Determine if there are leftover minutes
@@ -363,10 +366,12 @@ function calcExpirationDisplay($minutes)
     
     //Determine minutes
     if ($minutes > 0) {
-        $timePhrase .= "$minutes minute";
+        
         if ($minutes > 1) {
-            $timePhrase .= 's';
-        }
+            $timePhrase .= $minutes . ' ' . translate('minutes');
+        } else {
+		    $timePhrase .= $minutes . ' ' . translate('minute');
+		}
     }
     
     return $timePhrase;

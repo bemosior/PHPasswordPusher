@@ -25,15 +25,14 @@ function mailURL($url, $destEmail, $expirationTime, $expirationViews)
         $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; 
     } 
     
-    $message = $url . "\r\n\n" . 'This link contains sensitive information ' .
-        'and will be inaccessible after ' . $expirationTime . ' OR ' . 
-        $expirationViews . ' views, whichever occurs first.' . "\r\n" . 
+    $message = $url . "\r\n\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' . 
+        $expirationViews . ' ' . translate('views') . "\r\n" . 
         $criticalWarning;
     
     $headers = 'From: ' . $sender  . "\r\n";
     mail(
         $destEmail, 
-        $sender . ' sent you a credential. ', 
+        $sender . ' ' . translate('sentCredential') . ' ', 
         $message,
         $headers
     ) or die('Email send failed!');
@@ -42,7 +41,7 @@ function mailURL($url, $destEmail, $expirationTime, $expirationViews)
     //mail('loggingemailhere', 'PHPassPush: ' . $sender . ' sent a credential to ' .
     //    $destEmail, '') or die('Email send failed!');
     
-    print getSuccess("Email sent to $destEmail.");
+    print getSuccess(translate('emailSent') . ' ' . $destEmail . '.');
 }
 
 

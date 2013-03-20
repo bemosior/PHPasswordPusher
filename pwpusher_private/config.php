@@ -13,8 +13,8 @@
     //The MySQL user
     $dbuser = 'phpw';  
     
-    //The MySQL user's password
-    $dbpass = 'phpass!3#.';  
+    //The MySQL user's password. Change this value to something secure!
+    $dbpass = 'phpass!3#.';
         
 //Encryption and security:
     //The encryption key for the credentials. Change it to something secret.
@@ -39,7 +39,7 @@
     $assumedDomain = 'your.domain';  
     
     //Allow the credentials to be sent via email at the web form.
-    $enableEmail = false;  
+    $enableEmail = true;  
     
     //Set the username as the email sender (requires authentication)
     $enableSender = true; 
@@ -58,7 +58,7 @@
     $title = 'PHPassword Pusher';
 	
 	//Site Language (corresponds to $language.php)
-	$language = 'en'; 
+	$language = 'es'; 
     
     //Enable display of the URL to the user.
     $displayURL = true;  

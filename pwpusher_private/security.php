@@ -87,20 +87,22 @@ function getUniqueId()
 }
 
 /**
- * Hashes the id via bcrypt
+ * Hashes the id via CRYPT_SHA512
  *
- * @param string $id
+ * @param string $id, $salt
  *
  * @return string $hashedId
  */
 function hashId($id, $salt) 
 {
-    $hashedId = crypt($id, '$2a$07$' . $salt . '$');
+    $hashedId = crypt($id, '$6$rounds=5000$' . $salt . '$');
     return $hashedId;
 }
 
 /**
  * Generates a 128-bit salt
+ *
+ * Unused? 
  *
  * @return string $salt
  */
