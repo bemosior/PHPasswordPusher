@@ -24,8 +24,15 @@
     $salt = 'change this salt please!'; 
     
     //Require Apache user authentication.
-    $requireAuth = false;  
-    
+    $requireApacheAuth = false;  
+	
+	//Require CAS user authentication.
+    $requireCASAuth = true;  
+	$cas_host = 'cas.example.com';
+	$cas_context = '/cas';
+	$cas_port = 443;
+    $cas_server_ca_cert_path = '/path/to/cachain.pem';
+
     //Maximum life of a shared credential/password (in minutes).
     $credMaxLife = (60 * 24 * 90); //90 days
 

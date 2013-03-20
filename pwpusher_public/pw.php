@@ -11,6 +11,7 @@ require '../pwpusher_private/mail.php';
 require '../pwpusher_private/security.php';
 require '../pwpusher_private/input.php';
 require '../pwpusher_private/interface.php';
+require '../pwpusher_private/CAS/CAS.php';
 
 //Print the header
 print getHeader();
@@ -22,8 +23,14 @@ print getNavBar();
 $arguments = getArguments();
 $arguments = checkInput($arguments);  
 
+//If CAS Auth is required, perform setup
+if($requireCASAuth) {
+    phpCAS::setDebug();
+    $phpcas_path = '../pwpusher_private/CAS';
+}
+
 //Die if auth is required and no user is defined.
-if ($requireAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+if (($requireApacheAuth || $requireCASAuth) && empty($_SERVER['PHP_AUTH_USER'])) {
     //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
     //if web auth isn't configured.
     print getError(translate('userNotAuthenticated'));
