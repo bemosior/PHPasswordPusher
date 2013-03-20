@@ -18,7 +18,8 @@ try{
   $db->exec('CREATE DATABASE ' . $dbname . ';'); 
   $db->exec('USE ' . $dbname .';');
   $db->exec('CREATE TABLE phpasspush (seccred TEXT, id VARCHAR(128) NOT NULL PRIMARY KEY, ctime DATETIME, xtime DATETIME, views INT, xviews INT);') ;
-  $db->exec('CREATE EVENT phpasspush_tidy ON SCHEDULE EVERY 5 MINUTE DO UPDATE ' . $dbname . '.phpasspush SET seccred=NULL WHERE xtime<UTC_TIMESTAMP() OR views>=xviews;');
+  $db->exec('CREATE EVENT phpasspush_tidy ON SCHEDULE EVERY 1 MINUTE DO DELETE FROM ' . $dbname . '.phpasspush WHERE xtime<UTC_TIMESTAMP() OR views>=xviews;');
+  $db->exec('SET GLOBAL event_scheduler = 1;');
   $db->exec('GRANT ALL PRIVILEGES ON ' . $dbname . '.* TO \'' . $dbuser . '\'@\'localhost\' IDENTIFIED BY \'' . $dbpass . '\';') ;
   echo "MySQL setup is successful!\n";
 } catch (PDOException $e) {
