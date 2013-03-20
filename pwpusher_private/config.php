@@ -27,7 +27,7 @@
     $requireApacheAuth = false;  
 	
 	//Require CAS user authentication. By default anyone can retrieve.
-    $requireCASAuth = true;  
+    $requireCASAuth = false;  
 	$cas_host = 'cas.example.com';
 	$cas_context = '/cas';
 	$cas_port = 443;
@@ -50,7 +50,7 @@
     $assumedDomain = 'your.domain';  
     
     //Allow the credentials to be sent via email at the web form.
-    $enableEmail = true;  
+    $enableEmail = false;  
     
     //Set the username as the email sender (requires authentication)
     $enableSender = true; 
