@@ -27,8 +27,7 @@ $arguments = checkInput($arguments);
 if($requireCASAuth) {
     //Uncomment the below line if troubleshooting CAS.
     //The default log is /tmp/phpCAS.log
-    phpCAS::setDebug();
-    $phpcas_path = '../pwpusher_private/CAS';
+    //phpCAS::setDebug();
     phpCAS::client(SAML_VERSION_1_1, $casHost, $casPort, $casContext);
     
     //Comment the following line and uncomment the one after if testing and you want to avoid cert errors
