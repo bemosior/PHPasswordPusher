@@ -39,6 +39,10 @@ function getArguments()
     if (isset($_POST['destemail'])) { 
         $arguments['destemail'] = $_POST['destemail'];
     }
+	if (isset($_POST['destname'])) { 
+        $arguments['destname'] = $_POST['destname'];
+    }
+	
     if (!$arguments) {
         $arguments['func'] = 'none';
     }
@@ -58,7 +62,7 @@ function checkInput($arguments)
        
     //Check the credential
     if (isset($arguments['cred'])) {
-        $arguments['cred'] = sanitizeCred($arguments['cred']);
+        $arguments['cred'] = sanitizeText($arguments['cred']);
         if ($arguments['cred'] == false) {
             $arguments['func'] = 'none';
             print getError(translate('enterSecret'));
@@ -133,6 +137,19 @@ function checkInput($arguments)
         if (empty($arguments['destemail'])) {
             print getWarning(translate('noEmail'));
         } else {
+		
+		    //Check to see if a name is included
+			if (empty($arguments['destname'])) {
+                print getWarning(translate('validName'));
+				return false;
+            } else {
+                $arguments['destname'] = sanitizeText($arguments['destname']);
+                if ($arguments['destname'] == false) {
+                    print getWarning(translate('validName'));
+                    return false;
+                }
+            }
+		
             $arguments['destemail'] = sanitizeEmail($arguments['destemail']);
             if ($arguments['destemail'] == false) {
                 print getWarning(translate('validEmail'));
@@ -178,19 +195,19 @@ function sanitizeNumber($number)
 }
 
 /**
- * Check and Sanitize the user's credentials.
+ * Check and Sanitize user text.
  *
- * @param string $cred credential to be sanitized
+ * @param string $text credential to be sanitized
  *
- * @return string $cred|boolean failure sanitized credential or failure
+ * @return string $text|boolean failure sanitized credential or failure
  */
-function sanitizeCred($cred) 
+function sanitizeText($text) 
 {
-    if (empty($cred)) {
+    if (empty($text)) {
         return false;
     } else {
-        $cred = htmlspecialchars($cred);
-        return $cred;
+        $text = htmlspecialchars($text);
+        return $text;
     }
 }
 

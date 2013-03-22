@@ -28,10 +28,11 @@
     
     //Require CAS user authentication. By default anyone can retrieve.
     $requireCASAuth = false;  
-    $cas_host = 'cas.example.com';
-    $cas_context = '/cas';
-    $cas_port = 443;
-    $cas_server_ca_cert_path = '/physical/path/to/cachain.pem';
+    $casHost = 'cas.example.com';
+    $casContext = '/cas';
+    $casPort = 443;
+    $casServerCaCertPath = '/physical/path/to/cachain.pem'; //Contains the Certificate Authority (issuer) certificate.
+	$cas_saml_name_attribute = 'full_name'; //A SAML attribute that contains the full name of the user.
     
     //Protect credential retrieval as well (if set to false and using authentication, 
     //only authenticated users can create credentials, but anyone can retrieve).
@@ -85,8 +86,8 @@
         'to the time or view limit, whichever occurs first.';
       
     //Critical warning displayed on every page and email.
-    $criticalWarning = 'NEVER leave credentials where they can be easily accessed ' .
-        'by others.'; 
+    $criticalWarning = 'Please, NEVER leave credentials where they can be easily ' .
+	    'accessed by others.'; 
 
 
 ?>

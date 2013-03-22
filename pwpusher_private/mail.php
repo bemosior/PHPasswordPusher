@@ -16,7 +16,7 @@
  * 
  * @return none
  */
-function mailURL($url, $destEmail, $expirationTime, $expirationViews) 
+function mailURL($url, $destEmail, $destName, $expirationTime, $expirationViews) 
 {
     include 'config.php';
     
@@ -25,14 +25,27 @@ function mailURL($url, $destEmail, $expirationTime, $expirationViews)
         $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; 
     } 
     
-    $message = $url . "\r\n\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' . 
-        $expirationViews . ' ' . translate('views') . "\r\n" . 
-        $criticalWarning;
-    
+	//Assemble the message
+    $message = $destName . ",\r\n\r\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' . 
+        $expirationViews . ' ' . translate('views') . "\r\n" .$url . "\r\n\r\n" .  
+        $criticalWarning . "\r\n\r\n" . translate('emailSignature');
+	
+	$subject = translate('sentCredential') . ' ';
+	
+	//Set Signed Name if given
+	if(isset($_SERVER['PHP_AUTH_NAME'])) {
+	    $message .= "\r\n" . $_SERVER['PHP_AUTH_NAME'];
+		$subject .= $_SERVER['PHP_AUTH_NAME'];
+	} else {
+	    $subject .= $sender;
+	}
+	
+
+	
     $headers = 'From: ' . $sender  . "\r\n";
     mail(
         $destEmail, 
-        $sender . ' ' . translate('sentCredential') . ' ', 
+        $subject, 
         $message,
         $headers
     ) or die('Email send failed!');

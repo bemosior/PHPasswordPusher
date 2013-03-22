@@ -83,6 +83,11 @@ function getNavBar()
         array('pw.php', translate('createNavLink')),
         array('about.php', translate('aboutNavLink'))
     );
+	
+	//Display logout nav if relevant
+	if($requireApacheAuth || $requireCASAuth) {
+	    array_push($pages, array('logout.php', translate('logoutNavLink')));
+	}
                     
     //First part of the navbar
     $returnString =  '<div class="navbar navbar-fixed-top">
@@ -133,8 +138,13 @@ function getFormElements()
     
      //Display creator username if email and authentication are configured.
     if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {  
-        $returnString .= '<label class="control-label" for="destemail">' . translate('sender') . ': ' . 
-            $_SERVER['PHP_AUTH_USER'] . '</label>'; 
+        $returnString .= '<label class="control-label" for="destemail">' . translate('sender') . ': '; 
+        if(isset($_SERVER['PHP_AUTH_NAME'])) {
+		    $returnString .= $_SERVER['PHP_AUTH_NAME'];
+		} else {
+		    $returnString .= $_SERVER['PHP_AUTH_USER']; 
+		}
+		$returnString .= '</label>';
     }
     
     //Create the basic credential creation form
@@ -177,10 +187,19 @@ function getFormElements()
         $returnString .=           
              '<div class="controls">
                 <div class="input-prepend">
+                  <span class="add-on"><i class="icon-user"></i></span>
+                  <input 
+                      type="text" 
+                      placeholder="' . translate('recipientNamePlaceholder') . '" 
+                      name="destname" />
+                </div>
+              </div>
+			  <div class="controls">
+                <div class="input-prepend">
                   <span class="add-on"><i class="icon-envelope"></i></span>
                   <input 
                       type="text" 
-                      placeholder="recipient@your.domain" 
+                      placeholder="' . translate('recipientEmailPlaceholder') . '" 
                       name="destemail" />
                 </div>
               </div>

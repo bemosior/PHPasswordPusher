@@ -27,12 +27,12 @@ $arguments = checkInput($arguments);
 if($requireCASAuth) {
     //Uncomment the below line if troubleshooting CAS.
     //The default log is /tmp/phpCAS.log
-    //phpCAS::setDebug();
+    phpCAS::setDebug();
     $phpcas_path = '../pwpusher_private/CAS';
-    phpCAS::client(CAS_VERSION_2_0, $cas_host, $cas_port, $cas_context);
+    phpCAS::client(SAML_VERSION_1_1, $casHost, $casPort, $casContext);
     
     //Comment the following line and uncomment the one after if testing and you want to avoid cert errors
-    phpCAS::setCasServerCACert($cas_server_ca_cert_path);
+    phpCAS::setCasServerCACert($casServerCaCertPath);
     //phpCAS::setNoCasServerValidation();
 }
 
@@ -43,6 +43,12 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     if($requireCASAuth) { 
         phpCAS::forceAuthentication();
         $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
+		
+		//Grab name attribute, if available
+		$attributes = phpCAS::getAttributes();
+		if(isset($attributes[$cas_saml_name_attribute])){
+			$_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
+		}
         
     //Fail Apache Authentication if configured but not successful
     } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
@@ -55,14 +61,18 @@ if ($arguments['func'] == 'none' || $arguments == false) {
 
     //Get form elements
     print getFormElements();
-  
-  
+
 } elseif ($arguments['func'] == 'post') { 
 
     //Force CAS Authentication in order to post the form
     if($requireCASAuth) { 
         phpCAS::forceAuthentication();
         $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
+		$attributes = phpCAS::getAttributes();
+		if(isset($attributes[$cas_saml_name_attribute])){
+			$_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
+		}
+		
     } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
             //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
         //if web auth isn't configured.
@@ -94,7 +104,8 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     if ($enableEmail && !empty($arguments['destemail'])) {
         mailURL(
             $url, 
-            $arguments['destemail'], 
+            $arguments['destemail'],
+			$arguments['destname'],
             calcExpirationDisplay($arguments['time']), 
             $arguments['views']
         ); 
@@ -172,6 +183,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     //Erase the credential
     eraseCred(hashId($arguments['id'], $salt));
 }
+
 //Print the footer
 print getFooter();
 ?>
