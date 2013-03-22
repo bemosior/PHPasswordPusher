@@ -45,8 +45,8 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         
         //Grab name attribute, if available
         $attributes = phpCAS::getAttributes();
-        if(isset($attributes[$cas_saml_name_attribute])){
-            $_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
+        if(isset($attributes[$casSamlNameAttribute])){
+            $_SERVER['PHP_AUTH_NAME'] = $attributes[$casSamlNameAttribute];
         }
         
     //Fail Apache Authentication if configured but not successful
@@ -68,8 +68,8 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         phpCAS::forceAuthentication();
         $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
         $attributes = phpCAS::getAttributes();
-        if(isset($attributes[$cas_saml_name_attribute])){
-            $_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
+        if(isset($attributes[$casSamlNameAttribute])){
+            $_SERVER['PHP_AUTH_NAME'] = $attributes[$casSamlNameAttribute];
         }
         
     } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {

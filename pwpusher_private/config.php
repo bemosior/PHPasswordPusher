@@ -32,7 +32,7 @@
     $casContext = '/cas';
     $casPort = 443;
     $casServerCaCertPath = '/physical/path/to/cachain.pem'; //Contains the Certificate Authority (issuer) certificate.
-    $cas_saml_name_attribute = 'full_name'; //A SAML attribute that contains the full name of the user.
+    $casSamlNameAttribute = 'full_name'; //A SAML attribute that contains the full name of the user.
     
     //Protect credential retrieval as well (if set to false and using authentication, 
     //only authenticated users can create credentials, but anyone can retrieve).
