@@ -42,12 +42,12 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     if($requireCASAuth) { 
         phpCAS::forceAuthentication();
         $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
-		
-		//Grab name attribute, if available
-		$attributes = phpCAS::getAttributes();
-		if(isset($attributes[$cas_saml_name_attribute])){
-			$_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
-		}
+        
+        //Grab name attribute, if available
+        $attributes = phpCAS::getAttributes();
+        if(isset($attributes[$cas_saml_name_attribute])){
+            $_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
+        }
         
     //Fail Apache Authentication if configured but not successful
     } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
@@ -67,11 +67,11 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     if($requireCASAuth) { 
         phpCAS::forceAuthentication();
         $_SERVER['PHP_AUTH_USER'] = phpCAS::getUser();
-		$attributes = phpCAS::getAttributes();
-		if(isset($attributes[$cas_saml_name_attribute])){
-			$_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
-		}
-		
+        $attributes = phpCAS::getAttributes();
+        if(isset($attributes[$cas_saml_name_attribute])){
+            $_SERVER['PHP_AUTH_NAME'] = $attributes[$cas_saml_name_attribute];
+        }
+        
     } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
             //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed 
         //if web auth isn't configured.
@@ -104,7 +104,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         mailURL(
             $url, 
             $arguments['destemail'],
-			$arguments['destname'],
+            $arguments['destname'],
             calcExpirationDisplay($arguments['time']), 
             $arguments['views']
         ); 

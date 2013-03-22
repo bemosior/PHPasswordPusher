@@ -25,23 +25,23 @@ function mailURL($url, $destEmail, $destName, $expirationTime, $expirationViews)
         $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; 
     } 
     
-	//Assemble the message
+    //Assemble the message
     $message = $destName . ",\r\n\r\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' . 
         $expirationViews . ' ' . translate('views') . "\r\n" .$url . "\r\n\r\n" .  
         $criticalWarning . "\r\n\r\n" . translate('emailSignature');
-	
-	$subject = translate('sentCredential') . ' ';
-	
-	//Set Signed Name if given
-	if(isset($_SERVER['PHP_AUTH_NAME'])) {
-	    $message .= "\r\n" . $_SERVER['PHP_AUTH_NAME'];
-		$subject .= $_SERVER['PHP_AUTH_NAME'];
-	} else {
-	    $subject .= $sender;
-	}
-	
+    
+    $subject = translate('sentCredential') . ' ';
+    
+    //Set Signed Name if given
+    if(isset($_SERVER['PHP_AUTH_NAME'])) {
+        $message .= "\r\n" . $_SERVER['PHP_AUTH_NAME'];
+        $subject .= $_SERVER['PHP_AUTH_NAME'];
+    } else {
+        $subject .= $sender;
+    }
+    
 
-	
+    
     $headers = 'From: ' . $sender  . "\r\n";
     mail(
         $destEmail, 
