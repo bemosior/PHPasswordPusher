@@ -14,6 +14,13 @@ set a view and time limit, and receive a link. That link is
 communicated to the intended recipient, who then can retrieve the sensitive
 information until the view or time limits are breached.
 
+## Feature Set
+* Secure Password/Credential Sharing
+* Emailing Features
+* Language Translation
+* Deletion Link
+* CAS (via phpCAS) and Apache Authentication Support
+
 ## Environment
 PHPasswordPusher has so far been tested with the following environment:
 
