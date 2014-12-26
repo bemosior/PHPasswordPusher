@@ -7,9 +7,6 @@ others. It operates on the principal that using a soon-to-be-expiring link to
 retrieve sensitive information is better than having the sensitive 
 information persist in email, chat, etc...
 
-A demo is hosted at [bmosior.com](https://bmosior.com/phpw/pw.php)
-
-
 ## Overview
 A user will enter the sensitive information (password, etc.) into the link form,
 set a view and time limit, and receive a link. That link is 
