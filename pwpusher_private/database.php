@@ -35,8 +35,7 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
                       'xtime'     => is_numeric(
                               $expirationTime
                           ) ? $expirationTime : $expirationTimeDefault,
-                    'xviews'    => 
-                        is_numeric(
+                      'xviews'    => is_numeric(
                             $expirationViews
                         ) ? $expirationViews : $expirationViewsDefault,
     );
