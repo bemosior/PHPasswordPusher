@@ -25,18 +25,16 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
                   values(
                       :id, 
                       :seccred, 
-                      UTC_TIMESTAMP(), 
-                      0, UTC_TIMESTAMP()+ INTERVAL :xtime MINUTE, :xviews
+                      NOW(), 
+                      0, DATE_ADD(NOW(), INTERVAL :xtime MINUTE), :xviews
                   )";
                   
     $params = array(
                       'id'        => $id,
                       'seccred'   => $encrypted,
-                      'xtime'     => "+" . 
-                          (is_numeric(
+                      'xtime'     => (is_numeric(
                               $expirationTime
-                          ) ? $expirationTime : $expirationTimeDefault) . 
-                        ' minutes',
+                          ) ? $expirationTime : $expirationTimeDefault),
                     'xviews'    => 
                         is_numeric(
                             $expirationViews
