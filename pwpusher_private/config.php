@@ -87,7 +87,4 @@
       
     //Critical warning displayed on every page and email.
     $criticalWarning = 'Please, NEVER leave credentials where they can be easily ' .
-        'accessed by others.'; 
-
-
-?>
+        'accessed by others.';

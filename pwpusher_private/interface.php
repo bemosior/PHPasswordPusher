@@ -11,11 +11,12 @@
  *
  * @return string returnString
  */
-function getHeader() 
+function getHeader()
 {
     include 'config.php';
-    return 
-     '<!DOCTYPE HTML>
+    /** @noinspection PhpUndefinedVariableInspection */
+    return
+        '<!DOCTYPE html>
       <html lang="en">
       <head>
         <meta charset="utf-8">
@@ -29,19 +30,25 @@ function getHeader()
             padding-top: 60px;
             padding-bottom: 40px;
           }
+
+          .input-group-btn:last-child > .form-control {
+            margin-left: -1px;
+            width: auto;
+          }
+
+          .input-group {
+            margin-bottom: 13px;
+          }
         </style>
+
+        <!-- jQuery -->
+        <script src="jQuery/jQuery.js" charset="utf-8"></script>
         
-        <!-- Twitter Bootstrap -->
+        <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
-        
-        <link href="bootstrap/css/bootstrap-responsive.css" 
-            rel="stylesheet">
             
         <script src="bootstrap/js/bootstrap.min.js" charset="utf-8">
         </script>
-        
-        <!-- jQuery -->
-        <script src="jQuery/jQuery.js" charset="utf-8"></script>
                
         <!-- Placeholder -->
         <script src="placeholder/Placeholder.min.js" charset="utf-8">
@@ -53,9 +60,16 @@ function getHeader()
             hideOnFocus: true //Hide the placeholder when the element receives focus
           })
         </script>
+        <script>
+            $(function () {
+                $(\'[data-toggle="tooltip"]\').tooltip()
+            })
+        </script>
       </head>
       <body>';
 }
+
+/** @noinspection PhpUndefinedClassInspection */
 
 /** 
  * Print the document footer
@@ -65,9 +79,12 @@ function getHeader()
 function getFooter() 
 {
     include 'config.php';
-    return '<div class="alert alert-error">' . 
+    /** @noinspection PhpUndefinedVariableInspection */
+    return '<div class="alert alert-danger">' .
         $criticalWarning . '</div></body></html>'; 
 }
+
+/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Print the navbar
@@ -85,16 +102,21 @@ function getNavBar()
     );
     
     //Display logout nav if relevant
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
     if($requireApacheAuth || $requireCASAuth) {
         array_push($pages, array('logout.php', translate('logoutNavLink')));
     }
                     
     //First part of the navbar
-    $returnString =  '<div class="navbar navbar-fixed-top">
-                        <div class="navbar-inner">
-                          <div class="container" >
-                            <div class="brand">' . $title . '</div>
-                            <ul class="nav">';
+    /** @noinspection PhpUndefinedVariableInspection */
+    $returnString =  '<nav class="navbar navbar-default navbar-fixed-top">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <span class="navbar-brand">' . $title . '</span>
+                            </div>
+                            <div class="collapse navbar-collapse">
+                                <ul class="nav navbar-nav">';
                                   
     //For each page in the pages array, determine whether the page is "active" 
     //(the current page) and add it to the navbar.
@@ -102,7 +124,7 @@ function getNavBar()
         $class = '';
         
         //Basename gets the filename listed in the REQUEST_URI
-        if (basename($_SERVER["REQUEST_URI"]) == $pages[$i][0]) {
+        if (substr(strrchr($_SERVER['PHP_SELF'], "/"), 1) == $pages[$i][0]) {
             $class = ' class="active"';
         }         
         //Set the finished link.                        
@@ -111,13 +133,13 @@ function getNavBar()
     }
     
     //Finish off the returnString
+    /** @noinspection PhpUndefinedVariableInspection */
     $returnString .= '      </ul>
                           </div>
                         </div>
-                      </div>
+                      </nav>
                       <div class="container">
-                      <img style="height:50px; display:block; 
-                          margin-left:auto; margin-right:auto;"
+                      <img class="img-responsive center-block" style="height:50px;"
                           src="' . $logo . '" />';    
                       
     return $returnString;
@@ -133,11 +155,14 @@ function getFormElements()
     include 'config.php';
     
     //Create basic credential form layout
-    $returnString = '<div class="hero-unit"><h2>' . translate('createLink') . '</h2>' . 
+    $returnString = '<div class="jumbotron"><h3 style="font-weight:bold;">' . translate('createLink') . '</h3>' .
         '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
     
      //Display creator username if email and authentication are configured.
-    if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {  
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
+    if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {
         $returnString .= '<label class="control-label" for="destemail">' . translate('sender') . ': '; 
         if(isset($_SERVER['PHP_AUTH_NAME'])) {
             $returnString .= $_SERVER['PHP_AUTH_NAME'];
@@ -148,56 +173,70 @@ function getFormElements()
     }
     
     //Create the basic credential creation form
-    $returnString .= 
-             '<div class="controls">
-                <div class="input-prepend">
-                  <span class="add-on"><i class="icon-lock"></i></span>' .
-                  '<textarea rows="3" placeholder="' . translate('secret') . '" name="cred" />' .
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
+    $returnString .=
+             '<div class="input-group">
+                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true" data-container="body"
+                  data-toggle="tooltip" data-placement="top" title="This is the secret you want to send to the other person."></span>
+                  </span>' .
+                  '<textarea class="form-control" placeholder="' . translate('secret') . '" name="cred" aria-describedby="cred" />' .
                   '</textarea>
-                </div>
               </div>
-    
-              <div class="controls">
-                <div class="input-prepend input-append">
-                  <span class="add-on"><i class="icon-time"></i></span>
-                  <input class="span1" type="text" placeholder="' . 
+              <div class="input-group">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-time" aria-hidden="true" data-container="body"
+                        data-toggle="tooltip" data-placement="top"
+                        title="The maximum amount of time for the secret to remain on the server before it is automatically deleted."></span>
+                  </span>
+                  <input class="form-control" type="text" placeholder="' .
                       $expirationTimeDefault . 
-                      '" name="time" />
-                  <select name="units" style="width:90px; background-color:#eee;">
+                      '" name="time" aria-label="time" />
+                  <div class="input-group-btn">
+                    <select class="form-control">
                       <option>' . translate('minutes') . '</option>
                       <option>' . translate('hours') . '</option>
                       <option>' . translate('days') . '</option>
-                      </select>
+                    </select>
+                  </div>
                   
                 </div>
-              </div>
-    
-              <div class="controls">
-                <div class="input-prepend input-append">
-                  <span class="add-on"><i class="icon-eye-open"></i></span>
-                  <input class="span1" type="text" ' . 'placeholder="' . 
+              <div class="input-group">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-container="body"
+                        data-toggle="tooltip" data-placement="top"
+                        title="The maximum number of times the link can be viewed before it is automatically deleted."></span>
+                  </span>
+                  <input class="form-control" type="text" ' . 'placeholder="' .
                       $expirationViewsDefault . 
                       '" name="views" />
-                  <span class="add-on">' . translate('views') . '</span>
-                </div>
-              </div>';
+                  <span class="input-group-addon">' . translate('views') . '</span>
+                </div>';
               
     //Display field for destination email if enabled.
     if ($enableEmail) {  
         $returnString .=           
-             '<div class="controls">
-                <div class="input-prepend">
-                  <span class="add-on"><i class="icon-user"></i></span>
-                  <input 
+             '<div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-user" aria-hidden="true" data-container="body"
+                        data-toggle="tooltip" data-placement="top"
+                        title="The name of the person to email this link to."></span>
+                  </span>
+                  <input
+                      class="form-control"
                       type="text" 
                       placeholder="' . translate('recipientNamePlaceholder') . '" 
                       name="destname" />
                 </div>
               </div>
-              <div class="controls">
-                <div class="input-prepend">
-                  <span class="add-on"><i class="icon-envelope"></i></span>
-                  <input 
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-envelope" aria-hidden="true" data-container="body"
+                        data-toggle="tooltip" data-placement="top"
+                        title="The email address to send this link to."></span>
+                  </span>
+                  <input
+                      class="form-control"
                       type="text" 
                       placeholder="' . translate('recipientEmailPlaceholder') . '" 
                       name="destemail" />
@@ -240,10 +279,12 @@ function getURL($url)
     
     $returnString = '<div class="hero-unit"><h2>' . translate('giveLink') . '</h2>' .
       '<div class="pagination-centered"><div><code>' . $url . '</code></div>';
-      
+
+    /** @noinspection PhpToStringImplementationInspection */
     $returnString .= getZeroClipboard($url);
-    
-    $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p>' . 
+
+    /** @noinspection PhpUndefinedVariableInspection */
+    $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p>' .
         '<a href="' . $url . '&remove=1">' . 
         '<button class="btn btn-mini btn-danger">' . translate('deleteLink') . '</button></a></div>';
         
@@ -251,6 +292,8 @@ function getURL($url)
     
     return $returnString;
 }
+
+/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Generates the ZeroClipboard functionality
@@ -297,6 +340,8 @@ function getZeroClipboard($content)
     return $returnString;
 }
 
+/** @noinspection PhpUndefinedClassInspection */
+
 
 /**
  * Print success message to page
@@ -310,6 +355,8 @@ function getSuccess($message)
     return '<div class="alert alert-success">' . $message . '</div>';
 }
 
+/** @noinspection PhpUndefinedClassInspection */
+
 
 /** 
  * Print warning to page
@@ -320,8 +367,10 @@ function getSuccess($message)
  */
 function getWarning($warning) 
 {
-    return '<div class="alert">' . $warning . '</div>';
+    return '<div class="alert alert-warning">' . $warning . '</div>';
 }
+
+/** @noinspection PhpUndefinedClassInspection */
 
 
 /** 
@@ -333,7 +382,7 @@ function getWarning($warning)
  */
 function getError($error) 
 {
-    return '<div class="alert alert-error">' . $error. '</div>';
+    return '<div class="alert alert-danger">' . $error. '</div>';
 }
 
 
@@ -404,10 +453,8 @@ function calcExpirationDisplay($minutes)
  */
 function translate($phrase) {
     require 'config.php';
+    /** @noinspection PhpUndefinedVariableInspection */
     require 'languages/' . $language . '.php';
     
     return ${$phrase};
-    
- 
 }
-?>

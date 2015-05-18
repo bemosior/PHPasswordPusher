@@ -42,5 +42,3 @@ $validName = 'Please enter a valid recipient name!';
 $validTimeLimit = 'Please enter a time limit smaller than the maximum';
 $validViewLimit = 'Please enter a valid view limit (positive whole number)!';
 $views = 'views';
-
-?>

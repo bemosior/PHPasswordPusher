@@ -176,10 +176,11 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
+    /** @noinspection PhpUnusedPrivateMethodInspection */
     private function _storeResponseBody ($body)
     {
         $this->storeResponseBody($body);
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * Internal method for capturing the headers from a curl request.
@@ -189,9 +190,12 @@ implements CAS_Request_RequestInterface
      *
      * @return void
      */
-    private function _curlReadHeaders ($ch, $header)
+    /** @noinspection PhpUnusedPrivateMethodInspection */
+    private function _curlReadHeaders (/** @noinspection PhpUnusedParameterInspection */
+        $ch, $header)
     {
         $this->storeResponseHeader($header);
+        /** @noinspection PhpInconsistentReturnPointsInspection */
         return strlen($header);
     }
 }

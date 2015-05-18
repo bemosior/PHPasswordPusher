@@ -11,6 +11,7 @@ require '../pwpusher_private/interface.php';
 print getHeader();
 
 //Print the navbar
+/** @noinspection PhpToStringImplementationInspection */
 print getNavBar();
 
 //Print the about page.
@@ -31,5 +32,5 @@ print('<div class="hero-unit"><h2>What is PHPasswordPusher?</h2>
         GitHub page</a>.</div>');
         
 //Print the footer
+/** @noinspection PhpToStringImplementationInspection */
 print getFooter();
-?>

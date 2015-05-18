@@ -49,7 +49,6 @@ class CAS_CookieJar
      *
      * @param array &$storageArray Array to store cookies
      *
-     * @return void
      */
     public function __construct (array &$storageArray)
     {
@@ -373,5 +372,3 @@ class CAS_CookieJar
     }
 
 }
-
-?>

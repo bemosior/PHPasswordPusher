@@ -94,4 +94,3 @@ session_name(
 );
 // Set an UTF-8 encoding header for internation characters (User attributes)
 header('Content-Type: text/html; charset=utf-8');
-?>

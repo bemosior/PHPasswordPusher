@@ -112,6 +112,7 @@ implements CAS_Request_MultiRequestInterface
         $handles = array();
         $multiHandle = curl_multi_init();
         foreach ($this->_requests as $i => $request) {
+            /** @noinspection PhpUndefinedMethodInspection */
             $handle = $request->_initAndConfigure();
             curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
             $handles[$i] = $handle;
@@ -126,6 +127,7 @@ implements CAS_Request_MultiRequestInterface
         // Populate all of the responses or errors back into the request objects.
         foreach ($this->_requests as $i => $request) {
             $buf = curl_multi_getcontent($handles[$i]);
+            /** @noinspection PhpUndefinedMethodInspection */
             $request->_storeResponseBody($buf);
             curl_multi_remove_handle($multiHandle, $handles[$i]);
             curl_close($handles[$i]);

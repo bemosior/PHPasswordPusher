@@ -42,5 +42,3 @@ $validNameLimit = 'Necesita un nombre válido.';
 $validTimeLimit = 'Necesita un tiempo menos que el máximo';
 $validViewLimit = 'Necesita un límite visión válido.';
 $views = 'visitas';
-
-?>

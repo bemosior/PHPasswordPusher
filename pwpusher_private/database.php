@@ -4,8 +4,9 @@
  *
  * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
- 
- 
+/** @noinspection PhpUndefinedClassInspection */
+
+
 /**
  * Insert the credential into the database
  *
@@ -28,7 +29,9 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
                       UTC_TIMESTAMP(), 
                       0, DATE_ADD(UTC_TIMESTAMP(), INTERVAL :xtime MINUTE), :xviews
                   )";
-                  
+
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
     $params = array(
                       'id'        => $id,
                       'seccred'   => $encrypted,
@@ -50,6 +53,7 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
         eraseExpired($db);
       
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
@@ -91,11 +95,14 @@ function retrieveCred($id)
         return $result;
       
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
     return false;
 }
+
+/** @noinspection PhpUndefinedClassInspection */
 
 
 /**
@@ -113,10 +120,13 @@ function eraseExpired($db)
         $statement = $db->prepare($query);
         $statement->execute();
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
 }
+
+/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Remove a specific record
@@ -133,8 +143,10 @@ function eraseCred($id)
         $db = connectDB();
         $statement = $db->prepare($query);
         $statement->execute($params);
+        /** @noinspection PhpToStringImplementationInspection */
         print getSuccess(translate('linkErased'));
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
@@ -149,9 +161,11 @@ function eraseCred($id)
 function connectDB() 
 {
     include 'config.php';
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
+    /** @noinspection PhpUndefinedVariableInspection */
     $db = new PDO('mysql:dbname=' . $dbname . ';host=localhost', $dbuser, $dbpass)
         or die('Connect Failed');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $db;
 }
-?>

@@ -15,6 +15,7 @@
 function encryptCred($cred) 
 {
     include 'config.php';
+    /** @noinspection PhpUndefinedVariableInspection */
     $encrypted = base64_encode(
         mcrypt_encrypt(
             MCRYPT_RIJNDAEL_256, $key, $cred, MCRYPT_MODE_ECB,
@@ -40,6 +41,7 @@ function encryptCred($cred)
 function decryptCred($encrypted) 
 {
     include 'config.php';
+    /** @noinspection PhpUndefinedVariableInspection */
     $decrypted = mcrypt_decrypt(
         MCRYPT_RIJNDAEL_256,
         $key,
@@ -89,8 +91,9 @@ function getUniqueId()
 /**
  * Hashes the id via CRYPT_SHA512
  *
- * @param string $id, $salt
+ * @param string $id , $salt
  *
+ * @param $salt
  * @return string $hashedId
  */
 function hashId($id, $salt) 
@@ -111,4 +114,3 @@ function getSalt()
     $salt = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
     return $salt;
 }
-?>

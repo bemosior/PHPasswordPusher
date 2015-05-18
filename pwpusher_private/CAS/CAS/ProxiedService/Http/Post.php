@@ -123,7 +123,7 @@ extends CAS_ProxiedService_Http_Abstract
      *
      * @param CAS_Request_RequestInterface $request request interface class
      *
-     * @return void
+     * @throws CAS_ProxiedService_Exception
      */
     protected function populateRequest (CAS_Request_RequestInterface $request)
     {
@@ -141,4 +141,3 @@ extends CAS_ProxiedService_Http_Abstract
 
 
 }
-?>

@@ -65,6 +65,7 @@ function checkInput($arguments)
         $arguments['cred'] = sanitizeText($arguments['cred']);
         if ($arguments['cred'] == false) {
             $arguments['func'] = 'none';
+            /** @noinspection PhpToStringImplementationInspection */
             print getError(translate('enterSecret'));
             return false;
         }
@@ -75,12 +76,14 @@ function checkInput($arguments)
     
         //Set to the default value if empty
         if (empty($arguments['time'])) {
+            /** @noinspection PhpUndefinedVariableInspection */
             $arguments['time'] = $expirationTimeDefault;
         }
         
         //Sanitize the input
         $arguments['time'] = sanitizeNumber($arguments['time']);
-        if ($arguments['time'] == false) { 
+        if ($arguments['time'] == false) {
+            /** @noinspection PhpToStringImplementationInspection */
             print getError(translate('enterTime'));
             return false;
         }
@@ -103,8 +106,10 @@ function checkInput($arguments)
         }
         
         //Check against maximum lifetime
+        /** @noinspection PhpUndefinedVariableInspection */
         if ($arguments['time'] > $credMaxLife) {
-          print getError(
+            /** @noinspection PhpToStringImplementationInspection */
+            print getError(
                 translate('validTimeLimit') . ' ' .
                 calcExpirationDisplay($credMaxLife)
             );
@@ -120,12 +125,14 @@ function checkInput($arguments)
     
         //Set to the default value if empty
         if (empty($arguments['views'])) {
+            /** @noinspection PhpUndefinedVariableInspection */
             $arguments['views'] = $expirationViewsDefault;
         }
         
         //Sanitize the input
         $arguments['views'] = sanitizeNumber($arguments['views']);
         if ($arguments['views'] == false) {
+            /** @noinspection PhpToStringImplementationInspection */
             print getError(translate('validViewLimit'));
             return false;
         }
@@ -135,16 +142,19 @@ function checkInput($arguments)
     if (isset($arguments['destemail'])) {
         //Ignore if empty
         if (empty($arguments['destemail'])) {
+            /** @noinspection PhpToStringImplementationInspection */
             print getWarning(translate('noEmail'));
         } else {
 		
 		    //Check to see if a name is included
 			if (empty($arguments['destname'])) {
+                /** @noinspection PhpToStringImplementationInspection */
                 print getWarning(translate('validName'));
 				return false;
             } else {
                 $arguments['destname'] = sanitizeText($arguments['destname']);
                 if ($arguments['destname'] == false) {
+                    /** @noinspection PhpToStringImplementationInspection */
                     print getWarning(translate('validName'));
                     return false;
                 }
@@ -152,6 +162,7 @@ function checkInput($arguments)
 		
             $arguments['destemail'] = sanitizeEmail($arguments['destemail']);
             if ($arguments['destemail'] == false) {
+                /** @noinspection PhpToStringImplementationInspection */
                 print getWarning(translate('validEmail'));
                 return false;
             }
@@ -182,8 +193,7 @@ function sanitizeEmail($email)
  * Sanitize number entry
  *
  * @param integer $number number to be sanitized
- *
- * @return $number|boolean failure sanitized number or failure
+ * @return bool|int $number|boolean failure sanitized number or failure
  */
 function sanitizeNumber($number) 
 {
@@ -210,5 +220,3 @@ function sanitizeText($text)
         return $text;
     }
 }
-
-?>

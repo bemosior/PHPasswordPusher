@@ -13,12 +13,14 @@ require '../pwpusher_private/CAS/CAS.php';
 print getHeader();
 
 //Print the navbar
+/** @noinspection PhpToStringImplementationInspection */
 print getNavBar();
 
 //Print the logout page.
 print('<div class="hero-unit"><h2>Logout</h2>');
 if($requireApacheAuth) {
-  print(getError(translate('apacheLogout')));
+    /** @noinspection PhpToStringImplementationInspection */
+    print(getError(translate('apacheLogout')));
 } elseif ($requireCASAuth) {
   phpCAS::client(SAML_VERSION_1_1, $casHost, $casPort, $casContext);
   phpCAS::Logout();
@@ -26,5 +28,5 @@ if($requireApacheAuth) {
 print('</div>');
         
 //Print the footer
+/** @noinspection PhpToStringImplementationInspection */
 print getFooter();
-?>

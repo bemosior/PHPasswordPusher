@@ -56,6 +56,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
      * @private
      */
     var $_path;
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the name of the directory where PGT's should be stored
@@ -73,6 +74,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     // ########################################################################
     //  DEBUGGING
     // ########################################################################
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an informational string giving the type of storage
@@ -84,7 +86,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     function getStorageType()
     {
         return "file";
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an informational string giving informations on the
@@ -95,6 +97,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
      */
     function getStorageInfo()
     {
+        /** @noinspection PhpToStringImplementationInspection */
         return 'path=`'.$this->getPath().'\'';
     }
 
@@ -106,9 +109,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
      * The class constructor, called by CAS_Client::SetPGTStorageFile().
      *
      * @param CAS_Client $cas_parent the CAS_Client instance that creates the object.
-     * @param string     $path       the path where the PGT's should be stored
-     *
-     * @return void
+     * @param string $path the path where the PGT's should be stored
      *
      * @public
      */
@@ -168,6 +169,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     // ########################################################################
     //  PGT I/O
     // ########################################################################
+    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the filename corresponding to a PGT Iou.
@@ -180,6 +182,7 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     function getPGTIouFilename($pgt_iou)
     {
         phpCAS::traceBegin();
+        /** @noinspection PhpToStringImplementationInspection */
         $filename = $this->getPath().$pgt_iou.'.plain';
         phpCAS::traceEnd($filename);
         return $filename;
@@ -206,18 +209,22 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
             @chmod($fname, 0600);
             if ($f=fopen($fname, "w")) {
                 if (fputs($f, $pgt) === false) {
+                    /** @noinspection PhpToStringImplementationInspection */
                     phpCAS::error('could not write PGT to `'.$fname.'\'');
                 }
+                /** @noinspection PhpToStringImplementationInspection */
                 phpCAS::trace('Successful write of PGT to `'.$fname.'\'');
                 fclose($f);
             } else {
+                /** @noinspection PhpToStringImplementationInspection */
                 phpCAS::error('could not open `'.$fname.'\'');
             }
         } else {
+            /** @noinspection PhpToStringImplementationInspection */
             phpCAS::error('File exists: `'.$fname.'\'');
         }
         phpCAS::traceEnd();
-    }
+    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method reads a PGT corresponding to a PGT Iou and deletes the
@@ -236,17 +243,21 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
         $fname = $this->getPGTIouFilename($pgt_iou);
         if (file_exists($fname)) {
             if (!($f=fopen($fname, "r"))) {
+                /** @noinspection PhpToStringImplementationInspection */
                 phpCAS::error('could not open `'.$fname.'\'');
             } else {
                 if (($pgt=fgets($f)) === false) {
+                    /** @noinspection PhpToStringImplementationInspection */
                     phpCAS::error('could not read PGT from `'.$fname.'\'');
                 }
+                /** @noinspection PhpToStringImplementationInspection */
                 phpCAS::trace('Successful read of PGT to `'.$fname.'\'');
                 fclose($f);
             }
             // delete the PGT file
             @unlink($fname);
         } else {
+            /** @noinspection PhpToStringImplementationInspection */
             phpCAS::error('No such file `'.$fname.'\'');
         }
         phpCAS::traceEnd($pgt);
@@ -256,4 +267,3 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     /** @} */
 
 }
-?>

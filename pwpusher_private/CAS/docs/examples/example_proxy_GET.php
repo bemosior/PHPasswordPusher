@@ -60,15 +60,20 @@ flush();
 // call a service and change the color depending on the result
 try {
     $service = phpCAS::getProxiedService(PHPCAS_PROXIED_SERVICE_HTTP_GET);
+    /** @noinspection PhpUndefinedMethodInspection */
     $service->setUrl($serviceUrl);
+    /** @noinspection PhpUndefinedMethodInspection */
     $service->send();
+    /** @noinspection PhpUndefinedMethodInspection */
     if ($service->getResponseStatusCode() == 200) {
         echo '<div class="success">';
+        /** @noinspection PhpUndefinedMethodInspection */
         echo $service->getResponseBody();
         echo '</div>';
     } else {
         // The service responded with an error code 404, 500, etc.
         echo '<div class="error">';
+        /** @noinspection PhpUndefinedMethodInspection */
         echo 'The service responded with a '
         . $service->getResponseStatusCode() . ' error.';
         echo '</div>';

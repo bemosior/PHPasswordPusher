@@ -53,7 +53,6 @@ extends CAS_ProxiedService_Abstract
      *
      * @param string $username Username
      *
-     * @return void
      */
     public function __construct ($username)
     {
@@ -199,6 +198,7 @@ extends CAS_ProxiedService_Abstract
         } else {
             phpCAS::trace('could not open mailbox');
             // @todo add localization integration.
+            /** @noinspection PhpUndefinedVariableInspection */
             $message = 'IMAP Error: '.$url.' '. var_export(imap_errors(), true);
             phpCAS::trace($message);
             throw new CAS_ProxiedService_Exception($message);
@@ -257,4 +257,3 @@ extends CAS_ProxiedService_Abstract
         return $this->getProxyTicket();
     }
 }
-?>
