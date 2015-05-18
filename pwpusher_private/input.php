@@ -2,7 +2,7 @@
 /**
  * User Input Handling
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
  
  

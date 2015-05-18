@@ -2,7 +2,7 @@
 /**
  * The main credential creation page.
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
 
 require '../pwpusher_private/config.php';

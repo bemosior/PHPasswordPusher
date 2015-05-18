@@ -3,7 +3,7 @@
 /**
  * User Interface Functions
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
 
 /**
@@ -107,7 +107,7 @@ function getNavBar()
     if($requireApacheAuth || $requireCASAuth) {
         array_push($pages, array('logout.php', translate('logoutNavLink')));
     }
-                    
+
     //First part of the navbar
     /** @noinspection PhpUndefinedVariableInspection */
     $returnString =  '<nav class="navbar navbar-default navbar-fixed-top">
@@ -117,7 +117,7 @@ function getNavBar()
                             </div>
                             <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav">';
-                                  
+
     //For each page in the pages array, determine whether the page is "active" 
     //(the current page) and add it to the navbar.
     for ($i = 0; $i < sizeof($pages); $i++) {
