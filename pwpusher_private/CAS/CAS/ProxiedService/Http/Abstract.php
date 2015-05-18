@@ -60,8 +60,9 @@ implements CAS_ProxiedService_Http
      * Constructor.
      *
      * @param CAS_Request_RequestInterface $requestHandler request handler object
-     * @param CAS_CookieJar $cookieJar cookieJar object
+     * @param CAS_CookieJar                $cookieJar      cookieJar object
      *
+     * @return void
      */
     public function __construct (CAS_Request_RequestInterface $requestHandler, CAS_CookieJar $cookieJar)
     {
@@ -121,8 +122,15 @@ implements CAS_ProxiedService_Http
     /**
      * Perform the request.
      *
-     * @throws CAS_ProxiedService_Exception
-     * @throws Exception
+     * @return void
+     * @throws CAS_OutOfSequenceException If called multiple times.
+     * @throws CAS_ProxyTicketException If there is a proxy-ticket failure.
+     *		The code of the Exception will be one of:
+     *			PHPCAS_SERVICE_PT_NO_SERVER_RESPONSE
+     *			PHPCAS_SERVICE_PT_BAD_SERVER_RESPONSE
+     *			PHPCAS_SERVICE_PT_FAILURE
+     * @throws CAS_ProxiedService_Exception If there is a failure sending the
+     * request to the target service.
      */
     public function send ()
     {
@@ -332,3 +340,4 @@ implements CAS_ProxiedService_Http
     }
 
 }
+?>

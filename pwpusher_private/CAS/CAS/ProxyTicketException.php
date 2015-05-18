@@ -47,8 +47,9 @@ implements CAS_Exception
      * Constructor
      *
      * @param string $message Message text
-     * @param int $code Error code
+     * @param int    $code    Error code
      *
+     * @return void
      */
     public function __construct ($message, $code = PHPCAS_SERVICE_PT_FAILURE)
     {

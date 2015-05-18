@@ -90,6 +90,7 @@ class CAS_ProxyChain_AllowedList
             phpCAS::traceEnd($res);
             return $res;
         }
+    }
 
     /**
      * Validate the proxies from the proxy ticket validation against the
@@ -105,7 +106,6 @@ class CAS_ProxyChain_AllowedList
         $count = 0;
         foreach ($this->_chains as $chain) {
             phpCAS::trace("Checking chain ". $count++);
-            /** @noinspection PhpUndefinedMethodInspection */
             if ($chain->matches($list)) {
                 phpCAS::traceEnd(true);
                 return true;
@@ -116,3 +116,4 @@ class CAS_ProxyChain_AllowedList
         return false;
     }
 }
+?>

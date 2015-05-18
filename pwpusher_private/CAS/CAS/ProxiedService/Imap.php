@@ -53,6 +53,7 @@ extends CAS_ProxiedService_Abstract
      *
      * @param string $username Username
      *
+     * @return void
      */
     public function __construct ($username)
     {
@@ -256,3 +257,4 @@ extends CAS_ProxiedService_Abstract
         return $this->getProxyTicket();
     }
 }
+?>

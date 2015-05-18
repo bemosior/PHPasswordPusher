@@ -93,3 +93,5 @@ if (function_exists('spl_autoload_register')) {
         return CAS_autoload($class);
     }
 }
+
+?>

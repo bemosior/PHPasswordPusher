@@ -64,7 +64,6 @@ if ($auth) {
     <p><a href="?login=">Login</a></p><?php
 }
                                       ?>
-    <p>phpCAS version is <b><?php /** @noinspection PhpToStringImplementationInspection */
-            echo phpCAS::getVersion(); ?></b>.</p>
+    <p>phpCAS version is <b><?php echo phpCAS::getVersion(); ?></b>.</p>
   </body>
 </html>

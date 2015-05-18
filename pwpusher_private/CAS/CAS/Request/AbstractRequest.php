@@ -295,8 +295,9 @@ implements CAS_Request_RequestInterface
 
     /**
      * Answer HTTP status code of the response
+     *
      * @return int
-     * @throws CAS_Request_Exception
+     * @throws CAS_OutOfSequenceException If called before the Request has been sent.
      */
     public function getResponseStatusCode ()
     {

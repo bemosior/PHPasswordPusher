@@ -57,7 +57,6 @@ phpCAS::forceAuthentication();
     <h1>Successfull Authentication!</h1>
     <?php require 'script_info.php' ?>
     <p>the user's login is <b><?php echo phpCAS::getUser(); ?></b>.</p>
-    <p>phpCAS version is <b><?php /** @noinspection PhpToStringImplementationInspection */
-            echo phpCAS::getVersion(); ?></b>.</p>
+    <p>phpCAS version is <b><?php echo phpCAS::getVersion(); ?></b>.</p>
   </body>
 </html>

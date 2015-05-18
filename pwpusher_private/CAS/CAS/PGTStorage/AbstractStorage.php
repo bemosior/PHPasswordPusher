@@ -60,6 +60,8 @@ abstract class CAS_PGTStorage_AbstractStorage
      * @param CAS_Client $cas_parent the CAS _client instance that creates the
      * current object.
      *
+     * @return void
+     *
      * @protected
      */
     function __construct($cas_parent)
@@ -127,6 +129,7 @@ abstract class CAS_PGTStorage_AbstractStorage
     function setErrorMessage($error_message)
     {
         $this->_error_message = $error_message;
+    }
 
     /**
      * This method returns an error message set by PGTStorage::setErrorMessage().
@@ -190,9 +193,7 @@ abstract class CAS_PGTStorage_AbstractStorage
      * @note Should never be called.
      *
      */
-    function write(/** @noinspection PhpUnusedParameterInspection */
-        $pgt, /** @noinspection PhpUnusedParameterInspection */
-        $pgt_iou)
+    function write($pgt,$pgt_iou)
     {
         phpCAS::error(__CLASS__.'::'.__FUNCTION__.'() should never be called');
     }
@@ -207,8 +208,7 @@ abstract class CAS_PGTStorage_AbstractStorage
      *
      * @note Should never be called.
      */
-    function read(/** @noinspection PhpUnusedParameterInspection */
-        $pgt_iou)
+    function read($pgt_iou)
     {
         phpCAS::error(__CLASS__.'::'.__FUNCTION__.'() should never be called');
     }
@@ -216,3 +216,5 @@ abstract class CAS_PGTStorage_AbstractStorage
     /** @} */
 
 }
+
+?>

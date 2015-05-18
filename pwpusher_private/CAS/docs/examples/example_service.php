@@ -90,3 +90,5 @@ if (!isset($_SESSION['n'])) {
     $_SESSION['n'] = 0;
 }
 echo '<p>request #' . (++$_SESSION['n']) . '</p>';
+
+?>
