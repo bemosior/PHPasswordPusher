@@ -306,7 +306,6 @@ class CAS_Client
             $this->_server['base_url'] .= $this->_getServerURI();
         }
         return $this->_server['base_url'];
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method is used to retrieve the login URL of the CAS server.
@@ -992,7 +991,6 @@ class CAS_Client
     public function setAttributes($attributes)
     {
         $this->_attributes = $attributes;
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * Get an key values arry of attributes
@@ -1548,7 +1546,6 @@ class CAS_Client
                 phpCAS::trace("Session ". $session_id . " destroyed");
             }
         } else {
-            /** @noinspection PhpUndefinedVariableInspection */
             phpCAS::error("Unauthorized logout request from client '".$client."'");
             phpCAS::trace("Unauthorized logout request from client '".$client."'");
         }
@@ -2022,7 +2019,6 @@ class CAS_Client
     private function _setCallbackMode($callback_mode)
     {
         $this->_callback_mode = $callback_mode;
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns true when the CAs client is running i callback mode,
@@ -2043,7 +2039,6 @@ class CAS_Client
      * @hideinitializer
      */
     private $_callback_url = '';
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the URL that should be used for the PGT callback (in
@@ -2170,7 +2165,6 @@ class CAS_Client
         // writes the PGT
         /** @noinspection PhpUndefinedMethodInspection */
         $this->_pgt_storage->write($pgt, $pgt_iou);
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method reads a PGT from its Iou and deletes the corresponding
@@ -2309,7 +2303,6 @@ class CAS_Client
     // ########################################################################
     //  PGT VALIDATION
     // ########################################################################
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method is used to retrieve PT's from the CAS server thanks to a PGT.
@@ -2359,7 +2352,6 @@ class CAS_Client
 
         if ( !$bad_response ) {
             // read the root node of the XML tree
-            /** @noinspection PhpUndefinedVariableInspection */
             if ( !($root = $dom->documentElement) ) {
                 phpCAS::trace('documentElement failed');
                 // read failed
@@ -2369,7 +2361,6 @@ class CAS_Client
 
         if ( !$bad_response ) {
             // insure that tag name is 'serviceResponse'
-            /** @noinspection PhpUndefinedVariableInspection */
             if ( $root->localName != 'serviceResponse' ) {
                 phpCAS::trace('localName failed');
                 // bad root node
@@ -2379,7 +2370,6 @@ class CAS_Client
 
         if ( !$bad_response ) {
             // look for a proxySuccess tag
-            /** @noinspection PhpUndefinedVariableInspection */
             if ( $root->getElementsByTagName("proxySuccess")->length != 0) {
                 $proxy_success_list = $root->getElementsByTagName("proxySuccess");
 
@@ -2507,7 +2497,6 @@ class CAS_Client
             phpCAS::traceEnd(false);
             return false;
         }
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method is used to build the SAML POST body sent to /samlValidate URL.
@@ -3127,7 +3116,6 @@ class CAS_Client
     public function setURL($url)
     {
         $this->_url = $url;
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the URL of the current request (without any ticket
@@ -3234,7 +3222,6 @@ class CAS_Client
     {
         $parameterName	= preg_quote($parameterName);
         return preg_replace("/&$parameterName(=[^&]*)?|^$parameterName(=[^&]*)?&?/", '', $queryString);
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method is used to append query parameters to an url. Since the url

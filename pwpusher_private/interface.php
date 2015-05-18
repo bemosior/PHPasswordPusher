@@ -14,7 +14,6 @@
 function getHeader()
 {
     include 'config.php';
-    /** @noinspection PhpUndefinedVariableInspection */
     return
         '<!DOCTYPE html>
       <html lang="en">
@@ -69,7 +68,6 @@ function getHeader()
       <body>';
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 /** 
  * Print the document footer
@@ -79,12 +77,10 @@ function getHeader()
 function getFooter() 
 {
     include 'config.php';
-    /** @noinspection PhpUndefinedVariableInspection */
     return '<div class="alert alert-danger">' .
-        $criticalWarning . '</div></body></html>'; 
+        $criticalWarning . '</div></div></body></html>';
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Print the navbar
@@ -102,14 +98,11 @@ function getNavBar()
     );
     
     //Display logout nav if relevant
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
     if($requireApacheAuth || $requireCASAuth) {
         array_push($pages, array('logout.php', translate('logoutNavLink')));
     }
 
     //First part of the navbar
-    /** @noinspection PhpUndefinedVariableInspection */
     $returnString =  '<nav class="navbar navbar-default navbar-fixed-top">
                         <div class="container">
                             <div class="navbar-header">
@@ -133,14 +126,13 @@ function getNavBar()
     }
     
     //Finish off the returnString
-    /** @noinspection PhpUndefinedVariableInspection */
     $returnString .= '      </ul>
                           </div>
                         </div>
                       </nav>
                       <div class="container">
                       <img class="img-responsive center-block" style="height:50px;"
-                          src="' . $logo . '" />';    
+                          src="' . $logo . '" alt="logo"/>';
                       
     return $returnString;
 }
@@ -159,9 +151,6 @@ function getFormElements()
         '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
     
      //Display creator username if email and authentication are configured.
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
     if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {
         $returnString .= '<label class="control-label" for="destemail">' . translate('sender') . ': '; 
         if(isset($_SERVER['PHP_AUTH_NAME'])) {
@@ -173,14 +162,17 @@ function getFormElements()
     }
     
     //Create the basic credential creation form
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
     $returnString .=
-             '<div class="input-group">
+             'You can use this form to securely send information to others. Enter your secret in the first field, then
+              the remaining two fields are for security. The information will be deleted from the server after either
+              the amount of time specified has passed or the link has been viewed the specified number of times, <strong>
+              whichever comes first</strong>.<br />
+              <br />
+              <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true" data-container="body"
                   data-toggle="tooltip" data-placement="top" title="This is the secret you want to send to the other person."></span>
                   </span>' .
-                  '<textarea class="form-control" placeholder="' . translate('secret') . '" name="cred" aria-describedby="cred" />' .
+                  '<textarea class="form-control" placeholder="' . translate('secret') . '" name="cred">' .
                   '</textarea>
               </div>
               <div class="input-group">
@@ -247,7 +239,7 @@ function getFormElements()
     
     //Add the submit button
     $returnString .= '<input class="btn btn-primary btn-large" ' . 
-        'type="submit" value="Submit" /></div>';
+        'type="submit" value="Submit" /></form></div>';
     
     return $returnString;
 }
@@ -261,7 +253,7 @@ function getFormElements()
  */ 
 function getCred($cred) 
 {
-    $returnString = '<h2>' . translate('sharedCredential') . '</h2>' . 
+    $returnString = '<h3 style="font-weight:bold;">' . translate('sharedCredential') . '</h3>' .
         '<pre class="text-error">' . $cred . '</pre>';  
     return $returnString;
 }
@@ -277,23 +269,19 @@ function getURL($url)
 {
     include 'config.php';
     
-    $returnString = '<div class="hero-unit"><h2>' . translate('giveLink') . '</h2>' .
-      '<div class="pagination-centered"><div><code>' . $url . '</code></div>';
+    $returnString = '<div class="jumbotron"><h3 style="font-weight:bold;">' . translate('giveLink') . '</h3>' .
+      '<div class="pager"><div><code>' . $url . '</code></div>';
 
-    /** @noinspection PhpToStringImplementationInspection */
     $returnString .= getZeroClipboard($url);
-
-    /** @noinspection PhpUndefinedVariableInspection */
-    $returnString .= '<br/><div class="pagination-centered"><p>' . $submitWarning . '</p>' .
-        '<a href="' . $url . '&remove=1">' . 
-        '<button class="btn btn-mini btn-danger">' . translate('deleteLink') . '</button></a></div>';
+    $returnString .= '<br/><div class="pager" style="margin:10px 0px;"><p>' . $submitWarning . '</p>' .
+        '<a href="' . $url . '&amp;remove=1" class="btn btn-mini btn-danger">' .
+        translate('deleteLink') . '</a></div>';
         
     $returnString .= '</div>';
     
     return $returnString;
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Generates the ZeroClipboard functionality
@@ -305,42 +293,41 @@ function getURL($url)
 function getZeroClipboard($content)
 {
     $returnString = '<script type="text/javascript" ' . 
-            'src="ZeroClipboard/ZeroClipboard.js" ></script>
-        <span style="display: inline-block;">
-          <div id="d_clip_button">
-            <button id="clip_button" class="btn btn-small btn-primary">' . 
+            'src="ZeroClipboard/ZeroClipboard.js"></script>
+        <div style="display: inline-block;">
+          <div id="d_client_button">
+            <button id="client_button" class="btn btn-primary" style="margin-top:10px;">' .
                 '<span id="precopy">' . translate('copyToClipboard') . '</span>' .
                 '<span id="postcopy" style="display:none">' . 
                 translate('copySuccess') . 
                 '</span></button>
           </div>
-        </span>
+        </div>
       </div>
     
       <script language="JavaScript" >
+        ZeroClipboard.config( {
+            swfPath: "ZeroClipboard/ZeroClipboard.swf",
+            forceHandCursor: true
+        });
         window.onload = function(){
-            var clip = new ZeroClipboard.Client();
-            ZeroClipboard.setMoviePath(' . 
-            '\'ZeroClipboard/ZeroClipboard.swf\');
-              clip.setText( \'' . $content . '\' );
-          clip.setHandCursor( true );
-              clip.setCSSEffects( true );
-          clip.addEventListener( \'onComplete\', function(client, text) {
-                var button = document.getElementById(\'clip_button\');
-                button.className = \'btn btn-small\';
-                var clip1 = document.getElementById(\'precopy\');
-                var clip2 = document.getElementById(\'postcopy\');
-                clip1.style.display = \'none\';
-                clip2.style.display = \'inline\';
-              } );
-              clip.glue( \'d_clip_button\' );
+            var client = new ZeroClipboard( $("button#client_button") );
+            client.setText( \'' . $content . '\' );
+            client.on("aftercopy", function(e) {
+                var button = document.getElementById(\'client_button\');
+                button.className = \'btn\';
+                var client1 = document.getElementById(\'precopy\');
+                var client2 = document.getElementById(\'postcopy\');
+                client1.style.display = \'none\';
+                client2.style.display = \'inline\';
+            } );
+            client.clip( \'d_client_button\' );
           }
       </script>';
       
     return $returnString;
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 
 /**
@@ -355,7 +342,6 @@ function getSuccess($message)
     return '<div class="alert alert-success">' . $message . '</div>';
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 
 /** 
@@ -370,7 +356,6 @@ function getWarning($warning)
     return '<div class="alert alert-warning">' . $warning . '</div>';
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 
 /** 
@@ -453,7 +438,6 @@ function calcExpirationDisplay($minutes)
  */
 function translate($phrase) {
     require 'config.php';
-    /** @noinspection PhpUndefinedVariableInspection */
     require 'languages/' . $language . '.php';
     
     return ${$phrase};

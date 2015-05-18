@@ -56,7 +56,6 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
      * @private
      */
     var $_path;
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the name of the directory where PGT's should be stored
@@ -74,7 +73,6 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     // ########################################################################
     //  DEBUGGING
     // ########################################################################
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an informational string giving the type of storage
@@ -86,7 +84,6 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     function getStorageType()
     {
         return "file";
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an informational string giving informations on the
@@ -169,7 +166,6 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
     // ########################################################################
     //  PGT I/O
     // ########################################################################
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the filename corresponding to a PGT Iou.
@@ -224,7 +220,6 @@ class CAS_PGTStorage_File extends CAS_PGTStorage_AbstractStorage
             phpCAS::error('File exists: `'.$fname.'\'');
         }
         phpCAS::traceEnd();
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method reads a PGT corresponding to a PGT Iou and deletes the

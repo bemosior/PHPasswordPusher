@@ -76,7 +76,6 @@ function checkInput($arguments)
     
         //Set to the default value if empty
         if (empty($arguments['time'])) {
-            /** @noinspection PhpUndefinedVariableInspection */
             $arguments['time'] = $expirationTimeDefault;
         }
         
@@ -106,7 +105,6 @@ function checkInput($arguments)
         }
         
         //Check against maximum lifetime
-        /** @noinspection PhpUndefinedVariableInspection */
         if ($arguments['time'] > $credMaxLife) {
             /** @noinspection PhpToStringImplementationInspection */
             print getError(
@@ -125,7 +123,6 @@ function checkInput($arguments)
     
         //Set to the default value if empty
         if (empty($arguments['views'])) {
-            /** @noinspection PhpUndefinedVariableInspection */
             $arguments['views'] = $expirationViewsDefault;
         }
         

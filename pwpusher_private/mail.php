@@ -4,7 +4,6 @@
  *
  * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
-/** @noinspection PhpUndefinedClassInspection */
 
 
 /**
@@ -20,16 +19,12 @@
 function mailURL($url, $destEmail, $destName, $expirationTime, $expirationViews) 
 {
     include 'config.php';
-
-    /** @noinspection PhpUndefinedVariableInspection */
     $sender = 'phpw' . '@' . $assumedDomain;
-    /** @noinspection PhpUndefinedVariableInspection */
     if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) {
         $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; 
     } 
     
     //Assemble the message
-    /** @noinspection PhpUndefinedVariableInspection */
     $message = $destName . ",\r\n\r\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' .
         $expirationViews . ' ' . translate('views') . "\r\n" .$url . "\r\n\r\n" .  
         $criticalWarning . "\r\n\r\n" . translate('emailSignature');

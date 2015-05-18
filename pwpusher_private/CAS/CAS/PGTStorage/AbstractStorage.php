@@ -127,7 +127,6 @@ abstract class CAS_PGTStorage_AbstractStorage
     function setErrorMessage($error_message)
     {
         $this->_error_message = $error_message;
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an error message set by PGTStorage::setErrorMessage().
@@ -153,7 +152,6 @@ abstract class CAS_PGTStorage_AbstractStorage
      * @hideinitializer
      */
     var $_initialized = false;
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method tells if the storage has already been intialized.

@@ -15,7 +15,7 @@ print getHeader();
 print getNavBar();
 
 //Print the about page.
-print('<div class="hero-unit"><h2>What is PHPasswordPusher?</h2>
+print('<div class="jumbotron"><h3 style="font-weight:bold;">What is PHPasswordPusher?</h3>
         PHPasswordPusher is a PHP port of the PasswordPusher project, which provides
         a more secure method for sharing sensitive information like passwords) with 
         others. It operates on the principal that using a soon-to-be-expiring link 

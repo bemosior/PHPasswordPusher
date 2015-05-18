@@ -145,15 +145,14 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     //If GET arguments exist and have been verified (via hash comparison), retrieve the credential
     $result = retrieveCred(hashId(urldecode($arguments['id']), $salt));
 
-    print('<div class="hero-unit">');
-
     //If no valid entry, deny access and wipe hypothetically existing records
     if (empty($result[0])) {
-        print('<h2>' . translate('expiredLink') . '</h2>');
+        print('<div class="jumbotron" style="padding:10px 60px;"><h3 style="font-weight:bold;margin-bottom:20px;">' . translate('expiredLink') . '</h3>');
         //print getError('Link Expired');
 
 
     } else {
+        print('<div class="jumbotron">');
         //Otherwise, return the credential.
         //Decrypt the credential
         $cred = decryptCred($result[0]['seccred']);
@@ -161,10 +160,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         //Print credentials
         print getCred($cred);
 
-        print ('<a href="' . $_SERVER['REQUEST_URI'] . '&remove=1">' .
-            '<div class="pagination-centered">' .
-            '<button class="btn btn-mini btn-danger">Delete Link</button></a>' .
-            '</div>');
+        print ('<a href="' . $_SERVER['REQUEST_URI'] . '&amp;remove=1" class="btn btn-danger previous">Delete Link</a>');
 
         //Unset the credential variable
         unset($cred);
@@ -182,9 +178,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) && $protectRetrieve) {
         //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed
         //if web auth isn't configured.
-        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('userNotAuthenticated'));
-        /** @noinspection PhpToStringImplementationInspection */
         print getFooter();
         die();
     }

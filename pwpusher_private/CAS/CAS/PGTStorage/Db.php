@@ -54,7 +54,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
      * the PDO object to use for database interactions
      */
     private $_pdo;
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the PDO object to use for database interactions.
@@ -79,7 +78,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
      * the table to use for storing/retrieving pgt's
      */
     private $_table;
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the table to use when storing/retrieving PGT's
@@ -94,7 +92,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
     // ########################################################################
     //  DEBUGGING
     // ########################################################################
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an informational string giving the type of storage
@@ -105,7 +102,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
     public function getStorageType()
     {
         return "db";
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns an informational string giving informations on the
@@ -247,7 +243,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
     // these queries are potentially unsafe because the person using this library
     // can set the table to use, but there is no reliable way to escape SQL
     // fieldnames in PDO yet
-    /** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the query used to create a pgt storage table
@@ -258,7 +253,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
     {
         /** @noinspection PhpToStringImplementationInspection */
         return 'CREATE TABLE ' . $this->_getTable() . ' (pgt_iou VARCHAR(255) NOT NULL PRIMARY KEY, pgt VARCHAR(255) NOT NULL)';
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the query used to store a pgt
@@ -269,7 +263,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
     {
         /** @noinspection PhpToStringImplementationInspection */
         return 'INSERT INTO ' . $this->_getTable() . ' (pgt_iou, pgt) VALUES (:pgt_iou, :pgt)';
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the query used to retrieve a pgt. the first column of the first row should contain the pgt
@@ -280,7 +273,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
     {
         /** @noinspection PhpToStringImplementationInspection */
         return 'SELECT pgt FROM ' . $this->_getTable() . ' WHERE pgt_iou = :pgt_iou';
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method returns the query used to delete a pgt.
@@ -394,7 +386,6 @@ class CAS_PGTStorage_Db extends CAS_PGTStorage_AbstractStorage
         $this->_resetErrorMode();
 
         phpCAS::traceEnd();
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * This method reads a PGT corresponding to a PGT Iou and deletes the

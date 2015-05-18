@@ -180,7 +180,6 @@ implements CAS_Request_RequestInterface
     private function _storeResponseBody ($body)
     {
         $this->storeResponseBody($body);
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * Internal method for capturing the headers from a curl request.

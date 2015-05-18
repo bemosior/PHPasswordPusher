@@ -14,7 +14,7 @@ communicated to the intended recipient, who then can retrieve the sensitive
 information until the view or time limits are breached.
 
 ## Demo
-A demo is available at http://168.235.149.111/pwpushtest.
+A demo is available at https://vaindil.pw/pwpushtest.
 
 ## Feature Set
 * Secure Password/Credential Sharing

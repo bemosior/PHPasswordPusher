@@ -90,7 +90,6 @@ class CAS_ProxyChain_AllowedList
             phpCAS::traceEnd($res);
             return $res;
         }
-    }/** @noinspection PhpUndefinedClassInspection */
 
     /**
      * Validate the proxies from the proxy ticket validation against the

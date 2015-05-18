@@ -4,7 +4,6 @@
  *
  * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
-/** @noinspection PhpUndefinedClassInspection */
 
 
 /**
@@ -29,9 +28,6 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
                       UTC_TIMESTAMP(), 
                       0, DATE_ADD(UTC_TIMESTAMP(), INTERVAL :xtime MINUTE), :xviews
                   )";
-
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
     $params = array(
                       'id'        => $id,
                       'seccred'   => $encrypted,
@@ -102,7 +98,6 @@ function retrieveCred($id)
     return false;
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 
 /**
@@ -126,7 +121,6 @@ function eraseExpired($db)
     }
 }
 
-/** @noinspection PhpUndefinedClassInspection */
 
 /**
  * Remove a specific record
@@ -161,9 +155,6 @@ function eraseCred($id)
 function connectDB() 
 {
     include 'config.php';
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
-    /** @noinspection PhpUndefinedVariableInspection */
     $db = new PDO('mysql:dbname=' . $dbname . ';host=localhost', $dbuser, $dbpass)
         or die('Connect Failed');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

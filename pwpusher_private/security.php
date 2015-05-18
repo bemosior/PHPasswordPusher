@@ -15,7 +15,6 @@
 function encryptCred($cred) 
 {
     include 'config.php';
-    /** @noinspection PhpUndefinedVariableInspection */
     $encrypted = base64_encode(
         mcrypt_encrypt(
             MCRYPT_RIJNDAEL_256, $key, $cred, MCRYPT_MODE_ECB,
@@ -41,7 +40,6 @@ function encryptCred($cred)
 function decryptCred($encrypted) 
 {
     include 'config.php';
-    /** @noinspection PhpUndefinedVariableInspection */
     $decrypted = mcrypt_decrypt(
         MCRYPT_RIJNDAEL_256,
         $key,

@@ -17,7 +17,7 @@ print getHeader();
 print getNavBar();
 
 //Print the logout page.
-print('<div class="hero-unit"><h2>Logout</h2>');
+print('<div class="jumbotron"><h3 style="font-weight:bold;">Logout</h3>');
 if($requireApacheAuth) {
     /** @noinspection PhpToStringImplementationInspection */
     print(getError(translate('apacheLogout')));
