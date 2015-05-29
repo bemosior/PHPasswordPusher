@@ -82,6 +82,10 @@ Alias /youralias /your/installation/dir/pwpusher_public
 Language functionality has been added. The pwpusher_private/language/ files may be modified, 
 and new languages can be added. Simply follow the examples already there and update the config.php.
 
+## Contributing
+
+Fork and create changes against the `develop` branch, then create a pull request. Thank you!
+
 ## Other Projects Utilized
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher
 * ZeroClipboard: https://github.com/jonrohan/ZeroClipboard
