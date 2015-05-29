@@ -163,14 +163,11 @@ function getFormElements()
     
     //Create the basic credential creation form
     $returnString .=
-             'You can use this form to securely send information to others. Enter your secret in the first field, then
-              the remaining two fields are for security. The information will be deleted from the server after either
-              the amount of time specified has passed or the link has been viewed the specified number of times, <strong>
-              whichever comes first</strong>.<br />
+             translate('introduction') . '<br />
               <br />
               <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true" data-container="body"
-                  data-toggle="tooltip" data-placement="top" title="This is the secret you want to send to the other person."></span>
+                  data-toggle="tooltip" data-placement="top" title="' . translate('secretTooltip') . '"></span>
                   </span>' .
                   '<textarea class="form-control" placeholder="' . translate('secret') . '" name="cred">' .
                   '</textarea>
@@ -179,7 +176,7 @@ function getFormElements()
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-time" aria-hidden="true" data-container="body"
                         data-toggle="tooltip" data-placement="top"
-                        title="The maximum amount of time for the secret to remain on the server before it is automatically deleted."></span>
+                        title="' . translate('timeTooltip') . '"></span>
                   </span>
                   <input class="form-control" type="text" placeholder="' .
                       $expirationTimeDefault . 
@@ -197,7 +194,7 @@ function getFormElements()
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-container="body"
                         data-toggle="tooltip" data-placement="top"
-                        title="The maximum number of times the link can be viewed before it is automatically deleted."></span>
+                        title="' . translate('viewsTooltip') . '"></span>
                   </span>
                   <input class="form-control" type="text" ' . 'placeholder="' .
                       $expirationViewsDefault . 
@@ -212,7 +209,7 @@ function getFormElements()
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-user" aria-hidden="true" data-container="body"
                         data-toggle="tooltip" data-placement="top"
-                        title="The name of the person to email this link to."></span>
+                        title="' . translate('recipientNameTooltip') . '"></span>
                   </span>
                   <input
                       class="form-control"
@@ -225,7 +222,7 @@ function getFormElements()
                 <span class="input-group-addon">
                   <span class="glyphicon glyphicon-envelope" aria-hidden="true" data-container="body"
                         data-toggle="tooltip" data-placement="top"
-                        title="The email address to send this link to."></span>
+                        title="' . translate('recipientEmailTooltip') . '"></span>
                   </span>
                   <input
                       class="form-control"
