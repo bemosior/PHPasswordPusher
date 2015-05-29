@@ -2,7 +2,7 @@
 /**
  * The "about" page
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
  
 require '../pwpusher_private/interface.php';
@@ -11,10 +11,11 @@ require '../pwpusher_private/interface.php';
 print getHeader();
 
 //Print the navbar
+/** @noinspection PhpToStringImplementationInspection */
 print getNavBar();
 
 //Print the about page.
-print('<div class="hero-unit"><h2>What is PHPasswordPusher?</h2>
+print('<div class="jumbotron"><h3 style="font-weight:bold;">What is PHPasswordPusher?</h3>
         PHPasswordPusher is a PHP port of the PasswordPusher project, which provides
         a more secure method for sharing sensitive information like passwords) with 
         others. It operates on the principal that using a soon-to-be-expiring link 
@@ -31,5 +32,5 @@ print('<div class="hero-unit"><h2>What is PHPasswordPusher?</h2>
         GitHub page</a>.</div>');
         
 //Print the footer
+/** @noinspection PhpToStringImplementationInspection */
 print getFooter();
-?>

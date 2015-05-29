@@ -2,7 +2,7 @@
 /**
  * Configuration Options
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
  
 //MySQL and Apache configuration:
@@ -87,7 +87,4 @@
       
     //Critical warning displayed on every page and email.
     $criticalWarning = 'Please, NEVER leave credentials where they can be easily ' .
-        'accessed by others.'; 
-
-
-?>
+        'accessed by others.';

@@ -13,6 +13,9 @@ set a view and time limit, and receive a link. That link is
 communicated to the intended recipient, who then can retrieve the sensitive
 information until the view or time limits are breached.
 
+## Demo
+A demo is available at https://vaindil.pw/pwpushtest.
+
 ## Feature Set
 * Secure Password/Credential Sharing
 * Emailing Features
@@ -30,7 +33,7 @@ PHPasswordPusher has so far been tested with the following environment:
 * Central Authentication Service (CAS) 3.5.1 (optional)
 
 ## Installation
-1. Set up the environment. You will need to install these packages: mysql-server, httpd (apache2), php, php-mcrypt,php-mysql, and php-xml.
+1. Set up the environment. You will need to install these packages: mysql-server, httpd (apache2), php, php-mcrypt, php-mysql, and php-xml.
 2. Change configuration options in ./pwpusher_private/config.php   
 3. Change configuration options in ./install.php. Remember to remove the credentials in this file when you're done with step 4!
 4. From the command-line interface, run `php install.php` 
@@ -41,14 +44,16 @@ PHPasswordPusher has so far been tested with the following environment:
 9. Celebrate victory.
 
 ## Apache Config Example
-```         
+
+```
+
 ##### PHPasswordPusher #####
 
-### Change "/youralias/" and "/your/installation/dir/" to fit your installation:
-Alias /youralias/ /your/installation/dir/pwpusher_public/
+### Change "/youralias" and "/your/installation/dir/" to fit your installation:
+Alias /youralias /your/installation/dir/pwpusher_public
 
 ### Change "/your/installation/dir/" to fit your installation:
-<Directory /your/installation/dir/pwpusher_public/>
+<Directory /your/installation/dir/pwpusher_public>
 
     #If you use the email functionality, you should definitely enable authentication of some sort.
     #PHPassword Pusher supports both Apache auth (below) and CAS authentication (see config.ini for details)
@@ -65,13 +70,13 @@ Alias /youralias/ /your/installation/dir/pwpusher_public/
 </Directory>
 
 ### Change "/your/installation/dir/" to fit your installation:
-<Directory /your/installation/dir/pwpusher_private/>
+<Directory /your/installation/dir/pwpusher_private>
     AllowOverride None
     Order deny,allow
     Deny from all
 </Directory>
-```
 
+```
 
 ## Languages
 Language functionality has been added. The pwpusher_private/language/ files may be modified, 

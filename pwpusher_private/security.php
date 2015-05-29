@@ -2,7 +2,7 @@
 /**
  * Encryption functions
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
 
 /**
@@ -89,8 +89,9 @@ function getUniqueId()
 /**
  * Hashes the id via CRYPT_SHA512
  *
- * @param string $id, $salt
+ * @param string $id , $salt
  *
+ * @param $salt
  * @return string $hashedId
  */
 function hashId($id, $salt) 
@@ -111,4 +112,3 @@ function getSalt()
     $salt = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
     return $salt;
 }
-?>

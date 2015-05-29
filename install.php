@@ -26,4 +26,3 @@ try{
 } catch (PDOException $e) {
   echo 'Problem: ' . $e->getMessage() . "\n";
 }
-?>

@@ -9,7 +9,7 @@ $aboutNavLink = 'Información';
 $apacheLogout = 'Por favor, cierra el navegador!';
 $copyToClipboard = 'Copia el vínculo';
 $copySuccess = '¡Exitosa!';
-$createLink = 'Crear vínculo:';
+$createLink = 'Crear vínculo';
 $createNavLink = 'Crear';
 $credentialsCreated = '¡Exitosa!';
 $databaseErrorGeneric = 'Base de datos de error.';
@@ -42,5 +42,3 @@ $validNameLimit = 'Necesita un nombre válido.';
 $validTimeLimit = 'Necesita un tiempo menos que el máximo';
 $validViewLimit = 'Necesita un límite visión válido.';
 $views = 'visitas';
-
-?>

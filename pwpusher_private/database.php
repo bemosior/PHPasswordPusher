@@ -2,10 +2,10 @@
 /**
  * Database operations
  *
- * @license http://www.gnu.org/licenses/gpl-3.0.html GPLv3
+ * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
- 
- 
+
+
 /**
  * Insert the credential into the database
  *
@@ -26,19 +26,15 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
                       :id, 
                       :seccred, 
                       UTC_TIMESTAMP(), 
-                      0, UTC_TIMESTAMP()+ INTERVAL :xtime MINUTE, :xviews
+                      0, DATE_ADD(UTC_TIMESTAMP(), INTERVAL :xtime MINUTE), :xviews
                   )";
-                  
     $params = array(
                       'id'        => $id,
                       'seccred'   => $encrypted,
-                      'xtime'     => "+" . 
-                          (is_numeric(
+                      'xtime'     => is_numeric(
                               $expirationTime
-                          ) ? $expirationTime : $expirationTimeDefault) . 
-                        ' minutes',
-                    'xviews'    => 
-                        is_numeric(
+                          ) ? $expirationTime : $expirationTimeDefault,
+                      'xviews'    => is_numeric(
                             $expirationViews
                         ) ? $expirationViews : $expirationViewsDefault,
     );
@@ -53,6 +49,7 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
         eraseExpired($db);
       
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
@@ -94,11 +91,13 @@ function retrieveCred($id)
         return $result;
       
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
     return false;
 }
+
 
 
 /**
@@ -116,10 +115,12 @@ function eraseExpired($db)
         $statement = $db->prepare($query);
         $statement->execute();
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
 }
+
 
 /**
  * Remove a specific record
@@ -136,8 +137,10 @@ function eraseCred($id)
         $db = connectDB();
         $statement = $db->prepare($query);
         $statement->execute($params);
+        /** @noinspection PhpToStringImplementationInspection */
         print getSuccess(translate('linkErased'));
     } catch (PDOException $e) {
+        /** @noinspection PhpToStringImplementationInspection */
         print getError(translate('databaseErrorGeneric'));
         error_log('PHPassword DB Error: ' . $e->getMessage() . "\n");
     }
@@ -157,4 +160,3 @@ function connectDB()
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $db;
 }
-?>
