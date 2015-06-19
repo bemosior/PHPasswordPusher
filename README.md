@@ -3,7 +3,7 @@ PHPasswordPusher
 
 PHPasswordPusher is a PHP port of the PasswordPusher project, which provides a
 more secure method for sharing sensitive information (like passwords) with 
-others. It operates on the principal that using a soon-to-be-expiring link to
+others. It operates on the principle that using a soon-to-be-expiring link to
 retrieve sensitive information is better than having the sensitive 
 information persist in email, chat, etc...
 
