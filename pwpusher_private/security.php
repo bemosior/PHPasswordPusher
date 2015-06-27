@@ -15,19 +15,13 @@
 function encryptCred($cred) 
 {
     include 'config.php';
-    $encrypted = base64_encode(
-        mcrypt_encrypt(
-            MCRYPT_RIJNDAEL_128, $key, $cred, MCRYPT_MODE_ECB,
-            mcrypt_create_iv(
-                mcrypt_get_iv_size(
-                    MCRYPT_RIJNDAEL_128,
-                    MCRYPT_MODE_ECB
-                ),
-                MCRYPT_DEV_URANDOM
-            )
-        )
-    );
-    return $encrypted;
+    $algorithm = MCRYPT_RIJNDAEL_128;
+    $mode = MCRYPT_MODE_ECB;
+    $rand = MCRYPT_DEV_URANDOM;
+    $ivSize = mcrypt_get_iv_size($algorithm, $mode);
+    $iv = mcrypt_create_iv($ivSize, $rand);
+
+    return base64_encode(mcrypt_encrypt($algorithm, $key, $cred, $mode, $iv));
 }
 
 /**
@@ -40,20 +34,13 @@ function encryptCred($cred)
 function decryptCred($encrypted) 
 {
     include 'config.php';
-    $decrypted = mcrypt_decrypt(
-        MCRYPT_RIJNDAEL_128,
-        $key,
-        base64_decode($encrypted),
-        MCRYPT_MODE_ECB,
-        mcrypt_create_iv(
-            mcrypt_get_iv_size(
-                MCRYPT_RIJNDAEL_128,
-                MCRYPT_MODE_ECB
-            ), 
-            MCRYPT_DEV_URANDOM
-        )
-    );
-    return $decrypted;
+    $algorithm = MCRYPT_RIJNDAEL_128;
+    $mode = MCRYPT_MODE_ECB;
+    $rand = MCRYPT_DEV_URANDOM;
+    $ivSize = mcrypt_get_iv_size($algorithm, $mode);
+    $iv = mcrypt_create_iv($ivSize, $rand);
+
+    return mcrypt_decrypt($algorithm, $key, base64_decode($encrypted), $mode, $iv);
 }
 
 
