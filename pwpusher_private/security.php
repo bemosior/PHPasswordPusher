@@ -22,8 +22,8 @@ function encryptCred($cred)
                 mcrypt_get_iv_size(
                     MCRYPT_RIJNDAEL_128,
                     MCRYPT_MODE_ECB
-                ), 
-                MCRYPT_RAND
+                ),
+                MCRYPT_DEV_URANDOM
             )
         )
     );
@@ -50,7 +50,7 @@ function decryptCred($encrypted)
                 MCRYPT_RIJNDAEL_128,
                 MCRYPT_MODE_ECB
             ), 
-            MCRYPT_RAND
+            MCRYPT_DEV_URANDOM
         )
     );
     return $decrypted;
