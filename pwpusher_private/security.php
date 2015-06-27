@@ -6,6 +6,26 @@
  */
 
 /**
+ * Check the key size.
+ *
+ * @return boolean $correct
+ */
+function correctKeySize()
+{
+    include 'config.php';
+    switch (strlen($key)) {
+        case 16:
+        case 24:
+        case 32:
+            return true;
+            break;
+        default:
+            return false;
+            break;
+    }
+}
+
+/**
  * Encrypt the credential.
  *
  * @param string $cred the credential to be encrypted
