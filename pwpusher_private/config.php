@@ -17,8 +17,8 @@
     $dbpass = 'phpass!3#.';
         
 //Encryption and security:
-    //The encryption key for the credentials. Change it to something secret.
-    $key = 'change this key please!'; 
+    //The encryption key. It must be of length 16, 24, or 32 in order to use AES-128, AES-192, or AES-256, respectively.
+    $key = 'changethiseddnc7o6gmhlz6df48z14z';
     
     //The salt for the link hash. Change it to something else secret.
     $salt = 'change this salt please!'; 
