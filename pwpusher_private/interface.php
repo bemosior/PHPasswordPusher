@@ -182,7 +182,7 @@ function getFormElements()
                       $expirationTimeDefault . 
                       '" name="time" aria-label="time" />
                   <div class="input-group-btn">
-                    <select class="form-control">
+                    <select class="form-control" name="units">
                       <option>' . translate('minutes') . '</option>
                       <option>' . translate('hours') . '</option>
                       <option>' . translate('days') . '</option>
