@@ -6,6 +6,8 @@
  */
  
 //MySQL and Apache configuration:
+    //Change this if the host is on a different server
+    $host = 'localhost';
 
     //The MySQL database name.
     $dbname = 'phpwpush';

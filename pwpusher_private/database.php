@@ -19,9 +19,9 @@
 function insertCred($id, $encrypted, $expirationTime, $expirationViews) 
 {
     include 'config.php';
-    
+
     //Set up query
-    $query = "insert into phpasspush(id,seccred,ctime,views,xtime,xviews) 
+    $query = "insert into ".$tblname."(id,seccred,ctime,views,xtime,xviews)
                   values(
                       :id, 
                       :seccred, 
@@ -64,10 +64,12 @@ function insertCred($id, $encrypted, $expirationTime, $expirationViews)
  */
 function retrieveCred($id) 
 {
-    $update_query = 'update phpasspush set views=views+1 ' .
+    include 'config.php';
+
+    $update_query = 'update ' . $tblname . ' set views=views+1 ' .
         'where id=:id and xviews>views';
-    $select_query = 'select seccred,views from phpasspush ' . 
-        'where id=:id and xtime>UTC_TIMESTAMP()';
+    $select_query = 'select seccred,views from ' . $tblname .
+        ' where id=:id and xtime>UTC_TIMESTAMP()';
     $params = array('id' => $id);
     
     //First update the view count
@@ -109,8 +111,10 @@ function retrieveCred($id)
  */
 function eraseExpired($db) 
 {
-    $query = 'delete from phpasspush ' . 
-        'where xtime < UTC_TIMESTAMP() or xviews <= views';
+    include 'config.php';
+
+    $query = 'delete from ' . $tblname .
+        ' where xtime < UTC_TIMESTAMP() or xviews <= views';
     try{
         $statement = $db->prepare($query);
         $statement->execute();
@@ -131,7 +135,9 @@ function eraseExpired($db)
  */
 function eraseCred($id) 
 {
-    $query = 'delete from phpasspush where id=:id';
+    include 'config.php';
+
+    $query = 'delete from ' . $tblname . ' where id=:id';
     $params = array('id' => $id);
     try{
         $db = connectDB();
@@ -155,7 +161,7 @@ function eraseCred($id)
 function connectDB() 
 {
     include 'config.php';
-    $db = new PDO('mysql:dbname=' . $dbname . ';host=localhost', $dbuser, $dbpass)
+    $db = new PDO('mysql:dbname=' . $dbname . ';host='.$host, $dbuser, $dbpass)
         or die('Connect Failed');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     return $db;

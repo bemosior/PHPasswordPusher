@@ -4,7 +4,6 @@
  */
 
 //SETUP:
-$host = 'localhost';   //Change this if the host is on a different server
 $rootdbuser = 'root';  //Privileged user to perform database creation and privilege granting.
 $rootdbpass = 'rootpw';  //Privileged user's password (please remove this value when finished!).
 
