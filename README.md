@@ -17,7 +17,7 @@ information until the view or time limits are breached.
 A demo is available at https://vaindil.pw/pwpushdemo.
 
 ## Feature Set
-* Secure Password/Credential Sharing
+* Secure Password/Credential Sharing and [Storage](https://github.com/bemosior/PHPasswordPusher/issues/36)
 * Emailing Features
 * Language Translation
 * Deletion Link
@@ -77,10 +77,6 @@ Alias /youralias /your/installation/dir/pwpusher_public
 </Directory>
 
 ```
-
-## Languages
-Language functionality has been added. The pwpusher_private/language/ files may be modified, 
-and new languages can be added. Simply follow the examples already there and update the config.php.
 
 ## Contributing
 
