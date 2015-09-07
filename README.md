@@ -7,6 +7,8 @@ others. It operates on the principle that using a soon-to-be-expiring link to
 retrieve sensitive information is better than having the sensitive 
 information persist in email, chat, etc...
 
+**Note:** PHPasswordPusher is appropriate for constrained deployment environments requiring older version of PHP >= 5.3. For modern environments capable of PHP >= 5.5.9, [Agrippa](https://github.com/unicalabs/agrippa) is recommended for this purpose instead. Both versions are being actively maintained as of September 2015.
+
 ## Overview
 A user will enter the sensitive information (password, etc.) into the link form,
 set a view and time limit, and receive a link. That link is 
