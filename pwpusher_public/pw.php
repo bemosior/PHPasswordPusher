@@ -85,6 +85,16 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         die();
     }
 
+    //Check key size to ensure it meets AES requirements.
+    if (!correctKeySize()) {
+        /** @noinspection PhpToStringImplementationInspection */
+        print getError(translate('databaseErrorGeneric'));
+        error_log("PHPassword Configuration Error: Encryption key must be of length 16, 24, or 32.\n");
+        /** @noinspection PhpToStringImplementationInspection */
+        print getFooter();
+        die();
+    }
+
 
     //Else if POST arguments exist and have been verified, process the credential
     //Encrypt the user's credential.

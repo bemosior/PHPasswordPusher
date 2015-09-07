@@ -6,28 +6,42 @@
  */
 
 /**
+ * Check the key size.
+ *
+ * @return boolean $correct
+ */
+function correctKeySize()
+{
+    include 'config.php';
+    switch (strlen($key)) {
+        case 16:
+        case 24:
+        case 32:
+            return true;
+            break;
+        default:
+            return false;
+            break;
+    }
+}
+
+/**
  * Encrypt the credential.
  *
  * @param string $cred the credential to be encrypted
  *
  * @return string $encrypted the encrypted string
  */
-function encryptCred($cred) 
+function encryptCred($plaintext) 
 {
     include 'config.php';
-    $encrypted = base64_encode(
-        mcrypt_encrypt(
-            MCRYPT_RIJNDAEL_256, $key, $cred, MCRYPT_MODE_ECB,
-            mcrypt_create_iv(
-                mcrypt_get_iv_size(
-                    MCRYPT_RIJNDAEL_256, 
-                    MCRYPT_MODE_ECB
-                ), 
-                MCRYPT_RAND
-            )
-        )
-    );
-    return $encrypted;
+    $algorithm = MCRYPT_RIJNDAEL_128;
+    $mode = MCRYPT_MODE_CBC;
+    $rand = MCRYPT_DEV_URANDOM;
+    $ivSize = mcrypt_get_iv_size($algorithm, $mode);
+    $iv = mcrypt_create_iv($ivSize, $rand);
+
+    return base64_encode($iv . mcrypt_encrypt($algorithm, $key, $plaintext, $mode, $iv));
 }
 
 /**
@@ -37,23 +51,18 @@ function encryptCred($cred)
  *
  * @return string $decrypted the decrypted string
  */
-function decryptCred($encrypted) 
+function decryptCred($encoded) 
 {
     include 'config.php';
-    $decrypted = mcrypt_decrypt(
-        MCRYPT_RIJNDAEL_256,
-        $key,
-        base64_decode($encrypted),
-        MCRYPT_MODE_ECB,
-        mcrypt_create_iv(
-            mcrypt_get_iv_size(
-                MCRYPT_RIJNDAEL_256, 
-                MCRYPT_MODE_ECB
-            ), 
-            MCRYPT_RAND
-        )
-    );
-    return $decrypted;
+    $algorithm = MCRYPT_RIJNDAEL_128;
+    $mode = MCRYPT_MODE_CBC;
+    $ivSize = mcrypt_get_iv_size($algorithm, $mode);
+
+    $decoded = base64_decode($encoded);
+    $ivDecoded = substr($decoded, 0, $ivSize);
+    $ciphertextDecoded = substr($decoded, $ivSize);
+
+    return mcrypt_decrypt($algorithm, $key, $ciphertextDecoded, $mode, $ivDecoded);
 }
 
 

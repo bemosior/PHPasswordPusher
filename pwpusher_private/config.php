@@ -6,9 +6,14 @@
  */
  
 //MySQL and Apache configuration:
+    //Change this if the host is on a different server
+    $host = 'localhost';
 
     //The MySQL database name.
     $dbname = 'phpwpush';
+
+    //The MySQL table name. ONLY change this if necessary!
+    $tblname = "phpasspush";
     
     //The MySQL user
     $dbuser = 'phpw';  
@@ -17,8 +22,9 @@
     $dbpass = 'phpass!3#.';
         
 //Encryption and security:
-    //The encryption key for the credentials. Change it to something secret.
-    $key = 'change this key please!'; 
+    //The encryption key. It must be of length 16, 24, or 32 in order to use AES-128, AES-192, or AES-256, respectively.
+    //If the key is not of the proper length, the application will fail to run.
+    $key = 'changethiseddnc7o6gmhlz6df48z14z';
     
     //The salt for the link hash. Change it to something else secret.
     $salt = 'change this salt please!'; 
