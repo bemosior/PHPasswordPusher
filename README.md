@@ -86,8 +86,7 @@ Fork and create changes against the `develop` branch, then create a pull request
 
 ## Other Projects Utilized
 * PasswordPusher: https://github.com/pglombardo/PasswordPusher
-* ZeroClipboard: https://github.com/jonrohan/ZeroClipboard
-* Placeholder.js: https://github.com/jamesallardice/Placeholders.js
-* Twitter Bootstrap: http://twitter.github.com/bootstrap
+* clipboard.js: https://github.com/zenorocha/clipboard.js
+* Bootstrap v4: https://v4-alpha.getbootstrap.com
+* Fontello: https://github.com/fontello/fontello
 * phpCAS: https://wiki.jasig.org/display/CASC/phpCAS
-
