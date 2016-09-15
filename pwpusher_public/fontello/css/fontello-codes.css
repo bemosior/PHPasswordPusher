@@ -1,0 +1,6 @@
+
+.icon-lock:before { content: '\e800'; } /* '' */
+.icon-eye:before { content: '\e801'; } /* '' */
+.icon-clock:before { content: '\e802'; } /* '' */
+.icon-user:before { content: '\e803'; } /* '' */
+.icon-mail:before { content: '\e804'; } /* '' */

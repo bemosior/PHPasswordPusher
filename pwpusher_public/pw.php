@@ -157,7 +157,8 @@ if ($arguments['func'] == 'none' || $arguments == false) {
 
     //If no valid entry, deny access and wipe hypothetically existing records
     if (empty($result[0])) {
-        print('<div class="jumbotron" style="padding:10px 60px;"><h3 style="font-weight:bold;margin-bottom:20px;">' . translate('expiredLink') . '</h3>');
+        print('<div class="jumbotron" style="padding:10px 60px;">
+            <h3 style="font-weight:bold;margin-bottom:20px;margin-top:20px">' . translate('expiredLink') . '</h3>');
         //print getError('Link Expired');
 
 

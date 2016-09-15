@@ -40,30 +40,28 @@ function getHeader()
           }
         </style>
 
+        <link rel="stylesheet" type="text/css" href="fontello/css/fontello.css" />
+
         <!-- jQuery -->
-        <script src="jQuery/jQuery.js" charset="utf-8"></script>
+        <script src="scripts/jquery-3.1.0.min.js" charset="utf-8"></script>
+
+        <!-- Tether for tooltips -->
+        <script src="tether/js/tether.min.js">
+        </script>
         
         <!-- Bootstrap -->
         <link href="bootstrap/css/bootstrap.css" rel="stylesheet">
             
         <script src="bootstrap/js/bootstrap.min.js" charset="utf-8">
         </script>
-               
-        <!-- Placeholder -->
-        <script src="placeholder/Placeholder.min.js" charset="utf-8">
-        </script>
-        
+
+        <!-- Init tooltips -->
         <script>
-          Placeholders.init({
-            live: true, //Apply to future and modified elements too
-            hideOnFocus: true //Hide the placeholder when the element receives focus
-          })
+          $(function () {
+            $(\'[data-toggle="tooltip"]\').tooltip();
+          });
         </script>
-        <script>
-            $(function () {
-                $(\'[data-toggle="tooltip"]\').tooltip()
-            })
-        </script>
+
       </head>
       <body>';
 }
@@ -88,7 +86,7 @@ function getFooter()
  * @return returnString
  */
 function getNavBar() 
-{ 
+{
     include 'config.php';
     
     //Define the pages
@@ -103,31 +101,29 @@ function getNavBar()
     }
 
     //First part of the navbar
-    $returnString =  '<nav class="navbar navbar-default navbar-fixed-top">
+    $returnString =  '<nav class="navbar navbar-light navbar-fixed-top bg-faded">
                         <div class="container">
                             <div class="navbar-header">
                                 <span class="navbar-brand">' . $title . '</span>
                             </div>
-                            <div class="collapse navbar-collapse">
                                 <ul class="nav navbar-nav">';
 
     //For each page in the pages array, determine whether the page is "active" 
     //(the current page) and add it to the navbar.
     for ($i = 0; $i < sizeof($pages); $i++) {
-        $class = '';
+        $class = ' class="nav-item';
         
         //Basename gets the filename listed in the REQUEST_URI
         if (substr(strrchr($_SERVER['PHP_SELF'], "/"), 1) == $pages[$i][0]) {
-            $class = ' class="active"';
+            $class .= ' active';
         }         
         //Set the finished link.                        
-        $returnString .= '<li' . $class . '><a href="' . $pages[$i][0] . '">' . 
+        $returnString .= '<li' . $class . '"><a class="nav-link" href="' . $pages[$i][0] . '">' . 
             $pages[$i][1] . '</a></li>';
     }
     
     //Finish off the returnString
-    $returnString .= '      </ul>
-                          </div>
+    $returnString .= '    </ul>
                         </div>
                       </nav>
                       <div class="container">
@@ -166,17 +162,15 @@ function getFormElements()
              translate('introduction') . '<br />
               <br />
               <div class="input-group">
-                  <span class="input-group-addon"><span class="glyphicon glyphicon-lock" aria-hidden="true" data-container="body"
-                  data-toggle="tooltip" data-placement="top" title="' . translate('secretTooltip') . '"></span>
-                  </span>' .
-                  '<textarea class="form-control" placeholder="' . translate('secret') . '" name="cred">' .
-                  '</textarea>
+                <span class="input-group-addon icon-lock" data-toggle="tooltip" data-placement="top"
+                  title="' . translate('secretTooltip') . '">
+                </span>' .
+                '<textarea class="form-control" placeholder="' . translate('secret') . '" name="cred">' .
+                '</textarea>
               </div>
               <div class="input-group">
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-time" aria-hidden="true" data-container="body"
-                        data-toggle="tooltip" data-placement="top"
-                        title="' . translate('timeTooltip') . '"></span>
+                  <span class="input-group-addon icon-clock" data-toggle="tooltip" data-placement="top"
+                  title="' . translate('timeTooltip') . '">
                   </span>
                   <input class="form-control" type="text" placeholder="' .
                       $expirationTimeDefault . 
@@ -191,10 +185,8 @@ function getFormElements()
                   
                 </div>
               <div class="input-group">
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-eye-open" aria-hidden="true" data-container="body"
-                        data-toggle="tooltip" data-placement="top"
-                        title="' . translate('viewsTooltip') . '"></span>
+                  <span class="input-group-addon icon-eye" data-toggle="tooltip" data-placement="top"
+                  title="' . translate('viewsTooltip') . '">
                   </span>
                   <input class="form-control" type="text" ' . 'placeholder="' .
                       $expirationViewsDefault . 
@@ -206,29 +198,25 @@ function getFormElements()
     if ($enableEmail) {  
         $returnString .=           
              '<div class="input-group">
-                <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-user" aria-hidden="true" data-container="body"
-                        data-toggle="tooltip" data-placement="top"
-                        title="' . translate('recipientNameTooltip') . '"></span>
-                  </span>
+                <span class="input-group-addon icon-user" data-toggle="tooltip" data-placement="top"
+                  title="' . translate('recipientNameTooltip') . '">
+                </span>
                   <input
-                      class="form-control"
-                      type="text" 
-                      placeholder="' . translate('recipientNamePlaceholder') . '" 
-                      name="destname" />
+                    class="form-control"
+                    type="text" 
+                    placeholder="' . translate('recipientNamePlaceholder') . '" 
+                    name="destname" />
                 </div>
               </div>
               <div class="input-group">
-                <span class="input-group-addon">
-                  <span class="glyphicon glyphicon-envelope" aria-hidden="true" data-container="body"
-                        data-toggle="tooltip" data-placement="top"
-                        title="' . translate('recipientEmailTooltip') . '"></span>
-                  </span>
-                  <input
-                      class="form-control"
-                      type="text" 
-                      placeholder="' . translate('recipientEmailPlaceholder') . '" 
-                      name="destemail" />
+                <span class="input-group-addon icon-envelope" data-toggle="tooltip" data-placement="top"
+                  title="' . translate('recipientEmailTooltip') . '">
+                </span>
+                <input
+                    class="form-control"
+                    type="text" 
+                    placeholder="' . translate('recipientEmailPlaceholder') . '" 
+                    name="destemail" />
                 </div>
               </div>
         ';
@@ -250,8 +238,10 @@ function getFormElements()
  */ 
 function getCred($cred) 
 {
-    $returnString = '<h3 style="font-weight:bold;">' . translate('sharedCredential') . '</h3>' .
-        '<pre class="text-error">' . $cred . '</pre>';  
+    $returnString = '<h4 style="font-weight:bold;margin-top:-40px">' .
+        translate('sharedCredential') .
+      '</h3>' .
+      '<pre class="text-error" style="margin-top:30px;margin-bottom:30px">' . $cred . '</pre>';  
     return $returnString;
 }
 
@@ -267,10 +257,10 @@ function getURL($url)
     include 'config.php';
     
     $returnString = '<div class="jumbotron"><h3 style="font-weight:bold;">' . translate('giveLink') . '</h3>' .
-      '<div class="pager"><div><code>' . $url . '</code></div>';
+      '<div style="text-align:center;margin-top:20px"><div><code id="final-url">' . $url . '</code></div>';
 
-    $returnString .= getZeroClipboard($url);
-    $returnString .= '<br/><div class="pager" style="margin:10px 0px;"><p>' . $submitWarning . '</p>' .
+    $returnString .= getClipboardJs($url);
+    $returnString .= '<br/><div style="margin-top:50px; margin-bottom: 20px;"><p>' . $submitWarning . '</p>' .
         '<a href="' . $url . '&amp;remove=1" class="btn btn-mini btn-danger">' .
         translate('deleteLink') . '</a></div>';
         
@@ -287,40 +277,42 @@ function getURL($url)
  *
  * @return returnString
  */
-function getZeroClipboard($content)
+function getClipboardJs($content)
 {
-    $returnString = '<script type="text/javascript" ' . 
-            'src="ZeroClipboard/ZeroClipboard.js"></script>
-        <div style="display: inline-block;">
-          <div id="d_client_button">
-            <button id="client_button" class="btn btn-primary" style="margin-top:10px;">' .
-                '<span id="precopy">' . translate('copyToClipboard') . '</span>' .
-                '<span id="postcopy" style="display:none">' . 
-                translate('copySuccess') . 
-                '</span></button>
-          </div>
-        </div>
-      </div>
-    
-      <script language="JavaScript" >
-        ZeroClipboard.config( {
-            swfPath: "ZeroClipboard/ZeroClipboard.swf",
-            forceHandCursor: true
+    $returnString = '<script src="scripts/clipboard.min.js"></script>' .
+      '<script>
+        var cb = new Clipboard(\'#client_button\');
+        cb.on(\'success\', function(e) {
+          e.clearSelection();
+          $(\'#client_button\').tooltip(\'show\');
+          setTimeout(function(){$(\'#client_button\').tooltip(\'hide\');}, 1000);
         });
-        window.onload = function(){
-            var client = new ZeroClipboard( $("button#client_button") );
-            client.setText( \'' . $content . '\' );
-            client.on("aftercopy", function(e) {
-                var button = document.getElementById(\'client_button\');
-                button.className = \'btn\';
-                var client1 = document.getElementById(\'precopy\');
-                var client2 = document.getElementById(\'postcopy\');
-                client1.style.display = \'none\';
-                client2.style.display = \'inline\';
-            } );
-            client.clip( \'d_client_button\' );
+        $(\'#final-url\').click(function() {
+          var $this = $(this);
+          $this.select();
+          var text = this, range, selection;
+
+          if (document.body.createTextRange) {
+            range = document.body.createTextRange();
+            range.moveToElementText(text);
+            range.select();
+          } else if (window.getSelection) {
+            selection = window.getSelection();
+            range = document.createRange();
+            range.selectNodeContents(text);
+            selection.removeAllRanges();
+            selection.addRange(range);
           }
-      </script>';
+        });
+      </script>
+      <div style="display: inline-block">
+        <button id="client_button" class="btn btn-primary" style="margin-top: 10px"
+          data-clipboard-target="#final-url" data-toggle="tooltip" data-animation="false"
+          data-trigger="manual"
+          title="' . translate('copySuccess') . '">' .
+          translate('copyToClipboard') .
+        '</button>
+      </div>';
       
     return $returnString;
 }
@@ -364,7 +356,7 @@ function getWarning($warning)
  */
 function getError($error) 
 {
-    return '<div class="alert alert-danger">' . $error. '</div>';
+    return '<div class="alert alert-danger">' . $error . '</div>';
 }
 
 
