@@ -13,12 +13,25 @@ require '../pwpusher_private/input.php';
 require '../pwpusher_private/interface.php';
 require '../pwpusher_private/CAS/CAS.php';
 
+// check if we need to check for white listing
+$creatorIpOk = !$checkCreatorIpWhitelist;
+if ($checkCreatorIpWhitelist)
+{
+    $creatorIpOk = false;
+    $ipClientString = $_SERVER['REMOTE_ADDR'];
+    $creatorIpOk = ipInList($ipClientString, $creatorIpWhitelist);
+}
+
 //Print the header
 print getHeader();
 
 //Print the navbar
 /** @noinspection PhpToStringImplementationInspection */
-print getNavBar();
+if ($creatorIpOk)
+{
+    print getNavBar();
+}
+
 
 //Find user arguments, if any.
 $arguments = getArguments();
