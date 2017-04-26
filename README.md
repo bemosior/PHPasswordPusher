@@ -66,6 +66,10 @@ Alias /youralias /your/installation/dir/pwpusher_public
     #require valid-user
 
     AllowOverride None
+
+    # Include the below when using Apache 2.4+:
+    # Require all granted 
+    
     Order allow,deny
     Allow from all      
     DirectoryIndex pw.php  
