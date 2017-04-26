@@ -50,7 +50,7 @@ if ($requireCASAuth) {
 }
 
 //If the form function argument doesn't exist, print the form for the user.
-if ($arguments['func'] == 'none' || $arguments == false) {
+if ($arguments['func'] == 'none' || $arguments == false && $creatorIpOk) {
 
     //Force CAS Authentication in order to load the form
     if ($requireCASAuth) {
@@ -77,7 +77,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     //Get form elements
     print getFormElements();
 
-} elseif ($arguments['func'] == 'post') {
+} elseif ($arguments['func'] == 'post' && $creatorIpOk) {
 
     //Force CAS Authentication in order to post the form
     if ($requireCASAuth) {
