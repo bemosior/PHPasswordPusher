@@ -111,7 +111,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
 
     //Generate the retrieval URL.
     $url = sprintf(
-        "https://%s%s?id=%s", $_SERVER['HTTP_HOST'], $_SERVER['PHP_SELF'], urlencode($id)
+        "https://%s%s?id=%s", $_SERVER['HTTP_HOST'], htmlspecialchars($_SERVER['PHP_SELF']), urlencode($id)
     );
 
     //Send email if configured and if the email has been filled out
