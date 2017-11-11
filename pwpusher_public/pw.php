@@ -13,12 +13,25 @@ require '../pwpusher_private/input.php';
 require '../pwpusher_private/interface.php';
 require '../pwpusher_private/CAS/CAS.php';
 
+// check if we need to check for white listing
+$creatorIpOk = !$checkCreatorIpWhitelist;
+if ($checkCreatorIpWhitelist)
+{
+    $creatorIpOk = false;
+    $ipClientString = $_SERVER['REMOTE_ADDR'];
+    $creatorIpOk = ipInList($ipClientString, $creatorIpWhitelist);
+}
+
 //Print the header
 print getHeader();
 
 //Print the navbar
 /** @noinspection PhpToStringImplementationInspection */
-print getNavBar();
+if ($creatorIpOk)
+{
+    print getNavBar();
+}
+
 
 //Find user arguments, if any.
 $arguments = getArguments();
@@ -37,7 +50,7 @@ if ($requireCASAuth) {
 }
 
 //If the form function argument doesn't exist, print the form for the user.
-if ($arguments['func'] == 'none' || $arguments == false) {
+if ($arguments['func'] == 'none' || $arguments == false && $creatorIpOk) {
 
     //Force CAS Authentication in order to load the form
     if ($requireCASAuth) {
@@ -64,7 +77,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
     //Get form elements
     print getFormElements();
 
-} elseif ($arguments['func'] == 'post') {
+} elseif ($arguments['func'] == 'post' && $creatorIpOk) {
 
     //Force CAS Authentication in order to post the form
     if ($requireCASAuth) {
