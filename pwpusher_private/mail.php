@@ -27,7 +27,7 @@ function mailURL($url, $destEmail, $destName, $expirationTime, $expirationViews)
     //Assemble the message
     $message = $destName . ",\r\n\r\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' .
         $expirationViews . ' ' . translate('views') . "\r\n" .$url . "\r\n\r\n" .  
-        $criticalWarning . "\r\n\r\n" . translate('emailSignature');
+        translate('criticalWarning') . "\r\n\r\n" . translate('emailSignature');
     
     $subject = translate('sentCredential') . ' ';
     

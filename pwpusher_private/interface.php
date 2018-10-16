@@ -76,7 +76,7 @@ function getFooter()
 {
     include 'config.php';
     return '<div class="alert alert-danger">' .
-        $criticalWarning . '</div></div></body></html>';
+        translate('criticalWarning') . '</div></div></body></html>';
 }
 
 
@@ -206,10 +206,10 @@ function getFormElements()
                     type="text" 
                     placeholder="' . translate('recipientNamePlaceholder') . '" 
                     name="destname" />
-                </div>
+                <!-- </div> -->
               </div>
               <div class="input-group">
-                <span class="input-group-addon icon-envelope" data-toggle="tooltip" data-placement="top"
+                <span class="input-group-addon icon-mail" data-toggle="tooltip" data-placement="top"
                   title="' . translate('recipientEmailTooltip') . '">
                 </span>
                 <input
@@ -217,14 +217,14 @@ function getFormElements()
                     type="text" 
                     placeholder="' . translate('recipientEmailPlaceholder') . '" 
                     name="destemail" />
-                </div>
+                <!-- </div> -->
               </div>
         ';
     }
     
     //Add the submit button
     $returnString .= '<input class="btn btn-primary btn-large" ' . 
-        'type="submit" value="Submit" /></form></div>';
+        'type="submit" value="'.translate('submit').'" /></form></div>';
     
     return $returnString;
 }
@@ -260,7 +260,7 @@ function getURL($url)
       '<div style="text-align:center;margin-top:20px"><div><code id="final-url">' . $url . '</code></div>';
 
     $returnString .= getClipboardJs($url);
-    $returnString .= '<br/><div style="margin-top:50px; margin-bottom: 20px;"><p>' . $submitWarning . '</p>' .
+    $returnString .= '<br/><div style="margin-top:50px; margin-bottom: 20px;"><p>' . translate('submitWarning') . '</p>' .
         '<a href="' . $url . '&amp;remove=1" class="btn btn-mini btn-danger">' .
         translate('deleteLink') . '</a></div>';
         
