@@ -86,11 +86,3 @@
     
     //default # of views before the link expires
     $expirationViewsDefault = 2; 
-    
-    //Warning displayed on credential creation form submission
-    $submitWarning = 'Submitted credentials will expire and be erased according ' .
-        'to the time or view limit, whichever occurs first.';
-      
-    //Critical warning displayed on every page and email.
-    $criticalWarning = 'Please, NEVER leave credentials where they can be easily ' .
-        'accessed by others.';
