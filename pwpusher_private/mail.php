@@ -38,10 +38,10 @@ function mailURL($url, $destEmail, $destName, $expirationTime, $expirationViews)
     } else {
         $subject .= $sender;
     }
-    
 
-    
-    $headers = 'From: ' . $sender  . "\r\n";
+    // Add Content-Type/charset header to support non-english characters in emails 
+    $headers = "Content-Type:text/plain; charset=UTF-8\r\n"
+    $headers.= 'From: ' . $sender  . "\r\n";
     mail(
         $destEmail, 
         $subject, 
