@@ -144,7 +144,7 @@ function getFormElements()
     
     //Create basic credential form layout
     $returnString = '<div class="jumbotron"><h3 style="font-weight:bold;">' . translate('createLink') . '</h3>' .
-        '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+        '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
     
      //Display creator username if email and authentication are configured.
     if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {
