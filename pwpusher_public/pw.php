@@ -13,6 +13,15 @@ require '../pwpusher_private/input.php';
 require '../pwpusher_private/interface.php';
 require '../pwpusher_private/CAS/CAS.php';
 
+// check if we need to check for white listing
+$creatorIpOk = !$checkCreatorIpWhitelist;
+if ($checkCreatorIpWhitelist)
+{
+    $creatorIpOk = false;
+    $ipClientString = $_SERVER['REMOTE_ADDR'];
+    $creatorIpOk = ipInList($ipClientString, $creatorIpWhitelist);
+}
+
 //Print the header
 print getHeader();
 
@@ -37,7 +46,7 @@ if ($requireCASAuth) {
 }
 
 //If the form function argument doesn't exist, print the form for the user.
-if ($arguments['func'] == 'none' || $arguments == false) {
+if ($arguments['func'] == 'none' || $arguments == false && $creatorIpOk) {
 
     //Force CAS Authentication in order to load the form
     if ($requireCASAuth) {
@@ -51,7 +60,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         }
 
         //Fail Apache Authentication if configured but not successful
-    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) || $checkCreatorIpWhitelist && !$creatorIpOk) {
         //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed
         //if web auth isn't configured.
         /** @noinspection PhpToStringImplementationInspection */
@@ -75,7 +84,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
             $_SERVER['PHP_AUTH_NAME'] = $attributes[$casSamlNameAttribute];
         }
 
-    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) || $checkCreatorIpWhitelist && !$creatorIpOk) {
         //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed
         //if web auth isn't configured.
         /** @noinspection PhpToStringImplementationInspection */

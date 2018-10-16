@@ -47,6 +47,12 @@
     //Maximum life of a shared credential/password (in minutes).
     $credMaxLife = (60 * 24 * 90); //90 days
 
+    //IP Whitelist for creating credentials
+    //Whitelist is an array of CIDR notation IP addresses
+    $checkCreatorIpWhitelist = false;
+    $creatorIpWhitelist = array(
+        "10.0.0.0/24"
+    );
     
 //Email:
     

@@ -121,3 +121,31 @@ function getSalt()
     $salt = substr(str_replace('+', '.', base64_encode(pack('N4', mt_rand(), mt_rand(), mt_rand(), mt_rand()))), 0, 22);
     return $salt;
 }
+
+/**
+ * Check if the client if an ip is in array of supplied CIDR notation IP ranges
+ *
+ * @return bool $validIp
+ */
+function ipInList($ipString, $cidrArray)
+{
+    $validIp = false;
+    $ipLong = ip2long($ipString);
+    foreach ($cidrArray as $cidr)
+        {
+            try
+            {
+                list ($ipWhite, $cidrNum) = explode('/', $cidr);
+                $ipWhiteLong = ip2long($ipWhite);
+                $netmask = -1 << (32 - (int)$cidrNum);
+                if (($ipLong & $netmask) == ($ipWhiteLong & $netmask))
+                {
+                    $validIp = true;
+                }
+            }
+            catch (Error $error)
+            {
+            }
+        }
+    return $validIp;
+}
