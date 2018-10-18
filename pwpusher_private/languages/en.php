@@ -70,3 +70,7 @@ $aboutText = 'PHPasswordPusher is a PHP port of the PasswordPusher project, whic
         <a target="_blank" href="https://github.com/bemosior/PHPasswordPusher">
         GitHub page</a>';
 $submit = 'Submit';
+$expiresInTime = 'Link expires';
+$expiresInViews = 'or after';
+$lastLinkView = 'This link cannot be viewed again!';
+$deleteLink = 'Delete Link';

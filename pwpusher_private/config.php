@@ -84,6 +84,11 @@
     //Site Language (corresponds to $language.php)
     $language = 'en'; 
     
+    //Local language to be used by moment javascript. Normally set to same as $language
+    //but can in cases be different where there are dialects.
+    //See https://momentjs.com/ for language options
+    $language_moment = 'en';
+	
     //Enable display of the URL to the user.
     $displayURL = true;  
     
@@ -92,3 +97,6 @@
     
     //default # of views before the link expires
     $expirationViewsDefault = 2; 
+
+    // If true, information on when the link expires will be visible when viewing the secret.
+    $showExpiryInfo = true;

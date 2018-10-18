@@ -55,6 +55,13 @@ function getHeader()
         <script src="bootstrap/js/bootstrap.min.js" charset="utf-8">
         </script>
 
+        <!--Moment for link timeout display -->
+        <script src="scripts/moment-with-locales.min.js"></script>
+        <script>
+          moment().format();
+          moment.locale(\''.$language_moment.'\');
+        </script>
+
         <!-- Init tooltips -->
         <script>
           $(function () {
@@ -240,9 +247,31 @@ function getCred($cred)
 {
     $returnString = '<h4 style="font-weight:bold;margin-top:-40px">' .
         translate('sharedCredential') .
-      '</h3>' .
-      '<pre class="text-error" style="margin-top:30px;margin-bottom:30px">' . $cred . '</pre>';  
+      '</h4>' .
+      '<pre class="text-error" style="margin-top:30px;margin-bottom:30px">' . $cred . '</pre><hr>';
     return $returnString;
+}
+
+function getCredExpiry($expiryData)
+{
+    $intViewsLeft = (int) ($expiryData['xviews'] - $expiryData['views']);
+
+    if ( $intViewsLeft == 0 ) {
+        // Show different message if the link has expired
+        $returnstring = '<div><pre class="alert alert-warning">'. translate('lastLinkView') . '</pre></div>';
+
+    } else {
+        $returnstring = '<div><pre class="alert alert-warning">' .translate('expiresInTime') . 
+                    ' <span id="expiresTime"></span> ' . translate('expiresInViews') .
+                    ' <span id="expiresViews">'.$intViewsLeft.'</span> ' . translate('views') . '</pre>';
+
+        $returnstring .= "<script type='text/javascript'>
+                        var offset = moment().utcOffset() / 60;
+                        var datetime = moment('". $expiryData['xtime'] ."');
+                        datetime = datetime.add(offset, 'hour');
+                        document.getElementById('expiresTime').innerHTML = datetime.fromNow();</script></div>" ;
+    }
+    return $returnstring;
 }
 
 /**

@@ -180,7 +180,20 @@ if ($arguments['func'] == 'none' || $arguments == false && $creatorIpOk) {
         //Print credentials
         print getCred($cred);
 
-        print ('<a href="' . $_SERVER['REQUEST_URI'] . '&amp;remove=1" class="btn btn-danger previous">Delete Link</a>');
+        // Only show delete button if views left is > 0
+        $intViewsLeft = (int) ($result[0]['xviews'] - $result[0]['views']);
+        if ( $intViewsLeft != 0 ) {
+            print ('<p><a href="' . $_SERVER['REQUEST_URI'] . '&amp;remove=1" class="btn btn-danger previous">'.translate('deleteLink').'</a></p>');
+        }
+
+        if ( $showExpiryInfo ) {
+            // Store views and time data in array to be passed on to
+            $expiryData = array('xtime' => $result[0]['xtime'], 'xviews' => $result[0]['xviews'], 'views' => $result[0]['views']);
+
+            // Print the moment of expiry - if configured
+            print getCredExpiry($expiryData);
+        }
+
 
         //Unset the credential variable
         unset($cred);

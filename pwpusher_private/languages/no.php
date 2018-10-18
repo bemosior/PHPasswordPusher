@@ -8,11 +8,11 @@
 
 $aboutNavLink = 'Om';
 $apacheLogout = 'Vennligst lukk web leseren din for å avslutte økten!';
-$copyToClipboard = 'Kopier til Utklipstavlen';
+$copyToClipboard = 'Kopier til utklipstavlen';
 $copySuccess = 'Kopiering var vellykket!';
 $createLink = 'Opprett Lenke';
 $createNavLink = 'Opprett';
-$credentialsCreated = 'Credential Created!';
+$credentialsCreated = 'Passord lagret!';
 $databaseErrorGeneric = 'Noe gikk galt med databasen.';
 $day = 'dag';
 $days = 'dager';
@@ -43,8 +43,8 @@ $recipientNameTooltip = 'Navnet på personen som skal mottat epost med link.';
 $secret = 'Informasjon (ala passord)';
 $secretTooltip = 'Dette er den informasjonen du ønsker å sende til mottakeren.';
 $sender = 'Avsender';
-$sentCredential = 'Credential from';
-$sharedCredential = 'The shared credential:';
+$sentCredential = 'Informasjon fra';
+$sharedCredential = 'Informasjon som er sendt:';
 $userNotAuthenticated = 'Bruker er ikke autentisert!';
 $validEmail = 'Vennligst oppgi en gylig epost adresse!';
 $validName = 'Vennligst oppgi gyldig mottakers navn!';
@@ -52,9 +52,9 @@ $validTimeLimit = 'Vennligst oppgi en tidsbegrensning mindre enn maksimum';
 $validViewLimit = 'Vennligst oppgi en visnings grense (positivt nummer)!';
 $views = 'visninger';
 $viewsTooltip = 'Maksimalt antall ganger lenken kan vises før den automatisk blir slettet.';
-$criticalWarning = 'Vennligst, la aldri sensitiv informasjon som f.eks bruker/passord informasjon være lagret lett tilgjengelig slik at det kan nås av andre.';
+$criticalWarning = 'Vennligst, aldri la sensitiv informasjon som f.eks passord være lagret lett tilgjengelig slik at det kan nås av andre. For passord benytt en passordprogram som f.eks <a href="http://lastpass.com">LastPass</a>';
 $submitWarning = 'Postet sensitiv data utløper og slettes i henhold til tid eller visningsgrense, det som intreffer først';
-$aboutTitle = 'Hva er PHPasswordPusher';
+$aboutTitle = 'Hva er PHPasswordPusher?';
 $aboutText = 'PHPasswordPusher er en PHP-port av PasswordPusher-prosjektet, som gir
          en sikrere metode for å dele sensitiv informasjon (som passord) med
          andre. Den opererer på prinsippet om å bruke en utløper-snart lenke
@@ -68,3 +68,7 @@ $aboutText = 'PHPasswordPusher er en PHP-port av PasswordPusher-prosjektet, som 
          <br/><br/>
          For mer informasjon, ta en titt på <a target="_blank" href="https://github.com/bemosior/PHPasswordPusher">GitHub-side </a>';
 $submit = 'Send';
+$expiresInTime = 'Lenken utløper';
+$expiresInViews = 'eller etter';
+$lastLinkView = 'Denne lenken vil ikke kunne vises flere ganger';
+$deleteLink = 'Slett Lenke';

@@ -68,7 +68,7 @@ function retrieveCred($id)
 
     $update_query = 'update ' . $tblname . ' set views=views+1 ' .
         'where id=:id and xviews>views';
-    $select_query = 'select seccred,views from ' . $tblname .
+    $select_query = 'select seccred,views,xtime,xviews from ' . $tblname .
         ' where id=:id and xtime>UTC_TIMESTAMP()';
     $params = array('id' => $id);
     
