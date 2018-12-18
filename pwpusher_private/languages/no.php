@@ -52,8 +52,8 @@ $validTimeLimit = 'Vennligst oppgi en tidsbegrensning mindre enn maksimum';
 $validViewLimit = 'Vennligst oppgi en visnings grense (positivt nummer)!';
 $views = 'visninger';
 $viewsTooltip = 'Maksimalt antall ganger lenken kan vises før den automatisk blir slettet.';
-$criticalWarning = 'Vennligst, aldri la sensitiv informasjon som f.eks passord være lagret lett tilgjengelig slik at det kan nås av andre. For passord benytt en passordprogram som f.eks <a href="http://lastpass.com">LastPass</a>';
-$submitWarning = 'Postet sensitiv data utløper og slettes i henhold til tid eller visningsgrense, det som intreffer først';
+$criticalWarning = 'Vennligst aldri la sensitiv informasjon som f.eks passord være lagret lett tilgjengelig slik at det kan nås av andre. For sikker lagring av passord benytt gjerne ett passordprogram som f.eks <a href="http://lastpass.com">LastPass</a>';
+$submitWarning = 'Sendt data utløper og slettes i henhold til det som inntreffer først av tid eller visningsbegrensning';
 $aboutTitle = 'Hva er PHPasswordPusher?';
 $aboutText = 'PHPasswordPusher er en PHP-port av PasswordPusher-prosjektet, som gir
          en sikrere metode for å dele sensitiv informasjon (som passord) med
