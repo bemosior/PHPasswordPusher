@@ -5,6 +5,9 @@
  * @license https://www.gnu.org/licenses/gpl-3.0.html GPLv3
  */
 
+// Setup for PHPMailer. Even if PHPMailer is not enabled or present it will not generate errors
+use PHPMailer\PHPMailer\PHPMailer;  // Inclusion of namespace will not cause any issue even if PHPMailer is not used
+use PHPMailer\PHPMailer\Exception;
 
 /**
  * Mail the credentials to the recipient.
@@ -19,35 +22,78 @@
 function mailURL($url, $destEmail, $destName, $expirationTime, $expirationViews) 
 {
     include 'config.php';
-    $sender = 'phpw' . '@' . $assumedDomain;
+    $sender = $fromEmail; 
     if (!empty($_SERVER['PHP_AUTH_USER']) && $enableSender == 1) {
         $sender = $_SERVER['PHP_AUTH_USER'] . '@' . $assumedDomain; 
     } 
     
     //Assemble the message
-    $message = $destName . ",\r\n\r\n" . translate('emailWarn') . ' ' . $expirationTime . ' / ' .
-        $expirationViews . ' ' . translate('views') . "\r\n" .$url . "\r\n\r\n" .  
-        $criticalWarning . "\r\n\r\n" . translate('emailSignature');
+    $message = $destName . ",<br><br>" . translate('emailWarn') . ' ' . $expirationTime . ' / ' .
+        $expirationViews . ' ' . translate('views') . "<br><a href='" .$url . "'>$url</a><br><br>" .  
+        translate('criticalWarning') . "<br><br>" . translate('emailSignature');
     
     $subject = translate('sentCredential') . ' ';
     
     //Set Signed Name if given
     if(isset($_SERVER['PHP_AUTH_NAME'])) {
-        $message .= "\r\n" . $_SERVER['PHP_AUTH_NAME'];
+        $message .= "<br>" . $_SERVER['PHP_AUTH_NAME'];
         $subject .= $_SERVER['PHP_AUTH_NAME'];
     } else {
         $subject .= $sender;
+        $message .= '<br>'.$signature;
     }
-    
 
-    
-    $headers = 'From: ' . $sender  . "\r\n";
-    mail(
-        $destEmail, 
-        $subject, 
-        $message,
-        $headers
-    ) or die('Email send failed!');
+    // Add Content-Type/charset header to support non-english characters in emails 
+    $headers = "Content-Type:text/html; charset=UTF-8\r\n";
+    $headers.= 'From: ' .$fromName .' <'. $fromEmail  . ">\r\n";
+
+    if ( $PHPMailer ) {
+        require_once($PHPMailerPath .'/Exception.php'); /* Exception class. */
+        require_once($PHPMailerPath .'/PHPMailer.php'); /* The main PHPMailer class. */
+            
+        if ( $PHPMailerSmtp ) {
+            require_once($PHPMailerPath .'/SMTP.php');  /* SMTP class, needed if you want to use SMTP. */
+        }
+            
+        $phpmail = new PHPMailer(false);
+        $phpmail->CharSet = 'UTF-8';
+        $phpmail->setFrom($sender, $fromName);
+        $phpmail->addReplyTo($sender, $fromName);
+            
+        // Define SMTP parameters if enabled 
+        if ( $PHPMailerSmtp ) {
+                
+            $phpmail->isSMTP(); 
+            $phpmail->Host = $PHPMailerHost;
+            $phpmail->Port = $PHPMailerPort;
+            $phpmail->SMTPSecure = $PHPMailerSecure;
+                
+            // Handle authentication for SMTP if enabled
+            if ( !empty($PHPMailerUser) ) {
+                $phpmail->SMTPAuth = true;
+                $phpmail->Username = $PHPMailerUser;
+                $phpmail->Password = $PHPMailerPassword;
+            }
+        }
+            
+        $phpmail->addAddress($destEmail);
+        $phpmail->Subject = $subject;
+        $phpmail->msgHtml($message);
+            
+        $phpmail->isHtml(true);    // use htmlmail if enabled
+        if ( ! $phpmail->send() ) {
+            // TODO Log error message $phpmail->ErrorInfo;
+            die('Email send failed!');                    
+        }
+
+    } else {
+        mail(
+            $destEmail, 
+            $subject, 
+            $message,
+            $headers
+        ) or die('Email send failed!');
+    }
     
     //Can be enabled to send a second email logging who sent a credential to whom
     //mail('loggingemailhere', 'PHPassPush: ' . $sender . ' sent a credential to ' .

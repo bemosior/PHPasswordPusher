@@ -13,6 +13,15 @@ require '../pwpusher_private/input.php';
 require '../pwpusher_private/interface.php';
 require '../pwpusher_private/CAS/CAS.php';
 
+// check if we need to check for white listing
+$creatorIpOk = !$checkCreatorIpWhitelist;
+if ($checkCreatorIpWhitelist)
+{
+    $creatorIpOk = false;
+    $ipClientString = $_SERVER['REMOTE_ADDR'];
+    $creatorIpOk = ipInList($ipClientString, $creatorIpWhitelist);
+}
+
 //Print the header
 print getHeader();
 
@@ -37,7 +46,7 @@ if ($requireCASAuth) {
 }
 
 //If the form function argument doesn't exist, print the form for the user.
-if ($arguments['func'] == 'none' || $arguments == false) {
+if ($arguments['func'] == 'none' || $arguments == false && $creatorIpOk) {
 
     //Force CAS Authentication in order to load the form
     if ($requireCASAuth) {
@@ -51,7 +60,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         }
 
         //Fail Apache Authentication if configured but not successful
-    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) || $checkCreatorIpWhitelist && !$creatorIpOk) {
         //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed
         //if web auth isn't configured.
         /** @noinspection PhpToStringImplementationInspection */
@@ -75,7 +84,7 @@ if ($arguments['func'] == 'none' || $arguments == false) {
             $_SERVER['PHP_AUTH_NAME'] = $attributes[$casSamlNameAttribute];
         }
 
-    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER'])) {
+    } elseif ($requireApacheAuth && empty($_SERVER['PHP_AUTH_USER']) || $checkCreatorIpWhitelist && !$creatorIpOk) {
         //This section is a courtesy check; PHP_AUTH_USER can possibly be spoofed
         //if web auth isn't configured.
         /** @noinspection PhpToStringImplementationInspection */
@@ -171,7 +180,20 @@ if ($arguments['func'] == 'none' || $arguments == false) {
         //Print credentials
         print getCred($cred);
 
-        print ('<a href="' . $_SERVER['REQUEST_URI'] . '&amp;remove=1" class="btn btn-danger previous">Delete Link</a>');
+        // Only show delete button if views left is > 0
+        $intViewsLeft = (int) ($result[0]['xviews'] - $result[0]['views']);
+        if ( $intViewsLeft != 0 ) {
+            print ('<p><a href="' . $_SERVER['REQUEST_URI'] . '&amp;remove=1" class="btn btn-danger previous">'.translate('deleteLink').'</a></p>');
+        }
+
+        if ( $showExpiryInfo ) {
+            // Store views and time data in array to be passed on to
+            $expiryData = array('xtime' => $result[0]['xtime'], 'xviews' => $result[0]['xviews'], 'views' => $result[0]['views']);
+
+            // Print the moment of expiry - if configured
+            print getCredExpiry($expiryData);
+        }
+
 
         //Unset the credential variable
         unset($cred);

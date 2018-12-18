@@ -177,11 +177,12 @@ function checkInput($arguments)
  */
 function sanitizeEmail($email) 
 {
+    $email = filter_var($email, FILTER_SANITIZE_EMAIL);
     if (strlen($email) > 50 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
         return false;
     } else {
         $email = strip_tags($email);
-        $email = mysql_real_escape_string($email);
+        //$email = mysql_real_escape_string($email);  // function not valid on php7. However, no need to escape as it has already been sanatized and validated
         return $email;
     }
 }

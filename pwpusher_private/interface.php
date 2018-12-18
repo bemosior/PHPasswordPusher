@@ -55,6 +55,13 @@ function getHeader()
         <script src="bootstrap/js/bootstrap.min.js" charset="utf-8">
         </script>
 
+        <!--Moment for link timeout display -->
+        <script src="scripts/moment-with-locales.min.js"></script>
+        <script>
+          moment().format();
+          moment.locale(\''.$language_moment.'\');
+        </script>
+
         <!-- Init tooltips -->
         <script>
           $(function () {
@@ -76,7 +83,7 @@ function getFooter()
 {
     include 'config.php';
     return '<div class="alert alert-danger">' .
-        $criticalWarning . '</div></div></body></html>';
+        translate('criticalWarning') . '</div></div></body></html>';
 }
 
 
@@ -104,7 +111,7 @@ function getNavBar()
     $returnString =  '<nav class="navbar navbar-light navbar-fixed-top bg-faded">
                         <div class="container">
                             <div class="navbar-header">
-                                <span class="navbar-brand">' . $title . '</span>
+                               <a class="navbar-brand" href="#"><img class="img-responsive center-block" style="height:30px;" src="' . $logo . '" alt="PHPasswordPusher"></a><span class="navbar-brand">' . $title . '</span>
                             </div>
                                 <ul class="nav navbar-nav">';
 
@@ -121,14 +128,12 @@ function getNavBar()
         $returnString .= '<li' . $class . '"><a class="nav-link" href="' . $pages[$i][0] . '">' . 
             $pages[$i][1] . '</a></li>';
     }
-    
+ 
     //Finish off the returnString
     $returnString .= '    </ul>
                         </div>
                       </nav>
-                      <div class="container">
-                      <img class="img-responsive center-block" style="height:50px;"
-                          src="' . $logo . '" alt="logo"/>';
+                      <div class="container">';
                       
     return $returnString;
 }
@@ -144,7 +149,7 @@ function getFormElements()
     
     //Create basic credential form layout
     $returnString = '<div class="jumbotron"><h3 style="font-weight:bold;">' . translate('createLink') . '</h3>' .
-        '<form action="' . $_SERVER['PHP_SELF'] . '" method="post">';
+        '<form action="' . htmlspecialchars($_SERVER['PHP_SELF']) . '" method="post">';
     
      //Display creator username if email and authentication are configured.
     if ($enableEmail && ($requireApacheAuth || $requireCASAuth)) {
@@ -206,10 +211,10 @@ function getFormElements()
                     type="text" 
                     placeholder="' . translate('recipientNamePlaceholder') . '" 
                     name="destname" />
-                </div>
+                <!-- </div> -->
               </div>
               <div class="input-group">
-                <span class="input-group-addon icon-envelope" data-toggle="tooltip" data-placement="top"
+                <span class="input-group-addon icon-mail" data-toggle="tooltip" data-placement="top"
                   title="' . translate('recipientEmailTooltip') . '">
                 </span>
                 <input
@@ -217,14 +222,14 @@ function getFormElements()
                     type="text" 
                     placeholder="' . translate('recipientEmailPlaceholder') . '" 
                     name="destemail" />
-                </div>
+                <!-- </div> -->
               </div>
         ';
     }
     
     //Add the submit button
     $returnString .= '<input class="btn btn-primary btn-large" ' . 
-        'type="submit" value="Submit" /></form></div>';
+        'type="submit" value="'.translate('submit').'" /></form></div>';
     
     return $returnString;
 }
@@ -240,9 +245,31 @@ function getCred($cred)
 {
     $returnString = '<h4 style="font-weight:bold;margin-top:-40px">' .
         translate('sharedCredential') .
-      '</h3>' .
-      '<pre class="text-error" style="margin-top:30px;margin-bottom:30px">' . $cred . '</pre>';  
+      '</h4>' .
+      '<pre class="text-error" style="margin-top:30px;margin-bottom:30px">' . $cred . '</pre><hr>';
     return $returnString;
+}
+
+function getCredExpiry($expiryData)
+{
+    $intViewsLeft = (int) ($expiryData['xviews'] - $expiryData['views']);
+
+    if ( $intViewsLeft == 0 ) {
+        // Show different message if the link has expired
+        $returnstring = '<div><pre class="alert alert-warning">'. translate('lastLinkView') . '</pre></div>';
+
+    } else {
+        $returnstring = '<div><pre class="alert alert-warning">' .translate('expiresInTime') . 
+                    ' <span id="expiresTime"></span> ' . translate('expiresInViews') .
+                    ' <span id="expiresViews">'.$intViewsLeft.'</span> ' . translate('views') . '</pre>';
+
+        $returnstring .= "<script type='text/javascript'>
+                        var offset = moment().utcOffset() / 60;
+                        var datetime = moment('". $expiryData['xtime'] ."');
+                        datetime = datetime.add(offset, 'hour');
+                        document.getElementById('expiresTime').innerHTML = datetime.fromNow();</script></div>" ;
+    }
+    return $returnstring;
 }
 
 /**
@@ -260,7 +287,7 @@ function getURL($url)
       '<div style="text-align:center;margin-top:20px"><div><code id="final-url">' . $url . '</code></div>';
 
     $returnString .= getClipboardJs($url);
-    $returnString .= '<br/><div style="margin-top:50px; margin-bottom: 20px;"><p>' . $submitWarning . '</p>' .
+    $returnString .= '<br/><div style="margin-top:50px; margin-bottom: 20px;"><p>' . translate('submitWarning') . '</p>' .
         '<a href="' . $url . '&amp;remove=1" class="btn btn-mini btn-danger">' .
         translate('deleteLink') . '</a></div>';
         
