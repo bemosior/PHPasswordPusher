@@ -111,7 +111,7 @@ function getNavBar()
     $returnString =  '<nav class="navbar navbar-light navbar-fixed-top bg-faded">
                         <div class="container">
                             <div class="navbar-header">
-                                <span class="navbar-brand">' . $title . '</span>
+                               <a class="navbar-brand" href="#"><img class="img-responsive center-block" style="height:30px;" src="' . $logo . '" alt="PHPasswordPusher"></a><span class="navbar-brand">' . $title . '</span>
                             </div>
                                 <ul class="nav navbar-nav">';
 
@@ -128,14 +128,12 @@ function getNavBar()
         $returnString .= '<li' . $class . '"><a class="nav-link" href="' . $pages[$i][0] . '">' . 
             $pages[$i][1] . '</a></li>';
     }
-    
+ 
     //Finish off the returnString
     $returnString .= '    </ul>
                         </div>
                       </nav>
-                      <div class="container">
-                      <img class="img-responsive center-block" style="height:50px;"
-                          src="' . $logo . '" alt="logo"/>';
+                      <div class="container">';
                       
     return $returnString;
 }
