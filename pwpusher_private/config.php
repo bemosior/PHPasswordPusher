@@ -72,7 +72,41 @@
     //authenticated user. For example, if your apache auth username is 'user', and 
     //the assumed domain is 'your.domain', the sender would be 'user@your.domain'.
     
-    
+    // Default sender address. This will be overriden if enableSender = true and authentication is enabled
+	$fromEmail = 'noreply@example.com';
+
+    // Display name for given email fromEmail address
+    $fromName  = 'PHPasswordPusher';
+
+    // Default signature to place at end of email (html format!)
+    // Leave empty if no signature is required/wanted
+    // If enableSender and auth is enabled, this will be ignored
+    $signature = '<b>Company Name</b>';
+
+    // If enabled, the PHPMailer library is used
+    $PHPMailer = false;
+
+    // Path to src folder for PHPMailer - without trailing /
+    $PHPMailerPath = '/opt/PHPMailer/src';
+
+    // Use SMTP. If false, mail() will be used
+    $PHPMailerSmtp = true;
+
+    // SMTP Host
+    $PHPMailerHost = "smtp.example.com";
+
+    // SMTP Port
+    $PHPMailerPort = 25;
+
+    // StartTLS/SSL/TLS encryption
+    $PHPMailerSecure = 'StartTLS';
+
+    //User to authentication against SMTP server. Leave blank if sending as anonymous
+    $PHPMailerUser = '';
+
+    // Password for PHPMailerUser
+    $PHPMailerPassword = '';
+	
 //User interface misc.:
 
     //Logo location relative to the deploy directory
